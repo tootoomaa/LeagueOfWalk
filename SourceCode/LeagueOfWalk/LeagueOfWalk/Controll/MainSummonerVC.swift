@@ -10,21 +10,30 @@ import UIKit
 
 class MainSummonerVC: UIViewController {
   
+  // MARK: - LifeCycle
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    navigationItem.title = "title"
-    navigationSettings()
-    
-    view.backgroundColor = CommonUI.backgroundColor
+    setUI()
   }
+  
+  // MARK: - Layout
+  
+  private func setUI() {
+    view.backgroundColor = CommonUI.backgroundColor
+    navigationSettings()
+  }
+  
 }
+
+// MARK: - Navigation settings
 
 extension MainSummonerVC {
   func navigationSettings() {
     navigationItem.titleView = NavigationBarView(
       frame: .zero,
-      title: "title"
+      title: CommonUI.NavigationBarTitle.mainSummonerVC.rawValue
     )
     
     let navBar = self.navigationController?.navigationBar
