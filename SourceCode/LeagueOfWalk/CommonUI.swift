@@ -8,11 +8,12 @@
 
 import UIKit
 
+
 struct CommonUI {
   
   // Colors
   
-  static let backgroundColor: UIColor = UIColor(red: 17, green: 17, blue: 17, alpha: 1)
-  static let pointColor: UIColor = UIColor(red: 6, green: 28, blue: 37, alpha: 1)
-  static let edgeColor: UIColor = UIColor(red: 194, green: 143, blue: 44, alpha: 1)
+  static let backgroundColor: UIColor = UIColor(r: 17, g: 17, b: 17)
+  static let pointColor: UIColor = UIColor(r: 6, g: 28, b: 37)
+  static let edgeColor: UIColor = UIColor(r: 194, g: 143, b: 44)
 }

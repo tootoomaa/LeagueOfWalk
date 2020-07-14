@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7ECB87EC24BDC5E100255804 /* Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7ECB87EB24BDC5E100255804 /* Logo.png */; };
 		7ECB87F024BDC63400255804 /* CommonUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECB87EF24BDC63400255804 /* CommonUI.swift */; };
+		7ECB87F324BDCD5900255804 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECB87F224BDCD5900255804 /* UIColorExtension.swift */; };
 		90D1F299C7ACA4888B34EB23 /* Pods_LeagueOfWalk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B5CF1A1ED83BAC8171F9780 /* Pods_LeagueOfWalk.framework */; };
 		C7AE009124BD8B050036DFEA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AE009024BD8B050036DFEA /* AppDelegate.swift */; };
 		C7AE009A24BD8B050036DFEA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7AE009924BD8B050036DFEA /* Assets.xcassets */; };
@@ -24,6 +25,7 @@
 		462D6123D0D73D8B234AC6B8 /* Pods-LeagueOfWalk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeagueOfWalk.release.xcconfig"; path = "Target Support Files/Pods-LeagueOfWalk/Pods-LeagueOfWalk.release.xcconfig"; sourceTree = "<group>"; };
 		7ECB87EB24BDC5E100255804 /* Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Logo.png; path = ../../../../../../Downloads/Logo.png; sourceTree = "<group>"; };
 		7ECB87EF24BDC63400255804 /* CommonUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonUI.swift; sourceTree = "<group>"; };
+		7ECB87F224BDCD5900255804 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		C7AE008D24BD8B050036DFEA /* LeagueOfWalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeagueOfWalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7AE009024BD8B050036DFEA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7AE009924BD8B050036DFEA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -73,6 +75,14 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
+		7ECB87F124BDCD2700255804 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				7ECB87F224BDCD5900255804 /* UIColorExtension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		9FF0E80E713A2F5232CD1994 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -104,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				C7AE009024BD8B050036DFEA /* AppDelegate.swift */,
+				7ECB87F124BDCD2700255804 /* Extension */,
 				7ECB87ED24BDC60C00255804 /* Common */,
 				7ECB87E824BD987400255804 /* Images */,
 				C7AE00AC24BD8B4A0036DFEA /* Model */,
@@ -262,6 +273,7 @@
 				C7AE00B024BD8B730036DFEA /* RandomItemVC.swift in Sources */,
 				C7AE00AE24BD8B680036DFEA /* MainSummonerVC.swift in Sources */,
 				C7AE00B224BD8C320036DFEA /* UserRankingVC.swift in Sources */,
+				7ECB87F324BDCD5900255804 /* UIColorExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
