@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7ECB87EA24BD988500255804 /* Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7ECB87E924BD988500255804 /* Logo.png */; };
 		90D1F299C7ACA4888B34EB23 /* Pods_LeagueOfWalk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B5CF1A1ED83BAC8171F9780 /* Pods_LeagueOfWalk.framework */; };
 		C7AE009124BD8B050036DFEA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AE009024BD8B050036DFEA /* AppDelegate.swift */; };
 		C7AE009A24BD8B050036DFEA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7AE009924BD8B050036DFEA /* Assets.xcassets */; };
@@ -20,6 +21,7 @@
 /* Begin PBXFileReference section */
 		1B5CF1A1ED83BAC8171F9780 /* Pods_LeagueOfWalk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LeagueOfWalk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		462D6123D0D73D8B234AC6B8 /* Pods-LeagueOfWalk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeagueOfWalk.release.xcconfig"; path = "Target Support Files/Pods-LeagueOfWalk/Pods-LeagueOfWalk.release.xcconfig"; sourceTree = "<group>"; };
+		7ECB87E924BD988500255804 /* Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo.png; sourceTree = "<group>"; };
 		C7AE008D24BD8B050036DFEA /* LeagueOfWalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeagueOfWalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7AE009024BD8B050036DFEA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7AE009924BD8B050036DFEA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -52,13 +54,20 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		7ECB87E824BD987400255804 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				7ECB87E924BD988500255804 /* Logo.png */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
 		9FF0E80E713A2F5232CD1994 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
 				E267BB0F5E5E57244ACC8814 /* Pods-LeagueOfWalk.debug.xcconfig */,
 				462D6123D0D73D8B234AC6B8 /* Pods-LeagueOfWalk.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -84,6 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				C7AE009024BD8B050036DFEA /* AppDelegate.swift */,
+				7ECB87E824BD987400255804 /* Images */,
 				C7AE00AC24BD8B4A0036DFEA /* Model */,
 				C7AE00AB24BD8B480036DFEA /* View */,
 				C7AE00AA24BD8B460036DFEA /* Controll */,
@@ -179,6 +189,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7ECB87EA24BD988500255804 /* Logo.png in Resources */,
 				C7AE009D24BD8B050036DFEA /* LaunchScreen.storyboard in Resources */,
 				C7AE009A24BD8B050036DFEA /* Assets.xcassets in Resources */,
 				C7AE00B424BD8D2B0036DFEA /* GoogleService-Info.plist in Resources */,
