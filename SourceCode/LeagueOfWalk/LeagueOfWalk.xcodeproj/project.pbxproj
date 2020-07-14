@@ -10,6 +10,7 @@
 		7ECB87EC24BDC5E100255804 /* Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7ECB87EB24BDC5E100255804 /* Logo.png */; };
 		7ECB87F024BDC63400255804 /* CommonUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECB87EF24BDC63400255804 /* CommonUI.swift */; };
 		7ECB87F324BDCD5900255804 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECB87F224BDCD5900255804 /* UIColorExtension.swift */; };
+		7ECB87F524BDDD2A00255804 /* NavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECB87F424BDDD2A00255804 /* NavigationBarView.swift */; };
 		90D1F299C7ACA4888B34EB23 /* Pods_LeagueOfWalk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B5CF1A1ED83BAC8171F9780 /* Pods_LeagueOfWalk.framework */; };
 		C7AE009124BD8B050036DFEA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AE009024BD8B050036DFEA /* AppDelegate.swift */; };
 		C7AE009A24BD8B050036DFEA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7AE009924BD8B050036DFEA /* Assets.xcassets */; };
@@ -26,6 +27,7 @@
 		7ECB87EB24BDC5E100255804 /* Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Logo.png; path = ../../../../../../Downloads/Logo.png; sourceTree = "<group>"; };
 		7ECB87EF24BDC63400255804 /* CommonUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonUI.swift; sourceTree = "<group>"; };
 		7ECB87F224BDCD5900255804 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		7ECB87F424BDDD2A00255804 /* NavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarView.swift; sourceTree = SOURCE_ROOT; };
 		C7AE008D24BD8B050036DFEA /* LeagueOfWalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeagueOfWalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7AE009024BD8B050036DFEA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7AE009924BD8B050036DFEA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 		C7AE00AB24BD8B480036DFEA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7ECB87F424BDDD2A00255804 /* NavigationBarView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -273,6 +276,7 @@
 				C7AE00B024BD8B730036DFEA /* RandomItemVC.swift in Sources */,
 				C7AE00AE24BD8B680036DFEA /* MainSummonerVC.swift in Sources */,
 				C7AE00B224BD8C320036DFEA /* UserRankingVC.swift in Sources */,
+				7ECB87F524BDDD2A00255804 /* NavigationBarView.swift in Sources */,
 				7ECB87F324BDCD5900255804 /* UIColorExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
