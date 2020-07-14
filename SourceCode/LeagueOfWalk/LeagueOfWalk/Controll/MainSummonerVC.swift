@@ -9,10 +9,30 @@
 import UIKit
 
 class MainSummonerVC: UIViewController {
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    
+    navigationItem.title = "title"
+    navigationSettings()
+    
+    view.backgroundColor = CommonUI.backgroundColor
+  }
+}
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-      view.backgroundColor = .blue
-    }
+extension MainSummonerVC {
+  func navigationSettings() {
+    navigationItem.titleView = NavigationBarView(
+      frame: .zero,
+      title: "title"
+    )
+    
+    let navBar = self.navigationController?.navigationBar
+    navBar?.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+    navBar?.shadowImage = UIImage()
+    navBar?.isTranslucent = true
+    navBar?.backgroundColor = UIColor.clear
+    
+    tabBarController?.tabBar.tintColor = CommonUI.edgeColor
+  }
 }
