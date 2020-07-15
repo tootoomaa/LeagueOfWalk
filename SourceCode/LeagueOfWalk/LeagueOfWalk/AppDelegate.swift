@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     FirebaseApp.configure()
     
-    let mainSummonerVC = MainSummonerVC()
+    let mainSummonerVC = UINavigationController(rootViewController: MainSummonerVC())
     let randomItenVC = RandomItemVC()
     let userRankingVC = UserRankingVC()
     
@@ -27,6 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     mainSummonerVC.tabBarItem = UITabBarItem(title: "Summoner", image: UIImage(systemName: "person.fill"), tag: 0)
     randomItenVC.tabBarItem = UITabBarItem(title: "Item", image: UIImage(systemName: "archivebox.fill"), tag: 1)
     userRankingVC.tabBarItem = UITabBarItem(title: "Ranking", image: UIImage(systemName: "person.3.fill"), tag: 2)
+    
+    UITabBar.appearance().barTintColor = CommonUI.pointColor
     
     tabBarController.viewControllers = [mainSummonerVC, randomItenVC, userRankingVC]
     
