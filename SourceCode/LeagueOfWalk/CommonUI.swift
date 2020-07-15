@@ -11,6 +11,11 @@ import UIKit
 
 struct CommonUI {
   
+  // Radius, borderWidth
+  
+  static let cornerRadius: CGFloat = 14
+  static let borderWidth: CGFloat = 0.45
+  
   // Colors
   
   static let backgroundColor: UIColor = UIColor(r: 17, g: 17, b: 17)
@@ -24,10 +29,18 @@ struct CommonUI {
     case enFont = "FrizQuadrataBold"
   }
   
+  // Font Size
+  
+  enum FontSize: CGFloat {
+    case Large = 22.5
+    case Medium = 17.5
+    case small = 13.5
+  }
+  
   // Navigation Title
   
   enum NavigationBarTitle: String {
-    case mainSummonerVC = "Summoner Info"
+    case mainSummonerVC = "SUMMOMER"
   }
   
 }
