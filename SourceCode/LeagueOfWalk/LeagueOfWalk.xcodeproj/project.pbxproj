@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7EB5FA7424BEEC62006C276D /* MainHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB5FA7324BEEC62006C276D /* MainHeaderCollectionReusableView.swift */; };
+		7EB5FA7624BEF471006C276D /* Egg.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EB5FA7524BEF471006C276D /* Egg.png */; };
 		7ECB87EC24BDC5E100255804 /* Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7ECB87EB24BDC5E100255804 /* Logo.png */; };
 		7ECB87F024BDC63400255804 /* CommonUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECB87EF24BDC63400255804 /* CommonUI.swift */; };
 		7ECB87F324BDCD5900255804 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECB87F224BDCD5900255804 /* UIColorExtension.swift */; };
@@ -27,6 +29,8 @@
 /* Begin PBXFileReference section */
 		1B5CF1A1ED83BAC8171F9780 /* Pods_LeagueOfWalk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LeagueOfWalk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		462D6123D0D73D8B234AC6B8 /* Pods-LeagueOfWalk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeagueOfWalk.release.xcconfig"; path = "Target Support Files/Pods-LeagueOfWalk/Pods-LeagueOfWalk.release.xcconfig"; sourceTree = "<group>"; };
+		7EB5FA7324BEEC62006C276D /* MainHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
+		7EB5FA7524BEF471006C276D /* Egg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Egg.png; sourceTree = "<group>"; };
 		7ECB87EB24BDC5E100255804 /* Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Logo.png; path = ../../../../../../Downloads/Logo.png; sourceTree = "<group>"; };
 		7ECB87EF24BDC63400255804 /* CommonUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonUI.swift; sourceTree = "<group>"; };
 		7ECB87F224BDCD5900255804 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
@@ -69,6 +73,7 @@
 		7ECB87E824BD987400255804 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7EB5FA7524BEF471006C276D /* Egg.png */,
 				7ECB87EB24BDC5E100255804 /* Logo.png */,
 			);
 			path = Images;
@@ -161,6 +166,7 @@
 			children = (
 				7ECB87F424BDDD2A00255804 /* NavigationBarView.swift */,
 				7ECB87FB24BE0DA900255804 /* MainSummonerCollectionViewCell.swift */,
+				7EB5FA7324BEEC62006C276D /* MainHeaderCollectionReusableView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -235,6 +241,7 @@
 				7ECB87FA24BE055E00255804 /* FrizQuadrataBold.otf in Resources */,
 				7ECB87EC24BDC5E100255804 /* Logo.png in Resources */,
 				7ECB87F824BE054100255804 /* RixGoB.ttf in Resources */,
+				7EB5FA7624BEF471006C276D /* Egg.png in Resources */,
 				C7AE009D24BD8B050036DFEA /* LaunchScreen.storyboard in Resources */,
 				C7AE009A24BD8B050036DFEA /* Assets.xcassets in Resources */,
 				C7AE00B424BD8D2B0036DFEA /* GoogleService-Info.plist in Resources */,
@@ -298,6 +305,7 @@
 				C7AE00B224BD8C320036DFEA /* UserRankingVC.swift in Sources */,
 				7ECB87F524BDDD2A00255804 /* NavigationBarView.swift in Sources */,
 				7ECB87F324BDCD5900255804 /* UIColorExtension.swift in Sources */,
+				7EB5FA7424BEEC62006C276D /* MainHeaderCollectionReusableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

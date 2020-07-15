@@ -11,7 +11,7 @@ import SnapKit
 
 class MainSummonerVC: UIViewController {
   
-  let testData = ["1", "2"]
+  let testData = ["1", "2", "3"]
   
   let layout = UICollectionViewFlowLayout()
   lazy var collectionView: UICollectionView = {
@@ -20,6 +20,11 @@ class MainSummonerVC: UIViewController {
     collectionView.register(
       MainSummonerCollectionViewCell.self,
       forCellWithReuseIdentifier: MainSummonerCollectionViewCell.identifier
+    )
+    collectionView.register(
+      MainHeaderCollectionReusableView.self,
+      forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+      withReuseIdentifier: MainHeaderCollectionReusableView.identifier
     )
     
     return collectionView
@@ -40,7 +45,8 @@ class MainSummonerVC: UIViewController {
     navigationSettings()
     setCollectionView()
     collectionView.dataSource = self
-
+    collectionView.delegate = self
+    
     view.addSubview(collectionView)
     collectionView.snp.makeConstraints {
       $0.top.trailing.bottom.leading.equalTo(view.safeAreaLayoutGuide)
@@ -75,7 +81,7 @@ extension MainSummonerVC {
 
 extension MainSummonerVC: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    2
+    3
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -84,5 +90,24 @@ extension MainSummonerVC: UICollectionViewDataSource {
     cell.item = testData[indexPath.item]
     
     return cell
+  }
+}
+
+extension MainSummonerVC: UICollectionViewDelegateFlowLayout {
+  func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+    let header = collectionView.dequeueReusableSupplementaryView(
+      ofKind: UICollectionView.elementKindSectionHeader,
+      withReuseIdentifier: MainHeaderCollectionReusableView.identifier,
+      for: indexPath
+    ) as! MainHeaderCollectionReusableView
+    
+    return header
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+    let width: CGFloat = collectionView.frame.width
+    let height: CGFloat = 300
+    
+    return CGSize(width: width, height: height)
   }
 }
