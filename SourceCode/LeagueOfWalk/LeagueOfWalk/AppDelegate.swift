@@ -29,6 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     userRankingVC.tabBarItem = UITabBarItem(title: "Ranking", image: UIImage(systemName: "person.3.fill"), tag: 2)
     
     UITabBar.appearance().barTintColor = CommonUI.pointColor
+    UITabBar.appearance().tintColor = CommonUI.edgeColor
     
     tabBarController.viewControllers = [mainSummonerVC, randomItenVC, userRankingVC]
     

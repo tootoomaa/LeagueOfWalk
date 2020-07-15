@@ -11,6 +11,9 @@
 		7ECB87F024BDC63400255804 /* CommonUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECB87EF24BDC63400255804 /* CommonUI.swift */; };
 		7ECB87F324BDCD5900255804 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECB87F224BDCD5900255804 /* UIColorExtension.swift */; };
 		7ECB87F524BDDD2A00255804 /* NavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECB87F424BDDD2A00255804 /* NavigationBarView.swift */; };
+		7ECB87F824BE054100255804 /* RixGoB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7ECB87F724BE054100255804 /* RixGoB.ttf */; };
+		7ECB87FA24BE055E00255804 /* FrizQuadrataBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7ECB87F924BE055E00255804 /* FrizQuadrataBold.otf */; };
+		7ECB87FC24BE0DA900255804 /* MainSummonerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECB87FB24BE0DA900255804 /* MainSummonerCollectionViewCell.swift */; };
 		90D1F299C7ACA4888B34EB23 /* Pods_LeagueOfWalk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B5CF1A1ED83BAC8171F9780 /* Pods_LeagueOfWalk.framework */; };
 		C7AE009124BD8B050036DFEA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AE009024BD8B050036DFEA /* AppDelegate.swift */; };
 		C7AE009A24BD8B050036DFEA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7AE009924BD8B050036DFEA /* Assets.xcassets */; };
@@ -28,6 +31,9 @@
 		7ECB87EF24BDC63400255804 /* CommonUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonUI.swift; sourceTree = "<group>"; };
 		7ECB87F224BDCD5900255804 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		7ECB87F424BDDD2A00255804 /* NavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarView.swift; sourceTree = SOURCE_ROOT; };
+		7ECB87F724BE054100255804 /* RixGoB.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = RixGoB.ttf; sourceTree = "<group>"; };
+		7ECB87F924BE055E00255804 /* FrizQuadrataBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FrizQuadrataBold.otf; sourceTree = "<group>"; };
+		7ECB87FB24BE0DA900255804 /* MainSummonerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSummonerCollectionViewCell.swift; sourceTree = "<group>"; };
 		C7AE008D24BD8B050036DFEA /* LeagueOfWalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeagueOfWalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7AE009024BD8B050036DFEA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7AE009924BD8B050036DFEA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -85,6 +91,15 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		7ECB87F624BE032C00255804 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				7ECB87F724BE054100255804 /* RixGoB.ttf */,
+				7ECB87F924BE055E00255804 /* FrizQuadrataBold.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		9FF0E80E713A2F5232CD1994 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -122,6 +137,7 @@
 				C7AE00AC24BD8B4A0036DFEA /* Model */,
 				C7AE00AB24BD8B480036DFEA /* View */,
 				C7AE00AA24BD8B460036DFEA /* Controll */,
+				7ECB87F624BE032C00255804 /* Fonts */,
 				C7AE009924BD8B050036DFEA /* Assets.xcassets */,
 				C7AE009B24BD8B050036DFEA /* LaunchScreen.storyboard */,
 				C7AE009E24BD8B050036DFEA /* Info.plist */,
@@ -144,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				7ECB87F424BDDD2A00255804 /* NavigationBarView.swift */,
+				7ECB87FB24BE0DA900255804 /* MainSummonerCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -215,7 +232,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7ECB87FA24BE055E00255804 /* FrizQuadrataBold.otf in Resources */,
 				7ECB87EC24BDC5E100255804 /* Logo.png in Resources */,
+				7ECB87F824BE054100255804 /* RixGoB.ttf in Resources */,
 				C7AE009D24BD8B050036DFEA /* LaunchScreen.storyboard in Resources */,
 				C7AE009A24BD8B050036DFEA /* Assets.xcassets in Resources */,
 				C7AE00B424BD8D2B0036DFEA /* GoogleService-Info.plist in Resources */,
@@ -272,6 +291,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7AE009124BD8B050036DFEA /* AppDelegate.swift in Sources */,
+				7ECB87FC24BE0DA900255804 /* MainSummonerCollectionViewCell.swift in Sources */,
 				7ECB87F024BDC63400255804 /* CommonUI.swift in Sources */,
 				C7AE00B024BD8B730036DFEA /* RandomItemVC.swift in Sources */,
 				C7AE00AE24BD8B680036DFEA /* MainSummonerVC.swift in Sources */,
