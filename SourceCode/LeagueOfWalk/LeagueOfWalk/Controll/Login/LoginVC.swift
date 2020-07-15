@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import Firebase
 
 class LoginVC: UIViewController {
+  
+  // MARK: - Properties
   
   let mainLogoImageView: UIImageView = {
     let imageView = UIImageView()
@@ -31,20 +34,26 @@ class LoginVC: UIViewController {
   
   let myView = LoginView()
   
+  // MARK: - Init
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    view.backgroundColor = #colorLiteral(red: 0.0005824246909, green: 0.04392331094, blue: 0.07332479209, alpha: 1)
-    myView.backgroundColor = #colorLiteral(red: 0.0005824246909, green: 0.04392331094, blue: 0.07332479209, alpha: 1)
-    myView.layoutMargins = UIEdgeInsets.init(top: 0, left: 50, bottom: 0, right: 50)
+    view.backgroundColor = CommonUI.pointColor
+    myView.backgroundColor = CommonUI.backgroundColor
+    myView.delegate = self
+    
+    configureAutoLayout()
+  }
+  
+  func configureAutoLayout() {
     
     let safeGuide = view.safeAreaLayoutGuide
-    let margeGuide = view.layoutMarginsGuide
     [mainLogoImageView, myView].forEach{
       view.addSubview($0)
       $0.translatesAutoresizingMaskIntoConstraints = false
-      $0.leadingAnchor.constraint(equalTo: margeGuide.leadingAnchor).isActive = true
-      $0.trailingAnchor.constraint(equalTo: margeGuide.trailingAnchor).isActive = true
+      $0.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor).isActive = true
+      $0.trailingAnchor.constraint(equalTo: safeGuide.trailingAnchor).isActive = true
     }
     
     [seperateLineView1, seperateLineView2].forEach{
@@ -62,9 +71,33 @@ class LoginVC: UIViewController {
       seperateLineView1.heightAnchor.constraint(equalToConstant: 2),
       
       myView.topAnchor.constraint(equalTo: seperateLineView1.bottomAnchor),
-      myView.heightAnchor.constraint(equalTo: myView.widthAnchor, multiplier: 1.3),
-      
+      myView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
     ])
+  }
+}
 
+extension LoginVC: LoginViewDelegate {
+  func handleTabSignInButton(userId: String, passwd: String) {
+    print("tab SignIn handler in loginVC")
+    
+    Auth.auth().signIn(withEmail: userId, password: passwd) { (result, error) in
+      
+      //  error 처리
+      if let error = error {
+        print("Erro Accure",error.localizedDescription)
+        return
+      }
+      
+      print("Success Signup user Login")
+      
+    }
+  }
+
+  func handleTabSignUpButton() {
+    
+    let signUpVC = SignupVC()
+    signUpVC.modalPresentationStyle = .fullScreen
+    present(signUpVC, animated: true, completion: nil)
+    
   }
 }

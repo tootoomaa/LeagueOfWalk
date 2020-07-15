@@ -9,9 +9,17 @@
 import UIKit
 import Firebase
 
+// Protocol LoginViewDelegate
+protocol LoginViewDelegate: class {
+  func handleTabSignUpButton()
+  func handleTabSignInButton(userId: String, passwd: String)
+}
+
+
 class LoginView: UIView {
 
   // MARK: - Properties
+  var delegate: LoginViewDelegate?
 
   let loginLabel: UILabel = {
     let label = UILabel()
@@ -123,7 +131,7 @@ class LoginView: UIView {
     
     button.addTarget(self, action: #selector(handleSingIn), for: .touchUpInside)
     
-    button.isEnabled = false
+//    button.isEnabled = false
     return button
   }()
   
@@ -154,7 +162,6 @@ class LoginView: UIView {
     button.addTarget(self, action: #selector(handleSingUp), for: .touchUpInside)
     return button
   }()
-
   
   let seperateLineView1: UIView = {
     let view = UIView()
@@ -173,17 +180,20 @@ class LoginView: UIView {
   
   func configureAutoLatout() {
     
+    self.layoutMargins = UIEdgeInsets.init(top: 0, left: 20, bottom: 0, right: 20)
+    let marginGuide = self.layoutMarginsGuide
+    
     [idTextField, passwdTextField, signInButton, seperateLineView1].forEach{
       self.addSubview($0)
       $0.translatesAutoresizingMaskIntoConstraints = false
-      $0.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-      $0.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+      $0.leadingAnchor.constraint(equalTo: marginGuide.leadingAnchor).isActive = true
+      $0.trailingAnchor.constraint(equalTo: marginGuide.trailingAnchor).isActive = true
     }
     
     [loginLabel, idLabel, passwdLabel, rememberButton, regionLabel, selectRegionButton, findIdButton, findPasswdButton].forEach{
       self.addSubview($0)
       $0.translatesAutoresizingMaskIntoConstraints = false
-      $0.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+      $0.leadingAnchor.constraint(equalTo: marginGuide.leadingAnchor).isActive = true
     }
     
     [rememberLabel, selectResionImageView, signupButton].forEach{
@@ -196,33 +206,33 @@ class LoginView: UIView {
       
       idLabel.topAnchor.constraint(equalTo: loginLabel.bottomAnchor,constant: Standard.padding),
       
-      idTextField.topAnchor.constraint(equalTo: idLabel.bottomAnchor,constant: 5),
+      idTextField.topAnchor.constraint(equalTo: idLabel.bottomAnchor,constant: Standard.smallPadding),
       idTextField.heightAnchor.constraint(equalToConstant: 40),
       
       passwdLabel.topAnchor.constraint(equalTo: idTextField.bottomAnchor, constant: Standard.padding),
       
-      passwdTextField.topAnchor.constraint(equalTo: passwdLabel.bottomAnchor,constant: 5),
+      passwdTextField.topAnchor.constraint(equalTo: passwdLabel.bottomAnchor,constant: Standard.smallPadding),
       passwdTextField.heightAnchor.constraint(equalToConstant: 40),
       
       rememberButton.topAnchor.constraint(equalTo: passwdTextField.bottomAnchor, constant: Standard.padding),
       
-      rememberLabel.leadingAnchor.constraint(equalTo: rememberButton.trailingAnchor, constant: 5),
+      rememberLabel.leadingAnchor.constraint(equalTo: rememberButton.trailingAnchor, constant: Standard.smallPadding),
       
       rememberLabel.centerYAnchor.constraint(equalTo: rememberButton.centerYAnchor),
       
       regionLabel.topAnchor.constraint(equalTo: rememberButton.bottomAnchor, constant: Standard.padding),
       
-      selectRegionButton.topAnchor.constraint(equalTo: regionLabel.bottomAnchor, constant: 5),
+      selectRegionButton.topAnchor.constraint(equalTo: regionLabel.bottomAnchor, constant: Standard.smallPadding),
       
-      selectResionImageView.leadingAnchor.constraint(equalTo: selectRegionButton.trailingAnchor,constant: 5),
+      selectResionImageView.leadingAnchor.constraint(equalTo: selectRegionButton.trailingAnchor,constant: Standard.smallPadding),
       selectResionImageView.centerYAnchor.constraint(equalTo: selectRegionButton.centerYAnchor),
       
       signInButton.topAnchor.constraint(equalTo: selectRegionButton.bottomAnchor, constant: Standard.padding),
-      signInButton.heightAnchor.constraint(equalToConstant: 50),
+      signInButton.heightAnchor.constraint(equalToConstant: Standard.buttonHeight),
       
       findIdButton.topAnchor.constraint(equalTo: signInButton.bottomAnchor, constant: Standard.padding),
       
-      signupButton.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+      signupButton.trailingAnchor.constraint(equalTo: marginGuide.trailingAnchor),
       signupButton.centerYAnchor.constraint(equalTo: findIdButton.centerYAnchor),
       
       findPasswdButton.topAnchor.constraint(equalTo: findIdButton.bottomAnchor),
@@ -237,29 +247,17 @@ class LoginView: UIView {
   
   @objc func handleSingUp() {
     
-    print("tabSingupButton")
+    delegate?.handleTabSignUpButton()
     
   }
   
   @objc func handleSingIn() {
     
-    print("tabSingInButton")
+    guard let email = idTextField.text else { return }
+    guard let passwd = passwdTextField.text else { return }
     
-    guard let email = idTextField.text,
-          let passwd = passwdTextField.text else { return }
+    delegate?.handleTabSignInButton(userId: email, passwd: passwd)
     
-    Auth.auth().signIn(withEmail: email, password: passwd) { (result, error) in
-      
-      //  error 처리
-      if let error = error {
-        print("Erro Accure",error.localizedDescription)
-        return
-      }
-      
-      print("Success Signup user Login")
-      
-      
-    }
   }
   
   required init?(coder: NSCoder) {
