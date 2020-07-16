@@ -63,7 +63,6 @@ class SelectCharCell: UICollectionViewCell {
     
     NSLayoutConstraint.activate([
       charImageView.topAnchor.constraint(equalTo: topAnchor),
-      
       charNameLabel.topAnchor.constraint(equalTo: charImageView.bottomAnchor),
       charNameLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
       charNameLabel.heightAnchor.constraint(equalToConstant: 25)
