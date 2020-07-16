@@ -15,27 +15,48 @@ class MainSummonerVC: UIViewController {
     super.viewDidLoad()
     
     navigationItem.title = "title"
-    checkIfUserIsLoggedIn()
-    navigationSettings()
-    
-    checkIfUserIsLoggedIn()
     
     view.backgroundColor = CommonUI.backgroundColor
+    
+    navigationSettings()
+    
+    // 로그인 상태 확인
+    checkIfUserIsLoggedIn()
+    
+    // 케릭터 선택 여부 확인
+    checkIfUserSelectCharacter()
+    
+    
   }
-  
   
   func checkIfUserIsLoggedIn() {
     DispatchQueue.main.async {
       if Auth.auth().currentUser == nil {
-        print("Need to user Login")
         let loginVC = LoginVC()
-        let navController = UINavigationController(rootViewController: loginVC)
-        navController.modalPresentationStyle = .fullScreen
-        self.present(navController, animated: true, completion: nil)
-      } else {
-        print("User Logined")
+        loginVC.modalPresentationStyle = .fullScreen
+        self.present(loginVC, animated: true, completion: nil)
       }
-      return
+    }
+  }
+  
+  func checkIfUserSelectCharacter() {
+    DispatchQueue.main.async {
+      if let uid = Auth.auth().currentUser?.uid {
+        Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value) { (snapshot) in
+          print(snapshot)
+          
+          guard let dictionary = snapshot.value as? Dictionary<String, AnyObject> else { return }
+          
+          let user = User.init(uid: uid, dictionary: dictionary)
+          
+          if user.selectCharactor == "" {
+            let selectCharVC = SelectCharVC()
+            selectCharVC.userData = user
+            selectCharVC.modalPresentationStyle = .fullScreen
+            self.present(selectCharVC, animated: true, completion: nil)
+          }
+        }
+      }
     }
   }
 }

@@ -209,12 +209,13 @@ class SignupVC: UIViewController {
                         User.selectCharctor: "",
                         User.warkingStatus: 0] as [String : Any]
       
-      let value = [uid: dictionary]
+       let value = [uid: dictionary]
       
-      Database.database().reference().child("users").updateChildValues(value, withCompletionBlock:{ (error, ref) in
+      self.dismiss(animated: true, completion: {
+        Database.database().reference().child("users").updateChildValues(value, withCompletionBlock:{ (error, ref) in
           print("Success to Updata Database User Informagion")
-        
-        self.dismiss(animated: true, completion: nil)
+          
+        })
       })
       
     }

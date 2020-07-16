@@ -33,7 +33,7 @@ import Firebase
     tabBarController.viewControllers = [mainSummonerVC, randomItenVC, userRankingVC]
     
     window = UIWindow(frame: UIScreen.main.bounds)
-    window?.rootViewController =  SelectCharVC()//LoginVC() //tabBarController
+    window?.rootViewController = tabBarController // SelectCharVC()//LoginVC() //
     window?.makeKeyAndVisible()
     
     return true

@@ -30,5 +30,4 @@ class User {
       self.selectCharactor = selectCharactor
     }
   }
-
 }

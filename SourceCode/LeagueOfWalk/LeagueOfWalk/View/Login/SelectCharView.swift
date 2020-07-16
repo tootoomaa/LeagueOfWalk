@@ -152,11 +152,11 @@ class SelectCharView: UIView {
 //      charInfoTextView.heightAnchor.constraint(equalToConstant: 90),
       charInfoTextView.heightAnchor.constraint(equalTo: charInfoLabel.heightAnchor, multiplier: 5),
 
-      charSkillNameLabel.topAnchor.constraint(equalTo: charInfoTextView.bottomAnchor, constant: Standard.padding),
+      charSkillNameLabel.topAnchor.constraint(equalTo: charInfoTextView.bottomAnchor, constant: Standard.smallPadding),
 
       charSkillName.topAnchor.constraint(equalTo: charSkillNameLabel.bottomAnchor, constant: Standard.smallPadding),
 
-      charSkillEffectLabel.topAnchor.constraint(equalTo: charSkillName.bottomAnchor, constant: Standard.padding),
+      charSkillEffectLabel.topAnchor.constraint(equalTo: charSkillName.bottomAnchor, constant: Standard.smallPadding),
 
       charSkillEffect.topAnchor.constraint(equalTo: charSkillEffectLabel.bottomAnchor, constant: Standard.smallPadding),
     ])
