@@ -44,3 +44,13 @@ struct CommonUI {
   }
   
 }
+
+
+struct Standard {
+  static let textColor: UIColor = UIColor.init(red: 0.68417418, green: 0.6511475444, blue: 0.4992383122, alpha: 1)
+  static let padding: CGFloat = 20
+  static let smallPadding: CGFloat = 5
+  static let buttonHeight: CGFloat = 50
+  static let textSize: CGFloat = 15
+  static let myEdgeInset = UIEdgeInsets.init(top: 10, left: 10, bottom: 10, right: 10)
+}
