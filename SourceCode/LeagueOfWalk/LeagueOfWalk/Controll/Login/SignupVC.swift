@@ -123,6 +123,7 @@ class SignupVC: UIViewController {
     view.backgroundColor = CommonUI.backgroundColor
   
     configureAutolayout()
+    hideKeyboard()
         
   }
   

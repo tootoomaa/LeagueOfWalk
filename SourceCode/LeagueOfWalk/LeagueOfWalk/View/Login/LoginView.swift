@@ -196,7 +196,7 @@ class LoginView: UIView {
     super.init(frame: frame)
     
     configureAutoLatout()
-    
+    hideKeyboard()
   }
   
   func configureAutoLatout() {

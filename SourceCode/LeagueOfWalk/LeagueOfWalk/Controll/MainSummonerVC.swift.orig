@@ -45,12 +45,19 @@ class MainSummonerVC: UIViewController {
   private func setUI() {
     view.backgroundColor = CommonUI.backgroundColor
     navigationItem.title = "title"
+<<<<<<< HEAD
 //    checkIfUserIsLoggedIn()
+=======
+    
+    view.backgroundColor = CommonUI.backgroundColor
+    
+>>>>>>> 196e85782c15d2216c60fa03aa0556088d876d4f
     navigationSettings()
     setCollectionView()
     collectionView.dataSource = self
     collectionView.delegate = self
     
+<<<<<<< HEAD
     view.addSubview(collectionView)
     collectionView.snp.makeConstraints {
       $0.top.trailing.bottom.leading.equalTo(view.safeAreaLayoutGuide)
@@ -62,13 +69,10 @@ class MainSummonerVC: UIViewController {
     layout.minimumLineSpacing = 30
     layout.itemSize = CGSize(width: view.frame.width - 60, height: 100)
 //    checkIfUserIsLoggedIn()
-    
-    view.backgroundColor = CommonUI.backgroundColor
-    
-    navigationSettings()
-    
+=======
     // 로그인 상태 확인
     checkIfUserIsLoggedIn()
+>>>>>>> 196e85782c15d2216c60fa03aa0556088d876d4f
     
     // 케릭터 선택 여부 확인
     checkIfUserSelectCharacter()
