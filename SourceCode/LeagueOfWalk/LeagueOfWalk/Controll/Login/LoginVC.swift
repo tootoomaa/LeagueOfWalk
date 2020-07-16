@@ -83,6 +83,7 @@ class LoginVC: UIViewController {
   }
 }
 
+// MARK: - LoginViewDelegate
 extension LoginVC: LoginViewDelegate {
   func handleTabSignInButton(userId: String, passwd: String) {
     print("tab SignIn handler in loginVC")
