@@ -46,6 +46,13 @@ class LoginVC: UIViewController {
     configureAutoLayout()
   }
   
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(true)
+    
+    navigationController?.navigationBar.isHidden = true
+    
+  }
+  
   func configureAutoLayout() {
     
     let safeGuide = view.safeAreaLayoutGuide
@@ -88,11 +95,37 @@ extension LoginVC: LoginViewDelegate {
         return
       }
       
-      print("Success Signup user Login")
-      
-      
-      self.dismiss(animated: true, completion: nil)
-      
+      guard let uid = result?.user.uid else { return }
+      Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value) { (snapshot) in
+        print(snapshot)
+        
+        guard let dictionary = snapshot.value as? Dictionary<String, AnyObject> else { return }
+        
+        let user = User.init(uid: uid, dictionary: dictionary)
+        print("user \(user)")
+        guard let selectCharactor = user.selectCharactor else { return }
+        
+        print("selectisafkasjefl \(selectCharactor)")
+        if selectCharactor == "" {
+          // 케릭터 선택 안한 사용자의 경우에는 케릭 선택창
+          print("nonSelectVC")
+          
+        
+          let selectCharVC = SelectCharVC()
+          selectCharVC.userData = user
+          selectCharVC.modalPresentationStyle = .fullScreen
+          self.present(selectCharVC, animated: true)
+          
+        } else {
+          // 캐릭터 선택 정보가 있는 경우 메인 창으로 연결
+          print("SelectVC")
+          self.dismiss(animated: true, completion: {
+            let mainSummonerVC = MainSummonerVC()
+            mainSummonerVC.modalPresentationStyle = .fullScreen
+            self.present(mainSummonerVC, animated: true, completion: nil)
+          })
+        }
+      }
     }
   }
 

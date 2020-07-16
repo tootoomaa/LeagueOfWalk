@@ -52,5 +52,5 @@ struct Standard {
   static let smallPadding: CGFloat = 5
   static let buttonHeight: CGFloat = 50
   static let textSize: CGFloat = 15
-  static let myEdgeInset = UIEdgeInsets.init(top: 10, left: 10, bottom: 10, right: 10)
+  static let myEdgeInset = UIEdgeInsets.init(top: 10, left: 0, bottom: 10, right: 0)
 }
