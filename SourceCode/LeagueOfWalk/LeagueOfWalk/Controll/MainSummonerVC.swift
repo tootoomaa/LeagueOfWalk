@@ -28,7 +28,6 @@ class MainSummonerVC: UIViewController {
       withReuseIdentifier: MainHeaderCollectionReusableView.identifier
     )
     
-    
     return collectionView
   }()
   
@@ -58,9 +57,9 @@ class MainSummonerVC: UIViewController {
   }
   
   private func setCollectionView() {
-    layout.sectionInset = .init(top: 30, left: 0, bottom: 30, right: 0)
-    layout.minimumLineSpacing = 30
-    layout.itemSize = CGSize(width: view.frame.width - 60, height: 100)
+    layout.sectionInset = .init(top: 15, left: 0, bottom: 15, right: 0)
+    layout.minimumLineSpacing = 15
+    layout.itemSize = CGSize(width: view.frame.width - 30, height: 100)
 //    checkIfUserIsLoggedIn()
     
     view.backgroundColor = CommonUI.backgroundColor
@@ -129,7 +128,7 @@ extension MainSummonerVC {
 
 extension MainSummonerVC: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    3
+    1
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
