@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7E4AA19C24C11F7200A9DC25 /* MainSummonerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4AA19B24C11F7200A9DC25 /* MainSummonerTableViewCell.swift */; };
 		7E573A7124C09EB6005BF89E /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E573A7024C09EB6005BF89E /* ProgressView.swift */; };
 		7E5A939D24C0401200419118 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5A939C24C0401200419118 /* UIViewControllerExtension.swift */; };
 		7E5A939F24C0424300419118 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5A939E24C0424300419118 /* UIViewExtension.swift */; };
@@ -40,6 +41,7 @@
 /* Begin PBXFileReference section */
 		1B5CF1A1ED83BAC8171F9780 /* Pods_LeagueOfWalk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LeagueOfWalk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		462D6123D0D73D8B234AC6B8 /* Pods-LeagueOfWalk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeagueOfWalk.release.xcconfig"; path = "Target Support Files/Pods-LeagueOfWalk/Pods-LeagueOfWalk.release.xcconfig"; sourceTree = "<group>"; };
+		7E4AA19B24C11F7200A9DC25 /* MainSummonerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSummonerTableViewCell.swift; sourceTree = "<group>"; };
 		7E573A7024C09EB6005BF89E /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 		7E5A939C24C0401200419118 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		7E5A939E24C0424300419118 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
@@ -90,6 +92,16 @@
 				1B5CF1A1ED83BAC8171F9780 /* Pods_LeagueOfWalk.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7E573A7624C11E60005BF89E /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				7ECB87FB24BE0DA900255804 /* MainSummonerCollectionViewCell.swift */,
+				7EB5FA7324BEEC62006C276D /* MainHeaderCollectionReusableView.swift */,
+				7E4AA19B24C11F7200A9DC25 /* MainSummonerTableViewCell.swift */,
+			);
+			path = MainView;
 			sourceTree = "<group>";
 		};
 		7ECB87ED24BDC60C00255804 /* Common */ = {
@@ -201,10 +213,9 @@
 		C7AE00AB24BD8B480036DFEA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7E573A7624C11E60005BF89E /* MainView */,
 				C7599A9924BF37F900F3D32C /* Login */,
 				7ECB87F424BDDD2A00255804 /* NavigationBarView.swift */,
-				7ECB87FB24BE0DA900255804 /* MainSummonerCollectionViewCell.swift */,
-				7EB5FA7324BEEC62006C276D /* MainHeaderCollectionReusableView.swift */,
 				7E573A7024C09EB6005BF89E /* ProgressView.swift */,
 			);
 			path = View;
@@ -343,6 +354,7 @@
 				7E5A939D24C0401200419118 /* UIViewControllerExtension.swift in Sources */,
 				7ECB87FC24BE0DA900255804 /* MainSummonerCollectionViewCell.swift in Sources */,
 				7ECB87F024BDC63400255804 /* CommonUI.swift in Sources */,
+				7E4AA19C24C11F7200A9DC25 /* MainSummonerTableViewCell.swift in Sources */,
 				C7AE00B024BD8B730036DFEA /* RandomItemVC.swift in Sources */,
 				C7599A9424BEC10200F3D32C /* LoginVC.swift in Sources */,
 				C7599A9D24BFB57400F3D32C /* SelectCharCell.swift in Sources */,

@@ -39,6 +39,12 @@ class MainHeaderCollectionReusableView: UICollectionReusableView {
     return label
   }()
   
+  private let tableView: UITableView = {
+    let tableView = UITableView()
+    
+    return tableView
+  }()
+  
   // MARK: - LifeCycle
 
   override init(frame: CGRect) {

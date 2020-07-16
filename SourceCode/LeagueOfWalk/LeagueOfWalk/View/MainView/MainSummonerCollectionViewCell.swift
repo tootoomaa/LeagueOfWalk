@@ -15,21 +15,20 @@ class MainSummonerCollectionViewCell: UICollectionViewCell {
   
   var item: String? {
     didSet {
-      self.textLabel.text = item
+      self.levelLabel.text = item
     }
   }
   
-  lazy var textLabel: UILabel = {
+  var progressValue: CGFloat? {
+    didSet {
+      self.progressView.progress = progressValue ?? 0
+    }
+  }
+  
+  lazy var levelLabel: UILabel = {
     let label = UILabel()
 
     return label
-  }()
-  
-  private let iconImageView: UIImageView = {
-    let imageView = UIImageView()
-    imageView.image = UIImage(named: "Boots")
-    
-    return imageView
   }()
   
   private let contentsTitle: UILabel = {
@@ -39,7 +38,7 @@ class MainSummonerCollectionViewCell: UICollectionViewCell {
       size: CommonUI.FontSize.small.rawValue
     )
     
-    label.text = "ToDay Day Walk"
+    label.text = "Level"
     
     return label
   }()
@@ -53,9 +52,10 @@ class MainSummonerCollectionViewCell: UICollectionViewCell {
     return progressView
   }()
   
-  private let progressView: ProgressView = {
+  lazy var progressView: ProgressView = {
     let view = ProgressView()
     view.backgroundColor = .gray
+    view.progress = 0.5
     
     return view
   }()
@@ -69,15 +69,6 @@ class MainSummonerCollectionViewCell: UICollectionViewCell {
     self.layer.borderWidth = CommonUI.borderWidth
     self.layer.borderColor = CommonUI.edgeColor.cgColor
     
-    UIView.animate(withDuration: 4.0) {
-        self.walkProgressView.setProgress(1.0, animated: true)
-    }
-    
-    let layer = CAGradientLayer()
-    layer.frame = self.frame
-    layer.colors = [UIColor.red.cgColor, UIColor.black.cgColor]
-    layer.colors = [UIColor(rgb:0xf1e7fe).cgColor, UIColor(rgb: 0xbe90d4).cgColor]
-    layer.locations = [0, 1]
     walkProgressView.layer.addSublayer(layer)
     
     setUI()
@@ -87,31 +78,29 @@ class MainSummonerCollectionViewCell: UICollectionViewCell {
   
   private func setUI() {
     
-    [textLabel, iconImageView, contentsTitle, progressView].forEach {
+    [levelLabel, contentsTitle, progressView].forEach {
       self.addSubview($0)
     }
 
-    textLabel.snp.makeConstraints {
+    levelLabel.snp.makeConstraints {
       $0.top.equalTo(self)
       $0.trailing.equalTo(self)
     }
     
-    iconImageView.snp.makeConstraints {
-      $0.top.equalTo(self).offset(5)
-      $0.leading.equalTo(self).offset(5)
-      $0.width.equalTo(30)
-      $0.height.equalTo(30)
+    contentsTitle.snp.makeConstraints {
+      $0.top.equalTo(self).offset(20)
+      $0.leading.equalTo(self).offset(20)
     }
     
-    contentsTitle.snp.makeConstraints {
-      $0.leading.equalTo(iconImageView.snp.trailing).offset(10)
+    levelLabel.snp.makeConstraints {
+      $0.leading.equalTo(contentsTitle.snp.trailing).offset(10)
       $0.top.equalTo(self).offset(15)
     }
     
     progressView.snp.makeConstraints {
       $0.centerY.equalTo(self)
-      $0.leading.equalTo(self).offset(10)
-      $0.width.equalTo(self).offset(-20)
+      $0.leading.equalTo(self).offset(20)
+      $0.width.equalTo(self).offset(-40)
       $0.height.equalTo(10)
     }
     
