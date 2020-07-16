@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
 
@@ -33,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     tabBarController.viewControllers = [mainSummonerVC, randomItenVC, userRankingVC]
     
     window = UIWindow(frame: UIScreen.main.bounds)
-    window?.rootViewController = tabBarController
+    window?.rootViewController =  SelectCharVC()//LoginVC() //tabBarController
     window?.makeKeyAndVisible()
     
     return true

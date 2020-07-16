@@ -15,7 +15,6 @@ class NavigationBarView: UIView {
     let label = UILabel()
     label.font = UIFont.boldSystemFont(ofSize: 30)
     label.textColor = CommonUI.edgeColor
-    
     return label
   }()
 

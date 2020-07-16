@@ -16,12 +16,13 @@ class SignupVC: UIViewController {
   let mainLogoImageView: UIImageView = {
     let imageView = UIImageView()
     imageView.image = UIImage(named: "Logo")
+    imageView.backgroundColor = CommonUI.pointColor
     return imageView
   }()
   
   let seperateLineView1: UIView = {
     let view = UIView()
-    view.backgroundColor = #colorLiteral(red: 0.3279156089, green: 0.257776916, blue: 0.104581289, alpha: 1)
+    view.backgroundColor = CommonUI.edgeColor
     return view
   }()
   
@@ -45,7 +46,7 @@ class SignupVC: UIViewController {
     let textfield = UITextField()
     textfield.backgroundColor = .darkGray
     textfield.layer.borderWidth = 1
-    textfield.layer.borderColor = UIColor.orange.cgColor
+    textfield.layer.borderColor = CommonUI.edgeColor.cgColor
     return textfield
   }()
   
@@ -61,7 +62,7 @@ class SignupVC: UIViewController {
     let textfield = UITextField()
     textfield.backgroundColor = .darkGray
     textfield.layer.borderWidth = 1
-    textfield.layer.borderColor = UIColor.orange.cgColor
+    textfield.layer.borderColor = CommonUI.edgeColor.cgColor
     textfield.placeholder = "  "
     return textfield
   }()
@@ -78,7 +79,7 @@ class SignupVC: UIViewController {
     let textfield = UITextField()
     textfield.backgroundColor = .darkGray
     textfield.layer.borderWidth = 1
-    textfield.layer.borderColor = UIColor.orange.cgColor
+    textfield.layer.borderColor = CommonUI.edgeColor.cgColor
     return textfield
   }()
   
@@ -205,9 +206,16 @@ class SignupVC: UIViewController {
       guard let uid = result?.user.uid else { return }
       
       let dictionary = [User.nickName: nickname,
-                        User.selectCharctor: ""]
+                        User.selectCharctor: "",
+                        User.warkingStatus: 0] as [String : Any]
       
-      var value = [uid: dictionary]
+      let value = [uid: dictionary]
+      
+      Database.database().reference().child("users").updateChildValues(value, withCompletionBlock:{ (error, ref) in
+          print("Success to Updata Database User Informagion")
+        
+        self.dismiss(animated: true, completion: nil)
+      })
       
     }
     

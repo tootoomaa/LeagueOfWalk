@@ -15,6 +15,10 @@
 		C7599A9324BEC10200F3D32C /* SignupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7599A9124BEC10200F3D32C /* SignupVC.swift */; };
 		C7599A9424BEC10200F3D32C /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7599A9224BEC10200F3D32C /* LoginVC.swift */; };
 		C7599A9624BEDCC000F3D32C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7599A9524BEDCC000F3D32C /* User.swift */; };
+		C7599A9824BF323C00F3D32C /* SelectCharVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7599A9724BF323C00F3D32C /* SelectCharVC.swift */; };
+		C7599A9B24BF38EA00F3D32C /* SelectCharView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7599A9A24BF38EA00F3D32C /* SelectCharView.swift */; };
+		C7599A9D24BFB57400F3D32C /* SelectCharCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7599A9C24BFB57400F3D32C /* SelectCharCell.swift */; };
+		C7660BE424BFD7CB00690A78 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7660BE324BFD7CB00690A78 /* Character.swift */; };
 		C7AE009124BD8B050036DFEA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AE009024BD8B050036DFEA /* AppDelegate.swift */; };
 		C7AE009A24BD8B050036DFEA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7AE009924BD8B050036DFEA /* Assets.xcassets */; };
 		C7AE009D24BD8B050036DFEA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7AE009B24BD8B050036DFEA /* LaunchScreen.storyboard */; };
@@ -34,6 +38,10 @@
 		C7599A9124BEC10200F3D32C /* SignupVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupVC.swift; sourceTree = "<group>"; };
 		C7599A9224BEC10200F3D32C /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		C7599A9524BEDCC000F3D32C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = User.swift; path = LeagueOfWalk/View/User.swift; sourceTree = SOURCE_ROOT; };
+		C7599A9724BF323C00F3D32C /* SelectCharVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCharVC.swift; sourceTree = "<group>"; };
+		C7599A9A24BF38EA00F3D32C /* SelectCharView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCharView.swift; sourceTree = "<group>"; };
+		C7599A9C24BFB57400F3D32C /* SelectCharCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCharCell.swift; sourceTree = "<group>"; };
+		C7660BE324BFD7CB00690A78 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Character.swift; path = LeagueOfWalk/View/Login/Character.swift; sourceTree = SOURCE_ROOT; };
 		C7AE008D24BD8B050036DFEA /* LeagueOfWalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeagueOfWalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7AE009024BD8B050036DFEA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7AE009924BD8B050036DFEA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -97,6 +105,17 @@
 			children = (
 				C7599A9224BEC10200F3D32C /* LoginVC.swift */,
 				C7599A9124BEC10200F3D32C /* SignupVC.swift */,
+				C7599A9724BF323C00F3D32C /* SelectCharVC.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		C7599A9924BF37F900F3D32C /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				C7599A8E24BEC0DB00F3D32C /* LoginView.swift */,
+				C7599A9A24BF38EA00F3D32C /* SelectCharView.swift */,
+				C7599A9C24BFB57400F3D32C /* SelectCharCell.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -150,7 +169,7 @@
 		C7AE00AB24BD8B480036DFEA /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C7599A8E24BEC0DB00F3D32C /* LoginView.swift */,
+				C7599A9924BF37F900F3D32C /* Login */,
 				7ECB87F424BDDD2A00255804 /* NavigationBarView.swift */,
 			);
 			path = View;
@@ -160,6 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				C7599A9524BEDCC000F3D32C /* User.swift */,
+				C7660BE324BFD7CB00690A78 /* Character.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -284,11 +304,15 @@
 				7ECB87F024BDC63400255804 /* CommonUI.swift in Sources */,
 				C7AE00B024BD8B730036DFEA /* RandomItemVC.swift in Sources */,
 				C7599A9424BEC10200F3D32C /* LoginVC.swift in Sources */,
+				C7599A9D24BFB57400F3D32C /* SelectCharCell.swift in Sources */,
 				C7AE00AE24BD8B680036DFEA /* MainSummonerVC.swift in Sources */,
 				C7AE00B224BD8C320036DFEA /* UserRankingVC.swift in Sources */,
 				7ECB87F524BDDD2A00255804 /* NavigationBarView.swift in Sources */,
 				C7599A8F24BEC0DB00F3D32C /* LoginView.swift in Sources */,
 				7ECB87F324BDCD5900255804 /* UIColorExtension.swift in Sources */,
+				C7599A9824BF323C00F3D32C /* SelectCharVC.swift in Sources */,
+				C7660BE424BFD7CB00690A78 /* Character.swift in Sources */,
+				C7599A9B24BF38EA00F3D32C /* SelectCharView.swift in Sources */,
 				C7599A9624BEDCC000F3D32C /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -433,7 +457,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.devyhan93.HelthHero;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kr.tootoomaa.LeagueOfWalk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -452,7 +476,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.devyhan93.HelthHero;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kr.tootoomaa.LeagueOfWalk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

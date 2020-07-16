@@ -41,7 +41,7 @@ class LoginView: UIView {
     let textfield = UITextField()
     textfield.backgroundColor = .darkGray
     textfield.layer.borderWidth = 1
-    textfield.layer.borderColor = UIColor.orange.cgColor
+    textfield.layer.borderColor = CommonUI.edgeColor.cgColor
     return textfield
   }()
   
@@ -57,7 +57,7 @@ class LoginView: UIView {
     let textfield = UITextField()
     textfield.backgroundColor = .darkGray
     textfield.layer.borderWidth = 1
-    textfield.layer.borderColor = UIColor.orange.cgColor
+    textfield.layer.borderColor = CommonUI.edgeColor.cgColor
     textfield.tintColor = .orange
     return textfield
   }()
@@ -170,6 +170,27 @@ class LoginView: UIView {
     return view
   }()
   
+  let logoImageView: UIImageView = {
+    let imageView = UIImageView()
+    imageView.image = UIImage(named: "FastWalkers")
+    return imageView
+  }()
+  
+  let companyImageView: UIImageView = {
+    let imageView = UIImageView()
+    imageView.image = UIImage(named: "CompanyLogo")
+    return imageView
+  }()
+  
+  let companyInfoLabel: UILabel = {
+    let label = UILabel()
+    label.text = " 고객센터 | 개인정보 처리방침 | 약관 \n @ 2020 Fast Games, Inc All right"
+    label.font = .systemFont(ofSize: Standard.textSize)
+    label.textColor = Standard.textColor
+    label.numberOfLines = 2
+    return label
+  }()
+  
   // MARK: - Init
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -196,7 +217,7 @@ class LoginView: UIView {
       $0.leadingAnchor.constraint(equalTo: marginGuide.leadingAnchor).isActive = true
     }
     
-    [rememberLabel, selectResionImageView, signupButton].forEach{
+    [rememberLabel, selectResionImageView, signupButton, logoImageView, companyImageView, companyInfoLabel].forEach{
       self.addSubview($0)
       $0.translatesAutoresizingMaskIntoConstraints = false
     }
@@ -238,7 +259,20 @@ class LoginView: UIView {
       findPasswdButton.topAnchor.constraint(equalTo: findIdButton.bottomAnchor),
       
       seperateLineView1.topAnchor.constraint(equalTo: findPasswdButton.bottomAnchor),
-      seperateLineView1.heightAnchor.constraint(equalToConstant: 2)
+      seperateLineView1.heightAnchor.constraint(equalToConstant: 2),
+      
+      logoImageView.topAnchor.constraint(equalTo: seperateLineView1.bottomAnchor,constant: Standard.smallPadding),
+      logoImageView.leadingAnchor.constraint(equalTo: marginGuide.leadingAnchor),
+      logoImageView.heightAnchor.constraint(equalToConstant: Standard.buttonHeight),
+      logoImageView.widthAnchor.constraint(equalToConstant: Standard.buttonHeight),
+      
+      companyImageView.leadingAnchor.constraint(equalTo: logoImageView.trailingAnchor, constant: Standard.smallPadding),
+      companyImageView.centerYAnchor.constraint(equalTo: logoImageView.centerYAnchor),
+      companyImageView.heightAnchor.constraint(equalToConstant: Standard.buttonHeight),
+      companyImageView.widthAnchor.constraint(equalToConstant: Standard.buttonHeight),
+      
+      companyInfoLabel.leadingAnchor.constraint(equalTo: companyImageView.trailingAnchor, constant: Standard.smallPadding),
+      companyInfoLabel.centerYAnchor.constraint(equalTo: companyImageView.centerYAnchor),
       
     ])
   }

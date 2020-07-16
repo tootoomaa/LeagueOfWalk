@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class MainSummonerVC: UIViewController {
   
@@ -14,9 +15,28 @@ class MainSummonerVC: UIViewController {
     super.viewDidLoad()
     
     navigationItem.title = "title"
+    checkIfUserIsLoggedIn()
     navigationSettings()
     
+    checkIfUserIsLoggedIn()
+    
     view.backgroundColor = CommonUI.backgroundColor
+  }
+  
+  
+  func checkIfUserIsLoggedIn() {
+    DispatchQueue.main.async {
+      if Auth.auth().currentUser == nil {
+        print("Need to user Login")
+        let loginVC = LoginVC()
+        let navController = UINavigationController(rootViewController: loginVC)
+        navController.modalPresentationStyle = .fullScreen
+        self.present(navController, animated: true, completion: nil)
+      } else {
+        print("User Logined")
+      }
+      return
+    }
   }
 }
 

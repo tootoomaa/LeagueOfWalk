@@ -21,7 +21,7 @@ class LoginVC: UIViewController {
   
   let seperateLineView1: UIView = {
     let view = UIView()
-    view.backgroundColor = #colorLiteral(red: 0.3279156089, green: 0.257776916, blue: 0.104581289, alpha: 1)
+    view.backgroundColor = CommonUI.edgeColor
     return view
   }()
   
@@ -65,13 +65,13 @@ class LoginVC: UIViewController {
     
     NSLayoutConstraint.activate([
       mainLogoImageView.topAnchor.constraint(equalTo: safeGuide.topAnchor),
-      mainLogoImageView.heightAnchor.constraint(equalToConstant: 140),
+      mainLogoImageView.heightAnchor.constraint(equalToConstant: view.frame.height/5),
       
       seperateLineView1.topAnchor.constraint(equalTo: mainLogoImageView.bottomAnchor),
       seperateLineView1.heightAnchor.constraint(equalToConstant: 2),
       
       myView.topAnchor.constraint(equalTo: seperateLineView1.bottomAnchor),
-      myView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+      myView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
     ])
   }
 }
@@ -89,6 +89,9 @@ extension LoginVC: LoginViewDelegate {
       }
       
       print("Success Signup user Login")
+      
+      
+      self.dismiss(animated: true, completion: nil)
       
     }
   }
