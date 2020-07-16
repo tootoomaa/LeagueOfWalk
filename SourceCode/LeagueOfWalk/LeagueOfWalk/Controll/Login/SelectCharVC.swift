@@ -45,7 +45,7 @@ class SelectCharVC: UIViewController {
   
   // MARK: - TempProperties
   
-  let charArray = ["Garen", "CardMaster", "WarWork", "Esrial", "Jarban", "Random"]
+  let charArray = ["Garen", "C-Master", "WarWork", "Esrial", "Jarban", "Random"]
   
   // MARK: - Init
   
@@ -78,7 +78,7 @@ class SelectCharVC: UIViewController {
     
     let marginGuide = view.layoutMarginsGuide
     let safeGuide = view.safeAreaLayoutGuide
-    [centerCharView, collectionView,selectButton].forEach{
+    [centerCharView, collectionView, selectButton].forEach{
       view.addSubview($0)
       $0.translatesAutoresizingMaskIntoConstraints = false
       $0.leadingAnchor.constraint(equalTo: marginGuide.leadingAnchor).isActive = true
@@ -128,7 +128,7 @@ class SelectCharVC: UIViewController {
 extension SelectCharVC: UICollectionViewDataSource {
   
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return charArray.count
+    return characterDic.keys.count
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -158,7 +158,7 @@ extension SelectCharVC: UICollectionViewDelegateFlowLayout {
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     
-    let width = (collectionView.frame.size.width - Standard.myEdgeInset.right - Standard.myEdgeInset.left - 10*(3-1))/3
+    let width = (collectionView.frame.size.width - Standard.myEdgeInset.right - Standard.myEdgeInset.left - 20 - 10*(3-1))/3
     let height = (collectionView.frame.size.height - Standard.myEdgeInset.top - Standard.myEdgeInset.bottom - 10)/2
     return CGSize(width: width, height: height)
   }

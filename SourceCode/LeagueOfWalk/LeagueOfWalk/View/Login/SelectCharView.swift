@@ -15,8 +15,15 @@ class SelectCharView: UIView {
   var charName: String? {
     didSet {
       guard let charName = charName else { return }
+      guard let charData = characterDic[charName] else { return }
+      
       charNameLabel.text = charName
       charImageView.image = UIImage(named: charName)
+      
+      charInfoTextView.text = charData["charInfo"]
+      charSkillName.text = charData["skillName"]
+      charSkillEffect.text = charData["skillEffect"]
+      
     }
   }
   

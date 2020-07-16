@@ -37,6 +37,12 @@ class MainSummonerVC: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    // 로그인 상태 확인
+    checkIfUserIsLoggedIn()
+    
+    // 케릭터 선택 여부 확인
+    checkIfUserSelectCharacter()
+    
     setUI()
   }
   
@@ -66,14 +72,6 @@ class MainSummonerVC: UIViewController {
     view.backgroundColor = CommonUI.backgroundColor
     
     navigationSettings()
-    
-    // 로그인 상태 확인
-    checkIfUserIsLoggedIn()
-    
-    // 케릭터 선택 여부 확인
-    checkIfUserSelectCharacter()
-    
-    
   }
   
   func checkIfUserIsLoggedIn() {
