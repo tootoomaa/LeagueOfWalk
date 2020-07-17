@@ -9,14 +9,29 @@
 /* Begin PBXBuildFile section */
 		6E7ED7E924BEFFAA00A2901D /* UserRankingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7ED7E824BEFFAA00A2901D /* UserRankingView.swift */; };
 		6E7ED7EB24BF76D900A2901D /* UserRankingCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7ED7EA24BF76D900A2901D /* UserRankingCustomCell.swift */; };
+		7E32FB2024C183C500B4B304 /* NavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E32FB1F24C183C500B4B304 /* NavigationBarView.swift */; };
+		7E4AA19E24C1426B00A9DC25 /* MainFooterCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4AA19D24C1426B00A9DC25 /* MainFooterCollectionReusableView.swift */; };
+		7E573A7124C09EB6005BF89E /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E573A7024C09EB6005BF89E /* ProgressView.swift */; };
+		7E5A939D24C0401200419118 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5A939C24C0401200419118 /* UIViewControllerExtension.swift */; };
+		7E5A939F24C0424300419118 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5A939E24C0424300419118 /* UIViewExtension.swift */; };
+		7E5A93A124C0688D00419118 /* FrizQua-ReguOS.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7E5A93A024C0688D00419118 /* FrizQua-ReguOS.ttf */; };
+		7E5A93A324C068B200419118 /* RixGoL.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7E5A93A224C068B200419118 /* RixGoL.ttf */; };
+		7EB5FA7424BEEC62006C276D /* MainHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB5FA7324BEEC62006C276D /* MainHeaderCollectionReusableView.swift */; };
 		7ECB87F024BDC63400255804 /* CommonUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECB87EF24BDC63400255804 /* CommonUI.swift */; };
 		7ECB87F324BDCD5900255804 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECB87F224BDCD5900255804 /* UIColorExtension.swift */; };
-		7ECB87F524BDDD2A00255804 /* NavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECB87F424BDDD2A00255804 /* NavigationBarView.swift */; };
+		7ECB87F824BE054100255804 /* RixGoB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7ECB87F724BE054100255804 /* RixGoB.ttf */; };
+		7ECB87FA24BE055E00255804 /* FrizQuadrataBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7ECB87F924BE055E00255804 /* FrizQuadrataBold.otf */; };
+		7ECB87FC24BE0DA900255804 /* MainSummonerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECB87FB24BE0DA900255804 /* MainSummonerCollectionViewCell.swift */; };
 		90D1F299C7ACA4888B34EB23 /* Pods_LeagueOfWalk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B5CF1A1ED83BAC8171F9780 /* Pods_LeagueOfWalk.framework */; };
 		C7599A8F24BEC0DB00F3D32C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7599A8E24BEC0DB00F3D32C /* LoginView.swift */; };
 		C7599A9324BEC10200F3D32C /* SignupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7599A9124BEC10200F3D32C /* SignupVC.swift */; };
 		C7599A9424BEC10200F3D32C /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7599A9224BEC10200F3D32C /* LoginVC.swift */; };
 		C7599A9624BEDCC000F3D32C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7599A9524BEDCC000F3D32C /* User.swift */; };
+		C7599A9824BF323C00F3D32C /* SelectCharVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7599A9724BF323C00F3D32C /* SelectCharVC.swift */; };
+		C7599A9B24BF38EA00F3D32C /* SelectCharView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7599A9A24BF38EA00F3D32C /* SelectCharView.swift */; };
+		C7599A9D24BFB57400F3D32C /* SelectCharCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7599A9C24BFB57400F3D32C /* SelectCharCell.swift */; };
+		C76004B724C08F560010F9A4 /* ItemListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76004B624C08F560010F9A4 /* ItemListCell.swift */; };
+		C7660BE424BFD7CB00690A78 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7660BE324BFD7CB00690A78 /* Character.swift */; };
 		C7AE009124BD8B050036DFEA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AE009024BD8B050036DFEA /* AppDelegate.swift */; };
 		C7AE009A24BD8B050036DFEA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7AE009924BD8B050036DFEA /* Assets.xcassets */; };
 		C7AE009D24BD8B050036DFEA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7AE009B24BD8B050036DFEA /* LaunchScreen.storyboard */; };
@@ -31,13 +46,28 @@
 		462D6123D0D73D8B234AC6B8 /* Pods-LeagueOfWalk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeagueOfWalk.release.xcconfig"; path = "Target Support Files/Pods-LeagueOfWalk/Pods-LeagueOfWalk.release.xcconfig"; sourceTree = "<group>"; };
 		6E7ED7E824BEFFAA00A2901D /* UserRankingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRankingView.swift; sourceTree = "<group>"; };
 		6E7ED7EA24BF76D900A2901D /* UserRankingCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRankingCustomCell.swift; sourceTree = "<group>"; };
+		7E32FB1F24C183C500B4B304 /* NavigationBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationBarView.swift; sourceTree = SOURCE_ROOT; };
+		7E4AA19D24C1426B00A9DC25 /* MainFooterCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFooterCollectionReusableView.swift; sourceTree = "<group>"; };
+		7E573A7024C09EB6005BF89E /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
+		7E5A939C24C0401200419118 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
+		7E5A939E24C0424300419118 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		7E5A93A024C0688D00419118 /* FrizQua-ReguOS.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FrizQua-ReguOS.ttf"; sourceTree = "<group>"; };
+		7E5A93A224C068B200419118 /* RixGoL.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = RixGoL.ttf; sourceTree = "<group>"; };
+		7EB5FA7324BEEC62006C276D /* MainHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		7ECB87EF24BDC63400255804 /* CommonUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonUI.swift; sourceTree = "<group>"; };
 		7ECB87F224BDCD5900255804 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
-		7ECB87F424BDDD2A00255804 /* NavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarView.swift; sourceTree = SOURCE_ROOT; };
+		7ECB87F724BE054100255804 /* RixGoB.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = RixGoB.ttf; sourceTree = "<group>"; };
+		7ECB87F924BE055E00255804 /* FrizQuadrataBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FrizQuadrataBold.otf; sourceTree = "<group>"; };
+		7ECB87FB24BE0DA900255804 /* MainSummonerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSummonerCollectionViewCell.swift; sourceTree = "<group>"; };
 		C7599A8E24BEC0DB00F3D32C /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		C7599A9124BEC10200F3D32C /* SignupVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupVC.swift; sourceTree = "<group>"; };
 		C7599A9224BEC10200F3D32C /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		C7599A9524BEDCC000F3D32C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = User.swift; path = LeagueOfWalk/View/User.swift; sourceTree = SOURCE_ROOT; };
+		C7599A9724BF323C00F3D32C /* SelectCharVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCharVC.swift; sourceTree = "<group>"; };
+		C7599A9A24BF38EA00F3D32C /* SelectCharView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCharView.swift; sourceTree = "<group>"; };
+		C7599A9C24BFB57400F3D32C /* SelectCharCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCharCell.swift; sourceTree = "<group>"; };
+		C76004B624C08F560010F9A4 /* ItemListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListCell.swift; sourceTree = "<group>"; };
+		C7660BE324BFD7CB00690A78 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Character.swift; path = LeagueOfWalk/View/Login/Character.swift; sourceTree = SOURCE_ROOT; };
 		C7AE008D24BD8B050036DFEA /* LeagueOfWalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeagueOfWalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7AE009024BD8B050036DFEA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7AE009924BD8B050036DFEA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -70,6 +100,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		7E573A7624C11E60005BF89E /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				7ECB87FB24BE0DA900255804 /* MainSummonerCollectionViewCell.swift */,
+				7EB5FA7324BEEC62006C276D /* MainHeaderCollectionReusableView.swift */,
+				7E4AA19D24C1426B00A9DC25 /* MainFooterCollectionReusableView.swift */,
+			);
+			path = MainView;
+			sourceTree = "<group>";
+		};
 		7ECB87ED24BDC60C00255804 /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -83,8 +123,21 @@
 			isa = PBXGroup;
 			children = (
 				7ECB87F224BDCD5900255804 /* UIColorExtension.swift */,
+				7E5A939C24C0401200419118 /* UIViewControllerExtension.swift */,
+				7E5A939E24C0424300419118 /* UIViewExtension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		7ECB87F624BE032C00255804 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				7E5A93A024C0688D00419118 /* FrizQua-ReguOS.ttf */,
+				7E5A93A224C068B200419118 /* RixGoL.ttf */,
+				7ECB87F724BE054100255804 /* RixGoB.ttf */,
+				7ECB87F924BE055E00255804 /* FrizQuadrataBold.otf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		9FF0E80E713A2F5232CD1994 /* Pods */ = {
@@ -101,6 +154,17 @@
 			children = (
 				C7599A9224BEC10200F3D32C /* LoginVC.swift */,
 				C7599A9124BEC10200F3D32C /* SignupVC.swift */,
+				C7599A9724BF323C00F3D32C /* SelectCharVC.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		C7599A9924BF37F900F3D32C /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				C7599A8E24BEC0DB00F3D32C /* LoginView.swift */,
+				C7599A9A24BF38EA00F3D32C /* SelectCharView.swift */,
+				C7599A9C24BFB57400F3D32C /* SelectCharCell.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -132,6 +196,7 @@
 				C7AE00AC24BD8B4A0036DFEA /* Model */,
 				C7AE00AB24BD8B480036DFEA /* View */,
 				C7AE00AA24BD8B460036DFEA /* Controll */,
+				7ECB87F624BE032C00255804 /* Fonts */,
 				C7AE009924BD8B050036DFEA /* Assets.xcassets */,
 				C7AE009B24BD8B050036DFEA /* LaunchScreen.storyboard */,
 				C7AE009E24BD8B050036DFEA /* Info.plist */,
@@ -154,10 +219,16 @@
 		C7AE00AB24BD8B480036DFEA /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C7599A8E24BEC0DB00F3D32C /* LoginView.swift */,
+				7E573A7624C11E60005BF89E /* MainView */,
+				C7599A9924BF37F900F3D32C /* Login */,
 				7ECB87F424BDDD2A00255804 /* NavigationBarView.swift */,
 				6E7ED7E824BEFFAA00A2901D /* UserRankingView.swift */,
 				6E7ED7EA24BF76D900A2901D /* UserRankingCustomCell.swift */,
+				7ECB87FB24BE0DA900255804 /* MainSummonerCollectionViewCell.swift */,
+				7EB5FA7324BEEC62006C276D /* MainHeaderCollectionReusableView.swift */,
+				C76004B624C08F560010F9A4 /* ItemListCell.swift */,
+				7E573A7024C09EB6005BF89E /* ProgressView.swift */,
+				7E32FB1F24C183C500B4B304 /* NavigationBarView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -166,6 +237,7 @@
 			isa = PBXGroup;
 			children = (
 				C7599A9524BEDCC000F3D32C /* User.swift */,
+				C7660BE324BFD7CB00690A78 /* Character.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -230,7 +302,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7E5A93A324C068B200419118 /* RixGoL.ttf in Resources */,
+				7ECB87FA24BE055E00255804 /* FrizQuadrataBold.otf in Resources */,
+				7ECB87F824BE054100255804 /* RixGoB.ttf in Resources */,
 				C7AE009D24BD8B050036DFEA /* LaunchScreen.storyboard in Resources */,
+				7E5A93A124C0688D00419118 /* FrizQua-ReguOS.ttf in Resources */,
 				C7AE009A24BD8B050036DFEA /* Assets.xcassets in Resources */,
 				C7AE00B424BD8D2B0036DFEA /* GoogleService-Info.plist in Resources */,
 			);
@@ -287,9 +363,14 @@
 			files = (
 				C7599A9324BEC10200F3D32C /* SignupVC.swift in Sources */,
 				C7AE009124BD8B050036DFEA /* AppDelegate.swift in Sources */,
+				7E5A939D24C0401200419118 /* UIViewControllerExtension.swift in Sources */,
+				7ECB87FC24BE0DA900255804 /* MainSummonerCollectionViewCell.swift in Sources */,
+				C76004B724C08F560010F9A4 /* ItemListCell.swift in Sources */,
 				7ECB87F024BDC63400255804 /* CommonUI.swift in Sources */,
+				7E32FB2024C183C500B4B304 /* NavigationBarView.swift in Sources */,
 				C7AE00B024BD8B730036DFEA /* RandomItemVC.swift in Sources */,
 				C7599A9424BEC10200F3D32C /* LoginVC.swift in Sources */,
+				C7599A9D24BFB57400F3D32C /* SelectCharCell.swift in Sources */,
 				C7AE00AE24BD8B680036DFEA /* MainSummonerVC.swift in Sources */,
 				6E7ED7EB24BF76D900A2901D /* UserRankingCustomCell.swift in Sources */,
 				C7AE00B224BD8C320036DFEA /* UserRankingVC.swift in Sources */,
@@ -297,6 +378,13 @@
 				6E7ED7E924BEFFAA00A2901D /* UserRankingView.swift in Sources */,
 				C7599A8F24BEC0DB00F3D32C /* LoginView.swift in Sources */,
 				7ECB87F324BDCD5900255804 /* UIColorExtension.swift in Sources */,
+				7E4AA19E24C1426B00A9DC25 /* MainFooterCollectionReusableView.swift in Sources */,
+				7E5A939F24C0424300419118 /* UIViewExtension.swift in Sources */,
+				7EB5FA7424BEEC62006C276D /* MainHeaderCollectionReusableView.swift in Sources */,
+				C7599A9824BF323C00F3D32C /* SelectCharVC.swift in Sources */,
+				C7660BE424BFD7CB00690A78 /* Character.swift in Sources */,
+				7E573A7124C09EB6005BF89E /* ProgressView.swift in Sources */,
+				C7599A9B24BF38EA00F3D32C /* SelectCharView.swift in Sources */,
 				C7599A9624BEDCC000F3D32C /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -435,13 +523,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = X6LA4P7TFP;
+				DEVELOPMENT_TEAM = 52ZXCPY3WQ;
 				INFOPLIST_FILE = LeagueOfWalk/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.devyhan93.HelthHero;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kr.tootoomaa.LeagueOfWalk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -454,13 +542,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = X6LA4P7TFP;
+				DEVELOPMENT_TEAM = 52ZXCPY3WQ;
 				INFOPLIST_FILE = LeagueOfWalk/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.devyhan93.HelthHero;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kr.tootoomaa.LeagueOfWalk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

@@ -21,7 +21,7 @@ class LoginVC: UIViewController {
   
   let seperateLineView1: UIView = {
     let view = UIView()
-    view.backgroundColor = #colorLiteral(red: 0.3279156089, green: 0.257776916, blue: 0.104581289, alpha: 1)
+    view.backgroundColor = CommonUI.edgeColor
     return view
   }()
   
@@ -46,6 +46,13 @@ class LoginVC: UIViewController {
     configureAutoLayout()
   }
   
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(true)
+    
+    navigationController?.navigationBar.isHidden = true
+    
+  }
+  
   func configureAutoLayout() {
     
     let safeGuide = view.safeAreaLayoutGuide
@@ -65,20 +72,21 @@ class LoginVC: UIViewController {
     
     NSLayoutConstraint.activate([
       mainLogoImageView.topAnchor.constraint(equalTo: safeGuide.topAnchor),
-      mainLogoImageView.heightAnchor.constraint(equalToConstant: 140),
+      mainLogoImageView.heightAnchor.constraint(equalToConstant: view.frame.height/5),
       
       seperateLineView1.topAnchor.constraint(equalTo: mainLogoImageView.bottomAnchor),
       seperateLineView1.heightAnchor.constraint(equalToConstant: 2),
       
       myView.topAnchor.constraint(equalTo: seperateLineView1.bottomAnchor),
-      myView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+      myView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
     ])
   }
 }
 
+// MARK: - LoginViewDelegate
 extension LoginVC: LoginViewDelegate {
+  
   func handleTabSignInButton(userId: String, passwd: String) {
-    print("tab SignIn handler in loginVC")
     
     Auth.auth().signIn(withEmail: userId, password: passwd) { (result, error) in
       
@@ -88,8 +96,31 @@ extension LoginVC: LoginViewDelegate {
         return
       }
       
-      print("Success Signup user Login")
-      
+      guard let uid = result?.user.uid else { return }
+      Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value) { (snapshot) in
+        print(snapshot)
+        
+        guard let dictionary = snapshot.value as? Dictionary<String, AnyObject> else { return }
+        
+        let user = User.init(uid: uid, dictionary: dictionary)
+        guard let selectCharactor = user.selectCharactor else { return }
+        
+        if selectCharactor == "" {
+          // 케릭터 선택 안한 사용자의 경우에는 케릭 선택창
+          let selectCharVC = SelectCharVC()
+          selectCharVC.userData = user
+          selectCharVC.modalPresentationStyle = .fullScreen
+          self.present(selectCharVC, animated: true)
+          
+        } else {
+          // 캐릭터 선택 정보가 있는 경우 메인 창으로 연결
+          self.dismiss(animated: true, completion: {
+            let mainSummonerVC = MainSummonerVC()
+            mainSummonerVC.modalPresentationStyle = .fullScreen
+            self.present(mainSummonerVC, animated: true, completion: nil)
+          })
+        }
+      }
     }
   }
 
