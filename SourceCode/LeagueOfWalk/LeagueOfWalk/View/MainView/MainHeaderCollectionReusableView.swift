@@ -39,6 +39,12 @@ class MainHeaderCollectionReusableView: UICollectionReusableView {
     return label
   }()
   
+  private let tableView: UITableView = {
+    let tableView = UITableView()
+    
+    return tableView
+  }()
+  
   // MARK: - LifeCycle
 
   override init(frame: CGRect) {
@@ -54,9 +60,11 @@ class MainHeaderCollectionReusableView: UICollectionReusableView {
     [heroImageView, openMent].forEach {
       self.addSubview($0)
     }
+    
     heroImageView.snp.makeConstraints {
       $0.centerX.centerY.equalTo(self)
     }
+    
     openMent.snp.makeConstraints {
       $0.bottom.equalTo(heroImageView)
       $0.centerX.equalTo(heroImageView)

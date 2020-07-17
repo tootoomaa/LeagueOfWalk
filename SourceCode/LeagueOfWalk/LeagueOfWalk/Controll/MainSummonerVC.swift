@@ -12,7 +12,7 @@ import Firebase
 
 class MainSummonerVC: UIViewController {
   
-  let testData = ["1", "2", "3"]
+  let testData = ["Level"]
   
   let layout = UICollectionViewFlowLayout()
   lazy var collectionView: UICollectionView = {
@@ -27,7 +27,11 @@ class MainSummonerVC: UIViewController {
       forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
       withReuseIdentifier: MainHeaderCollectionReusableView.identifier
     )
-    
+    collectionView.register(
+      MainFooterCollectionReusableView.self,
+      forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
+      withReuseIdentifier: MainFooterCollectionReusableView.identifier
+    )
     
     return collectionView
   }()
@@ -36,7 +40,7 @@ class MainSummonerVC: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+    fetchUserSignupDate()
     setUI()
   }
   
@@ -45,7 +49,7 @@ class MainSummonerVC: UIViewController {
   private func setUI() {
     view.backgroundColor = CommonUI.backgroundColor
     navigationItem.title = "title"
-//    checkIfUserIsLoggedIn()
+    //    checkIfUserIsLoggedIn()
     navigationSettings()
     setCollectionView()
     collectionView.dataSource = self
@@ -58,10 +62,10 @@ class MainSummonerVC: UIViewController {
   }
   
   private func setCollectionView() {
-    layout.sectionInset = .init(top: 30, left: 0, bottom: 30, right: 0)
-    layout.minimumLineSpacing = 30
-    layout.itemSize = CGSize(width: view.frame.width - 60, height: 100)
-//    checkIfUserIsLoggedIn()
+    layout.sectionInset = .init(top: 15, left: 0, bottom: 15, right: 0)
+    layout.minimumLineSpacing = 15
+    layout.itemSize = CGSize(width: view.frame.width - 30, height: 70)
+    //    checkIfUserIsLoggedIn()
     
     view.backgroundColor = CommonUI.backgroundColor
     
@@ -106,56 +110,95 @@ class MainSummonerVC: UIViewController {
       }
     }
   }
-}
-
-// MARK: - Navigation settings
-
-extension MainSummonerVC {
-  func navigationSettings() {
-    navigationItem.titleView = NavigationBarView(
-      frame: .zero,
-      title: CommonUI.NavigationBarTitle.mainSummonerVC.rawValue
-    )
-    
-    let navBar = self.navigationController?.navigationBar
-    navBar?.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-    navBar?.shadowImage = UIImage()
-    navBar?.isTranslucent = true
-    navBar?.backgroundColor = UIColor.clear
+  
+  func fetchUserSignupDate() {
+    if let uid = Auth.auth().currentUser?.uid {
+      Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value) { (snapshot) in
+        print(snapshot)
+        
+        guard let dictionary = snapshot.value as? Dictionary<String, AnyObject> else { return }
+        
+        let user = User.init(uid: uid, dictionary: dictionary)
+        print(user)
+      }
+    }
   }
 }
-
-// MARK: - UICollectionViewDataSource
-
-extension MainSummonerVC: UICollectionViewDataSource {
-  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    3
+  // MARK: - Navigation settings
+  
+  extension MainSummonerVC {
+    func navigationSettings() {
+      navigationItem.titleView = NavigationBarView(
+        frame: .zero,
+        title: CommonUI.NavigationBarTitle.mainSummonerVC.rawValue
+      )
+      
+      let navBar = self.navigationController?.navigationBar
+      navBar?.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+      navBar?.shadowImage = UIImage()
+      navBar?.isTranslucent = true
+      navBar?.backgroundColor = UIColor.clear
+    }
   }
   
-  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainSummonerCollectionViewCell.identifier, for: indexPath) as! MainSummonerCollectionViewCell
+  // MARK: - UICollectionViewDataSource
+  
+  extension MainSummonerVC: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+      
+      return testData.count
+      
+    }
     
-    cell.item = testData[indexPath.item]
-    
-    return cell
-  }
-}
-
-extension MainSummonerVC: UICollectionViewDelegateFlowLayout {
-  func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-    let header = collectionView.dequeueReusableSupplementaryView(
-      ofKind: UICollectionView.elementKindSectionHeader,
-      withReuseIdentifier: MainHeaderCollectionReusableView.identifier,
-      for: indexPath
-    ) as! MainHeaderCollectionReusableView
-    
-    return header
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainSummonerCollectionViewCell.identifier, for: indexPath) as! MainSummonerCollectionViewCell
+      
+      cell.item = testData[indexPath.item]
+      cell.progressValue = 0.95
+      
+      return cell
+    }
   }
   
-  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-    let width: CGFloat = collectionView.frame.width
-    let height: CGFloat = 300
+  extension MainSummonerVC: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+      print("kind", kind)
+      switch kind {
+        
+      case UICollectionView.elementKindSectionHeader:
+        let header = collectionView.dequeueReusableSupplementaryView(
+          ofKind: UICollectionView.elementKindSectionHeader,
+          withReuseIdentifier: MainHeaderCollectionReusableView.identifier,
+          for: indexPath
+          ) as! MainHeaderCollectionReusableView
+        
+        return header
+        
+      case UICollectionView.elementKindSectionFooter:
+        let footer = collectionView.dequeueReusableSupplementaryView(
+          ofKind: UICollectionView.elementKindSectionFooter,
+          withReuseIdentifier: MainFooterCollectionReusableView.identifier,
+          for: indexPath
+          ) as! MainFooterCollectionReusableView
+        
+        return footer
+        
+      default:
+        assert(false, "Unexpected element kind")
+      }
+    }
     
-    return CGSize(width: width, height: height)
-  }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+      let width: CGFloat = collectionView.frame.width
+      let height: CGFloat = 300
+      
+      return CGSize(width: width, height: height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+      let width: CGFloat = collectionView.frame.width
+      let height: CGFloat = 220
+      
+      return CGSize(width: width, height: height)
+    }
 }
