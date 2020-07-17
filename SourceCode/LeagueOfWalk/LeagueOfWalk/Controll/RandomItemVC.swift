@@ -43,33 +43,28 @@ class RandomItemVC: UIViewController {
     return button
   }()
   
+  
   // MARK: - Init
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    view.addSubview(logoutButton)
+//    configureNavi()
     
-    logoutButton.frame = CGRect(x: 200, y: 200, width: 200, height: 200)
-    
-    configureNavi()
+    navigationSettings()
     
     configureAutoLayout()
     
     configureCollectionView()
     
+    view.addSubview(logoutButton)
+       
+    logoutButton.frame = CGRect(x: 200, y: 200, width: 200, height: 200)
   }
-  
+
   private func configureNavi() {
     
     navigationItem.titleView = titleLabel
-    navigationItem.searchController = searchController
-    navigationItem.title = "Item List"
-    
-    searchController.obscuresBackgroundDuringPresentation = false
-    searchController.searchBar.placeholder = "Search..."
-    searchController.searchBar.delegate = self
-    
-    definesPresentationContext = true
+
   }
   
   private func configureCollectionView() {
@@ -82,7 +77,7 @@ class RandomItemVC: UIViewController {
   
   private func configureAutoLayout() {
     
-    let safeGuide = view.safeAreaLayoutGuide
+//    let safeGuide = view.safeAreaLayoutGuide
     view.layoutMargins = UIEdgeInsets.init(top: 0, left: Standard.padding, bottom: Standard.padding, right: Standard.padding)
     let marginGuide = view.layoutMarginsGuide
     [collectionView].forEach{
@@ -117,6 +112,33 @@ class RandomItemVC: UIViewController {
       //handle erorr
       print("Failed to sign out")
     }
+  }
+}
+
+// MARK: - Navigation settings
+
+extension RandomItemVC {
+  func navigationSettings() {
+    navigationItem.titleView = NavigationBarView(
+      frame: .zero,
+      title: CommonUI.NavigationBarTitle.itemListVC.rawValue
+    )
+    
+    let navBar = self.navigationController?.navigationBar
+    navBar?.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+    navBar?.shadowImage = UIImage()
+    navBar?.isTranslucent = true
+    navBar?.backgroundColor = UIColor.clear
+    
+    navigationItem.searchController = searchController
+    navigationItem.title = "Item List"
+
+    searchController.obscuresBackgroundDuringPresentation = false
+    searchController.searchBar.placeholder = "Search..."
+    searchController.searchBar.delegate = self
+
+    definesPresentationContext = true
+    
   }
 }
 
@@ -184,3 +206,4 @@ extension RandomItemVC: UICollectionViewDelegateFlowLayout {
     return CGSize(width: width, height: width*1.3)
   }
 }
+

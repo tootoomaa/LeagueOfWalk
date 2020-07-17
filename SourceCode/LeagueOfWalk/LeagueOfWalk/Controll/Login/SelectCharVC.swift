@@ -101,7 +101,6 @@ class SelectCharVC: UIViewController {
   
   @objc func handleSelectButton() {
     
-    print("Select button")
     guard let uid = Auth.auth().currentUser?.uid else { return }
     guard let userData = userData else { return }
     guard let nickName = userData.nickName else { return }
@@ -181,7 +180,6 @@ extension SelectCharVC: UICollectionViewDelegate {
     guard let cell = collectionView.cellForItem(at: indexPath) as? SelectCharCell else { return }
     
     cell.layer.borderWidth = 0
-    //       cell.layer.borderColor = CommonUI.edgeColor.cgColor
   }
 }
 

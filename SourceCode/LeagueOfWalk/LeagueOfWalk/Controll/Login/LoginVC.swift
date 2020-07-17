@@ -85,8 +85,8 @@ class LoginVC: UIViewController {
 
 // MARK: - LoginViewDelegate
 extension LoginVC: LoginViewDelegate {
+  
   func handleTabSignInButton(userId: String, passwd: String) {
-    print("tab SignIn handler in loginVC")
     
     Auth.auth().signIn(withEmail: userId, password: passwd) { (result, error) in
       
@@ -103,15 +103,10 @@ extension LoginVC: LoginViewDelegate {
         guard let dictionary = snapshot.value as? Dictionary<String, AnyObject> else { return }
         
         let user = User.init(uid: uid, dictionary: dictionary)
-        print("user \(user)")
         guard let selectCharactor = user.selectCharactor else { return }
         
-        print("selectisafkasjefl \(selectCharactor)")
         if selectCharactor == "" {
           // 케릭터 선택 안한 사용자의 경우에는 케릭 선택창
-          print("nonSelectVC")
-          
-        
           let selectCharVC = SelectCharVC()
           selectCharVC.userData = user
           selectCharVC.modalPresentationStyle = .fullScreen
@@ -119,7 +114,6 @@ extension LoginVC: LoginViewDelegate {
           
         } else {
           // 캐릭터 선택 정보가 있는 경우 메인 창으로 연결
-          print("SelectVC")
           self.dismiss(animated: true, completion: {
             let mainSummonerVC = MainSummonerVC()
             mainSummonerVC.modalPresentationStyle = .fullScreen

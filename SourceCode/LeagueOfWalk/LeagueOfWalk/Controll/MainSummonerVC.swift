@@ -50,7 +50,7 @@ class MainSummonerVC: UIViewController {
   
   private func setUI() {
     view.backgroundColor = CommonUI.backgroundColor
-    navigationItem.title = "title"
+//    navigationItem.title = "title"
 //    checkIfUserIsLoggedIn()
     navigationSettings()
     setCollectionView()
@@ -88,7 +88,6 @@ class MainSummonerVC: UIViewController {
     DispatchQueue.main.async {
       if let uid = Auth.auth().currentUser?.uid {
         Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value) { (snapshot) in
-          print(snapshot)
           
           guard let dictionary = snapshot.value as? Dictionary<String, AnyObject> else { return }
           

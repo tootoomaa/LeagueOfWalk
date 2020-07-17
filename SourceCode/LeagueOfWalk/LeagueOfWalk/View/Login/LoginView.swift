@@ -31,7 +31,7 @@ class LoginView: UIView {
   
   let idLabel: UILabel = {
     let label = UILabel()
-    label.text = "계정이름"
+    label.text = "이메일"
     label.font = .systemFont(ofSize: Standard.textSize )
     label.textColor = Standard.textColor
     return label
@@ -42,6 +42,7 @@ class LoginView: UIView {
     textfield.backgroundColor = .darkGray
     textfield.layer.borderWidth = 1
     textfield.layer.borderColor = CommonUI.edgeColor.cgColor
+    textfield.keyboardType = .emailAddress
     return textfield
   }()
   
@@ -59,6 +60,7 @@ class LoginView: UIView {
     textfield.layer.borderWidth = 1
     textfield.layer.borderColor = CommonUI.edgeColor.cgColor
     textfield.tintColor = .orange
+    textfield.isSecureTextEntry = true
     return textfield
   }()
   
