@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6E7ED7E924BEFFAA00A2901D /* UserRankingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7ED7E824BEFFAA00A2901D /* UserRankingView.swift */; };
+		6E7ED7EB24BF76D900A2901D /* UserRankingCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7ED7EA24BF76D900A2901D /* UserRankingCustomCell.swift */; };
 		7ECB87F024BDC63400255804 /* CommonUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECB87EF24BDC63400255804 /* CommonUI.swift */; };
 		7ECB87F324BDCD5900255804 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECB87F224BDCD5900255804 /* UIColorExtension.swift */; };
 		7ECB87F524BDDD2A00255804 /* NavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECB87F424BDDD2A00255804 /* NavigationBarView.swift */; };
@@ -27,6 +29,8 @@
 /* Begin PBXFileReference section */
 		1B5CF1A1ED83BAC8171F9780 /* Pods_LeagueOfWalk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LeagueOfWalk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		462D6123D0D73D8B234AC6B8 /* Pods-LeagueOfWalk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeagueOfWalk.release.xcconfig"; path = "Target Support Files/Pods-LeagueOfWalk/Pods-LeagueOfWalk.release.xcconfig"; sourceTree = "<group>"; };
+		6E7ED7E824BEFFAA00A2901D /* UserRankingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRankingView.swift; sourceTree = "<group>"; };
+		6E7ED7EA24BF76D900A2901D /* UserRankingCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRankingCustomCell.swift; sourceTree = "<group>"; };
 		7ECB87EF24BDC63400255804 /* CommonUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonUI.swift; sourceTree = "<group>"; };
 		7ECB87F224BDCD5900255804 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		7ECB87F424BDDD2A00255804 /* NavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarView.swift; sourceTree = SOURCE_ROOT; };
@@ -152,6 +156,8 @@
 			children = (
 				C7599A8E24BEC0DB00F3D32C /* LoginView.swift */,
 				7ECB87F424BDDD2A00255804 /* NavigationBarView.swift */,
+				6E7ED7E824BEFFAA00A2901D /* UserRankingView.swift */,
+				6E7ED7EA24BF76D900A2901D /* UserRankingCustomCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -285,8 +291,10 @@
 				C7AE00B024BD8B730036DFEA /* RandomItemVC.swift in Sources */,
 				C7599A9424BEC10200F3D32C /* LoginVC.swift in Sources */,
 				C7AE00AE24BD8B680036DFEA /* MainSummonerVC.swift in Sources */,
+				6E7ED7EB24BF76D900A2901D /* UserRankingCustomCell.swift in Sources */,
 				C7AE00B224BD8C320036DFEA /* UserRankingVC.swift in Sources */,
 				7ECB87F524BDDD2A00255804 /* NavigationBarView.swift in Sources */,
+				6E7ED7E924BEFFAA00A2901D /* UserRankingView.swift in Sources */,
 				C7599A8F24BEC0DB00F3D32C /* LoginView.swift in Sources */,
 				7ECB87F324BDCD5900255804 /* UIColorExtension.swift in Sources */,
 				C7599A9624BEDCC000F3D32C /* User.swift in Sources */,

@@ -33,6 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     tabBarController.viewControllers = [mainSummonerVC, randomItenVC, userRankingVC]
     
     window = UIWindow(frame: UIScreen.main.bounds)
+    window?.overrideUserInterfaceStyle = .dark
     window?.rootViewController = tabBarController
     window?.makeKeyAndVisible()
     
