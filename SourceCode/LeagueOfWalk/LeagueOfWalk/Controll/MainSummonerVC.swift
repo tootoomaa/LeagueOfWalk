@@ -48,6 +48,7 @@ class MainSummonerVC: UIViewController {
     checkIfUserSelectCharacter()
     
     fetchUserSignupDate()
+
     setUI()
   }
   
@@ -55,7 +56,9 @@ class MainSummonerVC: UIViewController {
   
   private func setUI() {
     view.backgroundColor = CommonUI.backgroundColor
+
     navigationItem.title = "title"
+    
     navigationSettings()
     setCollectionView()
     collectionView.dataSource = self
