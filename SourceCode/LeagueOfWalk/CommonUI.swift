@@ -26,7 +26,9 @@ struct CommonUI {
   
   enum CustonFonts: String {
     case koFont = "RixGoB"
+    case koFontRegular = "RixGoL"
     case enFont = "FrizQuadrataBold"
+    case enFontRagular = "FrizQua-ReguOS"
   }
   
   // Font Size
