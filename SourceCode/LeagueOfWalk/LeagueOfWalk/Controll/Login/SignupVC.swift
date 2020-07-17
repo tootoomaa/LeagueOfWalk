@@ -52,7 +52,7 @@ class SignupVC: UIViewController {
   
   let idLabel: UILabel = {
     let label = UILabel()
-    label.text = "로그인 아이디"
+    label.text = "이메일"
     label.font = .systemFont(ofSize: Standard.textSize )
     label.textColor = Standard.textColor
     return label
@@ -63,7 +63,7 @@ class SignupVC: UIViewController {
     textfield.backgroundColor = .darkGray
     textfield.layer.borderWidth = 1
     textfield.layer.borderColor = CommonUI.edgeColor.cgColor
-    textfield.placeholder = "  "
+    textfield.keyboardType = .emailAddress
     return textfield
   }()
   
@@ -80,6 +80,7 @@ class SignupVC: UIViewController {
     textfield.backgroundColor = .darkGray
     textfield.layer.borderWidth = 1
     textfield.layer.borderColor = CommonUI.edgeColor.cgColor
+    textfield.isSecureTextEntry = true
     return textfield
   }()
   

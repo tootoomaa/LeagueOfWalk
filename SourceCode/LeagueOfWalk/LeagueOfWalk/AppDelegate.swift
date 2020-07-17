@@ -19,7 +19,7 @@ import Firebase
     FirebaseApp.configure()
     
     let mainSummonerVC = UINavigationController(rootViewController: MainSummonerVC())
-    let randomItenVC = RandomItemVC()
+    let randomItenVC = UINavigationController(rootViewController: RandomItemVC())
     let userRankingVC = UserRankingVC()
     
     let tabBarController = UITabBarController()

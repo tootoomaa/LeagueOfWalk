@@ -37,6 +37,12 @@ class MainSummonerVC: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    // 로그인 상태 확인
+    checkIfUserIsLoggedIn()
+    
+    // 케릭터 선택 여부 확인
+    checkIfUserSelectCharacter()
+    
     setUI()
   }
   
@@ -44,7 +50,7 @@ class MainSummonerVC: UIViewController {
   
   private func setUI() {
     view.backgroundColor = CommonUI.backgroundColor
-    navigationItem.title = "title"
+//    navigationItem.title = "title"
 //    checkIfUserIsLoggedIn()
     navigationSettings()
     setCollectionView()
@@ -66,14 +72,6 @@ class MainSummonerVC: UIViewController {
     view.backgroundColor = CommonUI.backgroundColor
     
     navigationSettings()
-    
-    // 로그인 상태 확인
-    checkIfUserIsLoggedIn()
-    
-    // 케릭터 선택 여부 확인
-    checkIfUserSelectCharacter()
-    
-    
   }
   
   func checkIfUserIsLoggedIn() {
@@ -90,7 +88,6 @@ class MainSummonerVC: UIViewController {
     DispatchQueue.main.async {
       if let uid = Auth.auth().currentUser?.uid {
         Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value) { (snapshot) in
-          print(snapshot)
           
           guard let dictionary = snapshot.value as? Dictionary<String, AnyObject> else { return }
           
