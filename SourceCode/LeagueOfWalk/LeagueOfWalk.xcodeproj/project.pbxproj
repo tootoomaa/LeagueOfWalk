@@ -99,9 +99,9 @@
 		7E573A7624C11E60005BF89E /* MainView */ = {
 			isa = PBXGroup;
 			children = (
+				7E4AA19D24C1426B00A9DC25 /* MainFooterCollectionReusableView.swift */,
 				7ECB87FB24BE0DA900255804 /* MainSummonerCollectionViewCell.swift */,
 				7EB5FA7324BEEC62006C276D /* MainHeaderCollectionReusableView.swift */,
-				7E4AA19D24C1426B00A9DC25 /* MainFooterCollectionReusableView.swift */,
 			);
 			path = MainView;
 			sourceTree = "<group>";
@@ -217,15 +217,9 @@
 			children = (
 				7E573A7624C11E60005BF89E /* MainView */,
 				C7599A9924BF37F900F3D32C /* Login */,
-<<<<<<< HEAD
-				7ECB87F424BDDD2A00255804 /* NavigationBarView.swift */,
-				7ECB87FB24BE0DA900255804 /* MainSummonerCollectionViewCell.swift */,
-				7EB5FA7324BEEC62006C276D /* MainHeaderCollectionReusableView.swift */,
 				C76004B624C08F560010F9A4 /* ItemListCell.swift */,
-=======
 				7E573A7024C09EB6005BF89E /* ProgressView.swift */,
 				7E32FB1F24C183C500B4B304 /* NavigationBarView.swift */,
->>>>>>> e17cdc0e4d9e6cdc814f50a82f6c331e60924a33
 			);
 			path = View;
 			sourceTree = "<group>";

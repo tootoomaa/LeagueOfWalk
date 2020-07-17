@@ -41,4 +41,4 @@ let characterDic: [String:[String:String]] = [
      "skillEffect": " Secret"]
 ]
 
-
+ 
