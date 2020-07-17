@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6E33745424C19B1B00208711 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E33745324C19B1B00208711 /* ProfileVC.swift */; };
+		6E7ED7E924BEFFAA00A2901D /* UserRankingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7ED7E824BEFFAA00A2901D /* UserRankingView.swift */; };
+		6E7ED7EB24BF76D900A2901D /* UserRankingCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7ED7EA24BF76D900A2901D /* UserRankingCustomCell.swift */; };
 		7E32FB2024C183C500B4B304 /* NavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E32FB1F24C183C500B4B304 /* NavigationBarView.swift */; };
 		7E4AA19E24C1426B00A9DC25 /* MainFooterCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4AA19D24C1426B00A9DC25 /* MainFooterCollectionReusableView.swift */; };
 		7E573A7124C09EB6005BF89E /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E573A7024C09EB6005BF89E /* ProgressView.swift */; };
@@ -42,6 +45,9 @@
 /* Begin PBXFileReference section */
 		1B5CF1A1ED83BAC8171F9780 /* Pods_LeagueOfWalk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LeagueOfWalk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		462D6123D0D73D8B234AC6B8 /* Pods-LeagueOfWalk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeagueOfWalk.release.xcconfig"; path = "Target Support Files/Pods-LeagueOfWalk/Pods-LeagueOfWalk.release.xcconfig"; sourceTree = "<group>"; };
+		6E33745324C19B1B00208711 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
+		6E7ED7E824BEFFAA00A2901D /* UserRankingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRankingView.swift; sourceTree = "<group>"; };
+		6E7ED7EA24BF76D900A2901D /* UserRankingCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRankingCustomCell.swift; sourceTree = "<group>"; };
 		7E32FB1F24C183C500B4B304 /* NavigationBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationBarView.swift; sourceTree = SOURCE_ROOT; };
 		7E4AA19D24C1426B00A9DC25 /* MainFooterCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFooterCollectionReusableView.swift; sourceTree = "<group>"; };
 		7E573A7024C09EB6005BF89E /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
@@ -99,8 +105,6 @@
 		7E573A7624C11E60005BF89E /* MainView */ = {
 			isa = PBXGroup;
 			children = (
-				7ECB87FB24BE0DA900255804 /* MainSummonerCollectionViewCell.swift */,
-				7EB5FA7324BEEC62006C276D /* MainHeaderCollectionReusableView.swift */,
 				7E4AA19D24C1426B00A9DC25 /* MainFooterCollectionReusableView.swift */,
 			);
 			path = MainView;
@@ -208,6 +212,7 @@
 				C7AE00AD24BD8B680036DFEA /* MainSummonerVC.swift */,
 				C7AE00AF24BD8B730036DFEA /* RandomItemVC.swift */,
 				C7AE00B124BD8C320036DFEA /* UserRankingVC.swift */,
+				6E33745324C19B1B00208711 /* ProfileVC.swift */,
 			);
 			path = Controll;
 			sourceTree = "<group>";
@@ -217,15 +222,13 @@
 			children = (
 				7E573A7624C11E60005BF89E /* MainView */,
 				C7599A9924BF37F900F3D32C /* Login */,
-<<<<<<< HEAD
-				7ECB87F424BDDD2A00255804 /* NavigationBarView.swift */,
+				6E7ED7E824BEFFAA00A2901D /* UserRankingView.swift */,
+				6E7ED7EA24BF76D900A2901D /* UserRankingCustomCell.swift */,
 				7ECB87FB24BE0DA900255804 /* MainSummonerCollectionViewCell.swift */,
 				7EB5FA7324BEEC62006C276D /* MainHeaderCollectionReusableView.swift */,
 				C76004B624C08F560010F9A4 /* ItemListCell.swift */,
-=======
 				7E573A7024C09EB6005BF89E /* ProgressView.swift */,
 				7E32FB1F24C183C500B4B304 /* NavigationBarView.swift */,
->>>>>>> e17cdc0e4d9e6cdc814f50a82f6c331e60924a33
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -363,13 +366,16 @@
 				7E5A939D24C0401200419118 /* UIViewControllerExtension.swift in Sources */,
 				7ECB87FC24BE0DA900255804 /* MainSummonerCollectionViewCell.swift in Sources */,
 				C76004B724C08F560010F9A4 /* ItemListCell.swift in Sources */,
+				6E33745424C19B1B00208711 /* ProfileVC.swift in Sources */,
 				7ECB87F024BDC63400255804 /* CommonUI.swift in Sources */,
 				7E32FB2024C183C500B4B304 /* NavigationBarView.swift in Sources */,
 				C7AE00B024BD8B730036DFEA /* RandomItemVC.swift in Sources */,
 				C7599A9424BEC10200F3D32C /* LoginVC.swift in Sources */,
 				C7599A9D24BFB57400F3D32C /* SelectCharCell.swift in Sources */,
 				C7AE00AE24BD8B680036DFEA /* MainSummonerVC.swift in Sources */,
+				6E7ED7EB24BF76D900A2901D /* UserRankingCustomCell.swift in Sources */,
 				C7AE00B224BD8C320036DFEA /* UserRankingVC.swift in Sources */,
+				6E7ED7E924BEFFAA00A2901D /* UserRankingView.swift in Sources */,
 				C7599A8F24BEC0DB00F3D32C /* LoginView.swift in Sources */,
 				7ECB87F324BDCD5900255804 /* UIColorExtension.swift in Sources */,
 				7E4AA19E24C1426B00A9DC25 /* MainFooterCollectionReusableView.swift in Sources */,
