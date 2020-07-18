@@ -107,6 +107,10 @@ class SelectCharVC: UIViewController {
     
     let nowDate = Int(NSDate().timeIntervalSince1970)
     
+    if selectCharName == "Random" {
+      selectCharName = "ahri"
+    }
+    
     let value = [User.nickName: nickName,
                  User.selectCharctor: selectCharName,
                  User.warkingStatus: userData.warkingStatus,

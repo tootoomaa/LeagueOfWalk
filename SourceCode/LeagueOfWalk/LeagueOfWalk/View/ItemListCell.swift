@@ -13,6 +13,16 @@ class ItemListCell: UICollectionViewCell {
   // MARK: - Properties
   static let identifier = "ItemListCell"
   
+  var itemData: Item? {
+    didSet {
+      guard let itemData = itemData else { return }
+      
+      itemImageView.image = UIImage(named: itemData.index)
+      itemNameLabel.text = itemData.name
+      
+    }
+  }
+  
   let itemImageView: UIImageView = {
     let imageView = UIImageView()
     imageView.image = UIImage(named: "3384") //3384
@@ -25,7 +35,7 @@ class ItemListCell: UICollectionViewCell {
   let itemNameLabel: UILabel = {
     let label = UILabel()
     label.text = "삼위일체"
-    label.font = .boldSystemFont(ofSize: 20)
+    label.font = .boldSystemFont(ofSize: 13)
     label.textColor = CommonUI.edgeColor
     label.textAlignment = .center
     label.backgroundColor = .darkGray

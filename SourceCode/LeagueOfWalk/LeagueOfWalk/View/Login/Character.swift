@@ -8,12 +8,6 @@
 
 import Foundation
 
-class Character {
-  
-  
-}
-
-
 let characterDic: [String:[String:String]] = [
   "Garen":
     ["charInfo": "이 영웅은 강력한 체력을 바탕으로 끝임없이 걷습니다.",
