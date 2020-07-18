@@ -253,10 +253,27 @@ extension MainSummonerVC {
           if let count = statistics.sumQuantity() {
             let val = count.doubleValue(for: HKUnit.count())
             print("오늘 총 걸음 : \(val)걸음")
+            self.sendWalkData(walkValue: val)
           }
         }
       }
     }
     healthStore.execute(query)
+  }
+  
+  func sendWalkData(walkValue val: Double) {
+    guard let uid = Auth.auth().currentUser?.uid else { return }
+    let walkingStatus = val
+    
+    let value = [User.walkingStatus: walkingStatus] as [String: Any]
+    
+    Database.database().reference().child("users").child(uid).updateChildValues(value) { (error, databaseReferece) in
+      if let error = error {
+        print("error", error.localizedDescription)
+        return
+      } else {
+        print("Success Saved Data")
+      }
+    }
   }
 }

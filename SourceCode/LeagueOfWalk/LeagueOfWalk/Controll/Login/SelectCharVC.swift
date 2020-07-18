@@ -109,7 +109,7 @@ class SelectCharVC: UIViewController {
     
     let value = [User.nickName: nickName,
                  User.selectCharctor: selectCharName,
-                 User.warkingStatus: userData.warkingStatus,
+                 User.walkingStatus: userData.walkingStatus,
                  User.signupDate: nowDate] as [String : Any]
     
     Database.database().reference().child("users").child(uid).updateChildValues(value) { (error, databaseReferece) in

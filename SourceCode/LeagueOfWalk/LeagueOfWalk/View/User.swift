@@ -12,13 +12,13 @@ class User {
   static let userId = "userId"
   static let nickName = "nickName"
   static let selectCharctor = "selectCharactor"
-  static let warkingStatus = "warkingStatus"
+  static let walkingStatus = "warkingStatus"
   static let signupDate = "signupDate"
   
   var uid: String!
   var nickName: String!
   var selectCharactor: String!
-  var warkingStatus: Int = 0
+  var walkingStatus: Double = 0.0
   var signupDate: Int!
   
   init(uid:String, dictionary: Dictionary<String, AnyObject> ) {
@@ -34,6 +34,10 @@ class User {
     
     if let signupDate = dictionary["signupDate"] as? Int {
       self.signupDate = signupDate
+    }
+    
+    if let walkingStatus = dictionary["walkingStatus"] as? Double {
+      self.walkingStatus = walkingStatus
     }
   }
 }
