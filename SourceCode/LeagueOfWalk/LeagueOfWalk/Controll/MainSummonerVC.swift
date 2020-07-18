@@ -51,6 +51,9 @@ class MainSummonerVC: UIViewController {
     
     fetchUserSignupDate()
     
+    // HealthKit 인증
+    authorizeHealthKit()
+    
     setUI()
   }
   
@@ -203,11 +206,13 @@ extension MainSummonerVC: UICollectionViewDelegateFlowLayout {
   }
 }
 
+// MARK: - Relate HealthKit
+
 extension MainSummonerVC {
   // HelthKit 인증
   func authorizeHealthKit() {
-    let read = Set([HKObjectType.quantityType(forIdentifier: .heartRate)!, HKObjectType.quantityType(forIdentifier: .stepCount)!])
-    let share = Set([HKObjectType.quantityType(forIdentifier: .heartRate)!, HKObjectType.quantityType(forIdentifier: .stepCount)!])
+    let read = Set([HKObjectType.quantityType(forIdentifier: .stepCount)!])
+    let share = Set([HKObjectType.quantityType(forIdentifier: .stepCount)!])
     healthStore.requestAuthorization(toShare: share, read: read) { (chk, error) in
       if chk {
         print("Permission granted")
@@ -217,6 +222,42 @@ extension MainSummonerVC {
     }
   }
   
+  // MARK: - Today Total Step Count
   
-  
+  func getTodayTotalStepCount() {
+    // HKSampleType
+    guard let smapleType = HKObjectType.quantityType(forIdentifier: .stepCount) else { return }
+    // 시작과 종료
+    let startDate = Calendar.current.startOfDay(for: Date())
+    let dateFormatter = DateFormatter()
+    dateFormatter.locale = Locale(identifier: "ko_kr")
+    dateFormatter.timeZone = TimeZone(abbreviation: "KST") // "2018-03-21 18:07:27"
+    dateFormatter.dateFormat = "yyyy년 MM월 dd일"
+    let krDate = dateFormatter.string(from: startDate)
+    print("asdfasdfasdfasdf", krDate)
+    // NSPredicate
+    let predicate = HKQuery.predicateForSamples(withStart: startDate, end: Date(), options: .strictStartDate)
+    var intervar = DateComponents()
+    intervar.day = 1
+    
+    let query = HKStatisticsCollectionQuery(
+      quantityType: smapleType,
+      quantitySamplePredicate: predicate,
+      options: .cumulativeSum,
+      anchorDate: startDate,
+      intervalComponents: intervar
+    )
+    query.initialResultsHandler = { (sample, result, error) in
+      
+      if let myResult = result {
+        myResult.enumerateStatistics(from: startDate, to: Date()) { (statistics, value) in
+          if let count = statistics.sumQuantity() {
+            let val = count.doubleValue(for: HKUnit.count())
+            print("오늘 총 걸음 : \(val)걸음")
+          }
+        }
+      }
+    }
+    healthStore.execute(query)
+  }
 }
