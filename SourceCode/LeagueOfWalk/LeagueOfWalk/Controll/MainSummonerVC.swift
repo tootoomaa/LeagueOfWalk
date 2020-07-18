@@ -217,7 +217,6 @@ extension MainSummonerVC {
       if chk {
         print("Permission granted")
         self.getTodayTotalStepCount()
-        
       }
     }
   }
@@ -234,7 +233,7 @@ extension MainSummonerVC {
     dateFormatter.timeZone = TimeZone(abbreviation: "KST") // "2018-03-21 18:07:27"
     dateFormatter.dateFormat = "yyyy년 MM월 dd일"
     let krDate = dateFormatter.string(from: startDate)
-    print("asdfasdfasdfasdf", krDate)
+    print("Date :", krDate)
     // NSPredicate
     let predicate = HKQuery.predicateForSamples(withStart: startDate, end: Date(), options: .strictStartDate)
     var intervar = DateComponents()
