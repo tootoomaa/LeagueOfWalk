@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class PopItemVC: UIViewController {
   
@@ -14,6 +15,15 @@ class PopItemVC: UIViewController {
   var itemButton:UIButton?
   var originX:CGFloat?
   var originY:CGFloat?
+  var itemData:Item? {
+    didSet {
+      guard let itemData = itemData else { return }
+      itemImageView.image = UIImage(named: itemData.index)
+      itemNameLabel.text = itemData.name
+    }
+  }
+  
+
   
   let titleLabel: UILabel = {
     let label = UILabel()
@@ -65,7 +75,6 @@ class PopItemVC: UIViewController {
     view.backgroundColor = CommonUI.edgeColor
     return view
   }()
-
   
   // MARK: - Init
   override func viewDidLoad() {
@@ -73,19 +82,13 @@ class PopItemVC: UIViewController {
     
     view.backgroundColor = .clear
     
-    
     configureAutoLayoyut()
   }
   
   private func configureAutoLayoyut() {
     
-    //    let viewWidth = view.frame.size.width
-    //    let ratio = viewWidth / view.frame.size.height // 현재 기기의 비율
-    
     view.layoutMargins = UIEdgeInsets.init(top: 190, left: 80, bottom: 190, right: 80)
     let marginGuide = view.layoutMarginsGuide
-    //
-    let safeGuide = view.safeAreaLayoutGuide
     
     [itemaBackgroundView].forEach{
       view.addSubview($0)
@@ -116,7 +119,8 @@ class PopItemVC: UIViewController {
       
       okButton.topAnchor.constraint(equalTo: itemImageView.bottomAnchor),
       okButton.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor),
-      okButton.heightAnchor.constraint(equalTo: itemNameLabel.heightAnchor, multiplier: 1)
+      okButton.heightAnchor.constraint(equalTo: itemNameLabel.heightAnchor, multiplier: 1),
+      
     ])
     
   }
@@ -126,13 +130,30 @@ class PopItemVC: UIViewController {
   @objc func handleokButton(_ sender: UIButton) {
     
     guard let itemButton = self.itemButton,
+          let itemData = self.itemData,
            let originX = self.originX,
            let originY = self.originY else { return }
     
-//    itemButton.center.x = originX
-//    itemButton.center.y = originY + 150
+    guard let uid = Auth.auth().currentUser?.uid,
+          let itemIndex = itemData.index else { return }
+  
     
-    print("tap handle ok Button")
+    // 뽑은 아이탬 DB 저장
+    USER_ITEM_REF.child(uid).observeSingleEvent(of: .value) { (snapshot) in
+      
+      guard let userItemList = snapshot.value as? [String: Int] else { return }
+      
+      if userItemList.keys.contains(itemData.index) {
+        // 기존 보유 아이탬 수량 +1
+        guard let itemCount = userItemList[itemData.index] else { return }
+        USER_ITEM_REF.child(uid).updateChildValues([itemIndex:itemCount+1])
+      } else {
+        // 새로 뽑은 아이탬 수량 추가
+        USER_ITEM_REF.child(uid).updateChildValues([itemIndex:1])
+      }
+    }
+    
+    // 화면이 사라지며 아이탬 버튼 에니메이션 추가
     dismiss(animated: true) {
 
       UIView.animate(withDuration: 1) {
@@ -149,6 +170,4 @@ class PopItemVC: UIViewController {
       }
     }
   }
-  
-  
 }

@@ -18,6 +18,16 @@ class RandomItemVC: UIViewController {
   var itemDataList: [Item] = []
   var selectedItemList: [Item] = []
   
+  var itemPopCount: Int = 0 {
+    didSet {
+      if itemPopCount == 0 {
+        itemCountLabel.isHidden = true
+      } else {
+        itemCountLabel.isHidden = false
+      }
+    }
+  }
+  
   let collectionView: UICollectionView = {
     let layout = UICollectionViewFlowLayout()
     layout.scrollDirection = .vertical
@@ -41,17 +51,18 @@ class RandomItemVC: UIViewController {
     button.backgroundColor = .clear
     return button
   }()
-  
-  lazy var whiteVIew: UIView = {
-    let tempview = UIView()
-    tempview.backgroundColor = .white
-    tempview.alpha = 0.5
-    return tempview
+
+  let itemCountLabel: UILabel = {
+    let label = UILabel()
+    label.font = .boldSystemFont(ofSize: 8)
+    label.backgroundColor = .red
+    label.layer.cornerRadius = 7
+    label.layer.masksToBounds = true
+    return label
   }()
+
   
   // MARK: - Tamp Properties
-  
-  let userHaveItemPopCount = 5
   
   let arrayCount:CGFloat = 4
   
@@ -68,6 +79,7 @@ class RandomItemVC: UIViewController {
     super.viewDidLoad()
     
 //    configureNavi()
+    itemPopCount = 3
     
     configureItemData()
     
@@ -82,6 +94,9 @@ class RandomItemVC: UIViewController {
     logoutButton.frame = CGRect(x: 200, y: 200, width: 200, height: 200)
     
     configureItemPop()
+    
+    guard let uid = Auth.auth().currentUser?.uid else { return }
+    Database.fetchUserData(uid: uid)
    
   }
   
@@ -123,7 +138,9 @@ class RandomItemVC: UIViewController {
   private func configureAutoLayout() {
     
     view.layoutMargins = UIEdgeInsets.init(top: 0, left: Standard.padding, bottom: Standard.padding, right: Standard.padding)
+    
     let marginGuide = view.layoutMarginsGuide
+    
     [collectionView].forEach{
       view.addSubview($0)
       $0.translatesAutoresizingMaskIntoConstraints = false
@@ -135,6 +152,7 @@ class RandomItemVC: UIViewController {
       
       collectionView.topAnchor.constraint(equalTo: marginGuide.topAnchor),
       collectionView.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor),
+      
     ])
     
   }
@@ -144,18 +162,28 @@ class RandomItemVC: UIViewController {
     itemPopButton.addTarget(self, action: #selector(handlerTabItemBox(_:)), for: .touchUpInside)
     
     let safeGuide = view.safeAreaLayoutGuide
-    view.addSubview(itemPopButton)
-    itemPopButton.translatesAutoresizingMaskIntoConstraints = false
+    
+    [itemPopButton, itemCountLabel].forEach{
+      view.addSubview($0)
+      $0.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    [itemCountLabel].forEach{
+      itemPopButton.addSubview($0)
+      $0.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
     NSLayoutConstraint.activate([
       itemPopButton.bottomAnchor.constraint(equalTo: safeGuide.bottomAnchor, constant: -Standard.padding),
       itemPopButton.trailingAnchor.constraint(equalTo: safeGuide.trailingAnchor, constant: -Standard.padding),
       itemPopButton.widthAnchor.constraint(equalToConstant: 80),
-      itemPopButton.heightAnchor.constraint(equalToConstant: 80)
+      itemPopButton.heightAnchor.constraint(equalToConstant: 80),
+      
+      itemCountLabel.topAnchor.constraint(equalTo: itemPopButton.topAnchor, constant: -10),
+      itemCountLabel.trailingAnchor.constraint(equalTo: itemPopButton.trailingAnchor, constant: +10),
+      itemCountLabel.widthAnchor.constraint(equalToConstant: 15),
+      itemCountLabel.heightAnchor.constraint(equalToConstant: 15)
     ])
-  
-    view.addSubview(whiteVIew)
-    whiteVIew.frame = CGRect(x: self.view.center.x, y: self.view.center.y, width: 0.1, height: 0.1)
-    
   }
   
   
@@ -181,7 +209,10 @@ class RandomItemVC: UIViewController {
   @objc func handlerTabItemBox(_ sender: UIButton) {
     let random: CGFloat = CGFloat(drand48()) - 0.5
     
-    if userHaveItemPopCount == 0 {
+    // 아이템 뽑기 가능 빨간 점 숨김
+    itemCountLabel.isHidden = true
+    
+    if itemPopCount == 0 {
       // 아이탬을 뽑을 기회가 없는 경우 에니메이션
       UIView.animate(withDuration: 0.4) {
         UIView.animateKeyframes(withDuration: 0.25, delay: 0, animations: {
@@ -200,7 +231,7 @@ class RandomItemVC: UIViewController {
         })
       }
     } else {
-      
+      // 아이탬 뽑기 에니메이션
       let originX = itemPopButton.center.x
       let originY = itemPopButton.center.y
       let gapX = (originX - view.center.x)/4
@@ -239,9 +270,10 @@ class RandomItemVC: UIViewController {
             popItemVC.itemButton = self.itemPopButton
             popItemVC.originX = originX
             popItemVC.originY = originY
-            
+            popItemVC.itemData = self.itemDataList.randomElement()
             popItemVC.modalPresentationStyle = .overFullScreen
             self.present(popItemVC, animated: true, completion: {
+              self.itemPopCount -= 1
             })
           }
         }

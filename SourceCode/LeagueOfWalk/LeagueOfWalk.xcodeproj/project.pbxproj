@@ -26,6 +26,7 @@
 		90D1F299C7ACA4888B34EB23 /* Pods_LeagueOfWalk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B5CF1A1ED83BAC8171F9780 /* Pods_LeagueOfWalk.framework */; };
 		C71D70FC24C2B75200B76CD5 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71D70FB24C2B75200B76CD5 /* Item.swift */; };
 		C71D70FE24C3326500B76CD5 /* PopItemVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71D70FD24C3326500B76CD5 /* PopItemVC.swift */; };
+		C721899424C3ECD100B86F2C /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = C721899324C3ECD100B86F2C /* Database.swift */; };
 		C7599A8F24BEC0DB00F3D32C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7599A8E24BEC0DB00F3D32C /* LoginView.swift */; };
 		C7599A9324BEC10200F3D32C /* SignupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7599A9124BEC10200F3D32C /* SignupVC.swift */; };
 		C7599A9424BEC10200F3D32C /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7599A9224BEC10200F3D32C /* LoginVC.swift */; };
@@ -65,6 +66,7 @@
 		7ECB87FB24BE0DA900255804 /* MainSummonerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSummonerCollectionViewCell.swift; sourceTree = "<group>"; };
 		C71D70FB24C2B75200B76CD5 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Item.swift; path = LeagueOfWalk/View/Item.swift; sourceTree = SOURCE_ROOT; };
 		C71D70FD24C3326500B76CD5 /* PopItemVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopItemVC.swift; sourceTree = "<group>"; };
+		C721899324C3ECD100B86F2C /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		C7599A8E24BEC0DB00F3D32C /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		C7599A9124BEC10200F3D32C /* SignupVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupVC.swift; sourceTree = "<group>"; };
 		C7599A9224BEC10200F3D32C /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 				7ECB87F224BDCD5900255804 /* UIColorExtension.swift */,
 				7E5A939C24C0401200419118 /* UIViewControllerExtension.swift */,
 				7E5A939E24C0424300419118 /* UIViewExtension.swift */,
+				C721899324C3ECD100B86F2C /* Database.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -393,6 +396,7 @@
 				C7660BE424BFD7CB00690A78 /* Character.swift in Sources */,
 				7E573A7124C09EB6005BF89E /* ProgressView.swift in Sources */,
 				C7599A9B24BF38EA00F3D32C /* SelectCharView.swift in Sources */,
+				C721899424C3ECD100B86F2C /* Database.swift in Sources */,
 				C7599A9624BEDCC000F3D32C /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
