@@ -13,7 +13,8 @@ class UserRankingVC: UIViewController {
     
   
     // MARK: - Properties
-    var userRankLocationInArray:Int = 0
+    var userRankLocationInArray: Int = 0
+    var setUserRankLocation: Bool = false
   
     var userDatas: [User] = [] {
       didSet {
@@ -54,8 +55,6 @@ class UserRankingVC: UIViewController {
         setView()
       
         setTable()
-      
-//      rankingTable.scrollToRow(at: IndexPath.init(row: userRankLocationInArray, section: 0), at: .middle, animated: false)
     }  
   
   private func fetchAllUserData() {
@@ -216,8 +215,21 @@ extension UserRankingVC: UITableViewDelegate {
     } else {
       cell.layer.borderColor = UIColor.clear.cgColor
     }
+    
+    // 최소 실행시 사용자의 랭킹 위치로 테이블 cell 이동
+    if setUserRankLocation == false {
+      if let lastVisibleIndexPath = tableView.indexPathsForVisibleRows?.last {
+          if indexPath == lastVisibleIndexPath {
+              rankingTable.scrollToRow(
+                at: IndexPath.init(row: userRankLocationInArray, section: 0),
+                at: .middle,
+                animated: false
+              )
+            setUserRankLocation = true
+          }
+      }
+    }
   }
-  
 }
 
 
