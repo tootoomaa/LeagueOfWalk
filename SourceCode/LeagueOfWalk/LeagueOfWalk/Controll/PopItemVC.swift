@@ -87,7 +87,7 @@ class PopItemVC: UIViewController {
   
   private func configureAutoLayoyut() {
     
-    view.layoutMargins = UIEdgeInsets.init(top: 190, left: 80, bottom: 190, right: 80)
+    view.layoutMargins = UIEdgeInsets.init(top: 230, left: 100, bottom: 230, right: 100)
     let marginGuide = view.layoutMarginsGuide
     
     [itemaBackgroundView].forEach{

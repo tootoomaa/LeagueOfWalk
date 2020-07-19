@@ -10,6 +10,15 @@ import UIKit
 
 class UserRankingView: UIView {
     
+    var userData: User? {
+      didSet {
+        guard let userData = userData else { return }
+        nameLabel.text = userData.nickName
+        scoreLabel.text = "score: \(userData.warkingStatus)"
+        userImage.image = UIImage(named: userData.selectCharactor)
+      }
+    }
+  
     let containerView = UIView()
     
     let rankLabel = UILabel()

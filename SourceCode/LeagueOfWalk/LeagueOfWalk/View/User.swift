@@ -35,5 +35,9 @@ class User {
     if let signupDate = dictionary["signupDate"] as? Int {
       self.signupDate = signupDate
     }
+    
+    if let warkingStatus = dictionary["warkingStatus"] as? Int {
+      self.warkingStatus = warkingStatus
+    }
   }
 }

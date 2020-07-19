@@ -7,9 +7,33 @@
 //
 
 import UIKit
+import Firebase
 
 class UserRankingVC: UIViewController {
     
+  
+    // MARK: - Properties
+    var userRankLocationInArray:Int = 0
+  
+    var userDatas: [User] = [] {
+      didSet {
+        // 사용자 순위 Cell 커스터 마이즈를 위한 등수 저장
+        guard let uid = Auth.auth().currentUser?.uid else { fatalError() }
+        for index in 0..<userDatas.count {
+          if userDatas[index].uid == uid {
+            userRankLocationInArray = index
+          }
+        }
+      }
+    }
+  
+    enum tier: String {
+      case first = "platinum_5"
+      case second = "diamond_5"
+      case third = "gold_5"
+      case etc = "bronze_5"
+    }
+  
     let backgroundView = UIImageView()
     
     let rank1stView = UserRankingView()
@@ -24,10 +48,36 @@ class UserRankingVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+      
+        fetchAllUserData()
+      
         setView()
+      
         setTable()
-    }
+      
+//      rankingTable.scrollToRow(at: IndexPath.init(row: userRankLocationInArray, section: 0), at: .middle, animated: false)
+    }  
+  
+  private func fetchAllUserData() {
+    Database.database().reference().child("users").observeSingleEvent(of: .value, with: { (snapshot) in
+      
+      guard let allUserData = snapshot.value as? Dictionary<String, AnyObject> else { return }
+      
+      for sigleUserData in allUserData {
+        guard let userDetailData = sigleUserData.value as? Dictionary<String, AnyObject> else { return }
+        let userData = User.init(uid: sigleUserData.key, dictionary: userDetailData)
+        // 사용자 데이터 추가
+        self.userDatas.append(userData)
+        
+        // 내림차순 정렬
+        self.userDatas.sort { (user1, user2) -> Bool in
+          user1.warkingStatus > user2.warkingStatus
+        }
+        
+        self.rankingTable.reloadData()
+      }
+    })
+  }
     
     // MARK: - Layout Subview
     
@@ -58,10 +108,7 @@ class UserRankingVC: UIViewController {
         ])
         
         rank1stView.rankLabel.text = "1 위"
-        rank1stView.nameLabel.text = "이름"
-        rank1stView.userImage.image = UIImage(named: "ashe")
-        rank1stView.tierImage.image = UIImage(named: "platinum_5")
-        rank1stView.scoreLabel.text = "score: 10000"
+        rank1stView.tierImage.image = UIImage(named: tier.first.rawValue)
         view.addSubview(rank1stView)
         
         rank1stView.translatesAutoresizingMaskIntoConstraints = false
@@ -73,10 +120,7 @@ class UserRankingVC: UIViewController {
         ])
         
         rank2stView.rankLabel.text = "2 위"
-        rank2stView.nameLabel.text = "이름2"
-        rank2stView.userImage.image = UIImage(named: "ahri")
-        rank2stView.tierImage.image = UIImage(named: "diamond_5")
-        rank2stView.scoreLabel.text = "score: 9999"
+        rank2stView.tierImage.image = UIImage(named: tier.second.rawValue)
         view.addSubview(rank2stView)
         
         rank2stView.translatesAutoresizingMaskIntoConstraints = false
@@ -89,10 +133,7 @@ class UserRankingVC: UIViewController {
         ])
         
         rank3stView.rankLabel.text = "3 위"
-        rank3stView.nameLabel.text = "이름3"
-        rank3stView.userImage.image = UIImage(named: "elise")
-        rank3stView.tierImage.image = UIImage(named: "gold_5")
-        rank3stView.scoreLabel.text = "score: 8888"
+        rank3stView.tierImage.image = UIImage(named: tier.third.rawValue)
         view.addSubview(rank3stView)
 
         rank3stView.translatesAutoresizingMaskIntoConstraints = false
@@ -113,6 +154,7 @@ class UserRankingVC: UIViewController {
         rankingTable.separatorColor = .systemYellow
         rankingTable.backgroundColor = .clear
         rankingTable.dataSource = self
+        rankingTable.delegate = self
         rankingTable.register(UserRankingCustomCell.self, forCellReuseIdentifier: UserRankingCustomCell.identifier)
         view.addSubview(rankingTable)
         
@@ -130,16 +172,52 @@ class UserRankingVC: UIViewController {
 
 extension UserRankingVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 100
+      return userDatas.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: UserRankingCustomCell.identifier, for: indexPath) as! UserRankingCustomCell
         cell.backgroundColor = .clear
+      
+        var imageString: String = ""
+        switch indexPath.row {
+        case 0:
+          imageString = tier.first.rawValue
+          rank1stView.userData = userDatas[indexPath.row]
+        case 1:
+          imageString = tier.second.rawValue
+          rank2stView.userData = userDatas[indexPath.row]
+        case 2:
+          imageString = tier.third.rawValue
+          rank3stView.userData = userDatas[indexPath.row]
+        default:
+          imageString = tier.etc.rawValue
+        }
+      
+        if indexPath.row == userRankLocationInArray {
+          cell.layer.borderWidth = 2
+          cell.layer.borderColor = CommonUI.edgeColor.cgColor
+        }
+      
         cell.rankLabel.text = "\(indexPath.row + 1) 위"
-        cell.nameLabel.text = "이름"
-        cell.scoreLabel.text = "score: 10000"
-        cell.tierImage.image = UIImage(named: "platinum_5")
+        cell.nameLabel.text = userDatas[indexPath.row].nickName
+        cell.scoreLabel.text = "scroe: \(userDatas[indexPath.row].warkingStatus)"
+        cell.tierImage.image = UIImage(named: imageString)
         return cell
     }
 }
+
+extension UserRankingVC: UITableViewDelegate {
+  func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    
+    if indexPath.row == userRankLocationInArray {
+      cell.layer.borderWidth = 2
+      cell.layer.borderColor = CommonUI.edgeColor.cgColor
+    } else {
+      cell.layer.borderColor = UIColor.clear.cgColor
+    }
+  }
+  
+}
+
+
