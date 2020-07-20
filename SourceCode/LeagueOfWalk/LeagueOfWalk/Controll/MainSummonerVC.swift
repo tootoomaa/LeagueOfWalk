@@ -56,6 +56,7 @@ class MainSummonerVC: UIViewController {
     
     fetchUserWalkData()
     
+
     setUI()
   }
   
@@ -63,7 +64,6 @@ class MainSummonerVC: UIViewController {
   
   private func setUI() {
     view.backgroundColor = CommonUI.backgroundColor
-    
     navigationSettings()
     setCollectionView()
     collectionView.dataSource = self
