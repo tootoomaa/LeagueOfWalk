@@ -12,6 +12,10 @@ import Firebase
 class RandomItemVC: UIViewController {
   
   // MARK: - Properties
+  
+  var myItemCheck: Bool = false
+  var userItemList: [String] = []
+  
   // original 아이템 리스트
   var itemDataList: [Item] = []
   
@@ -71,7 +75,13 @@ class RandomItemVC: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    configureJSONParsing()
+    if myItemCheck == false {
+      print("AllItem")
+      configureJSONParsing()
+    } else {
+      print("userItem")
+      fetchUserItem()
+    }
 //    configureNavi()
     itemPopCount = 2
     
@@ -83,6 +93,23 @@ class RandomItemVC: UIViewController {
     
     configureItemPop()
    
+  }
+  
+  // MARK: - fetch data
+  
+  func fetchUserItem() {
+    
+    guard let uid = Auth.auth().currentUser?.uid else { return }
+    Database.database().reference().child("user-items").child(uid).observeSingleEvent(of: .value) { (snapshot) in
+      
+      guard let value = snapshot.value as? Dictionary<String, AnyObject> else { return }
+      
+      for index in value.keys {
+        self.userItemList.append(String(index))
+      }
+      
+      print(self.userItemList)
+    }
   }
   
   func configureJSONParsing() {
@@ -342,7 +369,7 @@ extension RandomItemVC: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     if fileredOn {
       return fileteredItemData.count
-    }
+    } 
     
     return itemDataList.count
     

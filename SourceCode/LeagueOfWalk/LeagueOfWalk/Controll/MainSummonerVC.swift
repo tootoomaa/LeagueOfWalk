@@ -114,12 +114,10 @@ class MainSummonerVC: UIViewController {
   func fetchUserSignupDate() {
     if let uid = Auth.auth().currentUser?.uid {
       Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value) { (snapshot) in
-        print(snapshot)
         
         guard let dictionary = snapshot.value as? Dictionary<String, AnyObject> else { return }
         
         let user = User.init(uid: uid, dictionary: dictionary)
-        print(user)
       }
     }
   }

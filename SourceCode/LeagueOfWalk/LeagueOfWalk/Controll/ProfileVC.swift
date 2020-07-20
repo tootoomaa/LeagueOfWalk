@@ -202,3 +202,19 @@ extension ProfileVC: UICollectionViewDelegateFlowLayout {
         return CGSize(width: size, height: size)
     }
 }
+
+extension ProfileVC: UICollectionViewDelegate {
+  
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    
+    if indexPath.item == 3 {
+      
+      let randomItemVC = RandomItemVC()
+      randomItemVC.myItemCheck = true
+      navigationController?.pushViewController(randomItemVC, animated: true)
+    }
+    
+    
+  }
+  
+}

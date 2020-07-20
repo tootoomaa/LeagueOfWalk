@@ -19,12 +19,12 @@ class ItemListCell: UICollectionViewCell {
       guard let itemData = itemData else { return }
       
       // 아이탬 이름의 길이 확인
-      let stringWidth = itemData.name.widthOfString(usingFont: UIFont.boldSystemFont(ofSize: 13))
-      
-      // cell의 넒이보다 큰 경우 10포인트 조절
-      if contentView.frame.width < stringWidth {
-        itemNameLabel.font = .boldSystemFont(ofSize: 10)
-      }
+//      let stringWidth = itemData.name.widthOfString(usingFont: UIFont.boldSystemFont(ofSize: 13))
+//      
+//      // cell의 넒이보다 큰 경우 10포인트 조절
+//      if contentView.frame.width < stringWidth {
+//        itemNameLabel.font = .boldSystemFont(ofSize: 10)
+//      }
       
       // 이름 적용
       itemNameLabel.text = itemData.name
