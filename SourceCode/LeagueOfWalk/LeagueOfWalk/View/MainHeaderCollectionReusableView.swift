@@ -11,6 +11,7 @@ import SnapKit
 
 class MainHeaderCollectionReusableView: UICollectionReusableView {
   
+  let cell = MainSummonerCollectionViewCell()
   static let identifier = "MainHeaderCollectionReusableView"
   var count = 0
   var ments: String? {
@@ -90,42 +91,41 @@ class MainHeaderCollectionReusableView: UICollectionReusableView {
   
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     super.touchesBegan(touches, with: event)
-    
-    switch count {
-    case 0...3:
-      didTabEggRotatedAnimation()
-      ments = "방금 알이 움직인건가요?"
-    case 4...12:
-      didTabEggRotatedAnimation()
-      ments = "무엇인가 안에서 움직이고 있네요 !!"
-    case 12...19:
-      didTabEggRotatedAnimation()
-      didTabEggShakeAnimation()
-      ments = "움직임이 커졌네요 !!"
-    case 19...26:
-      didTabEggRotatedAnimation()
-      didTabEggShakeAnimation()
-      ments = "곧 무엇인가 밖으로 나올것 같아요 !!"
-    default:
-      count = 0
-      heroImageView.contentMode = .scaleAspectFill
-      heroImageView.clipsToBounds = true
-      
-      let popup = PopupView()
-      popup.imageString = ["1-1", "1-2", "1-3", "2-1", "2-2", "2-3", "3-1", "3-2", "3-3", "4-1", "4-2", "4-3", "5-1", "5-2", "5-3", " 6-1", "6-2", "6-3"].randomElement()
-      pet = popup.imageString
-      superview?.addSubview(popup)
-      
+    if UserDefaults.standard.bool(forKey: "fullProgress") {
+      // progress 100%
+      switch count {
+      case 0...3:
+        didTabEggRotatedAnimation()
+        ments = "방금 알이 움직인건가요?"
+      case 4...12:
+        didTabEggRotatedAnimation()
+        ments = "무엇인가 안에서 움직이고 있네요 !!"
+      case 12...19:
+        didTabEggRotatedAnimation()
+        didTabEggShakeAnimation()
+        ments = "움직임이 커졌네요 !!"
+      case 19...26:
+        didTabEggRotatedAnimation()
+        didTabEggShakeAnimation()
+        ments = "곧 무엇인가 밖으로 나올것 같아요 !!"
+      default:
+        count = 0
+        heroImageView.contentMode = .scaleAspectFill
+        heroImageView.clipsToBounds = true
+        mentsHidden?.toggle()
+        
+        let popup = PopupView()
+        popup.imageString = ["1-1", "1-2", "1-3", "2-1", "2-2", "2-3", "3-1", "3-2", "3-3", "4-1", "4-2", "4-3", "5-1", "5-2", "5-3", " 6-1", "6-2", "6-3"].randomElement()
+        pet = popup.imageString
+        UserDefaults.standard.set(false, forKey: "fullProgress")
+        UserDefaults.standard.set(0, forKey: "walkingStatus")
+        cell.progressView.progress = 0.0
+        superview?.addSubview(popup)
+      }
+      count += 1
+      print(count)
     }
-    
-    count += 1
-    print(count)
-    
   }
-  
-  
-  
-  
   
   private func didTabEggRotatedAnimation() {
     let random: CGFloat = CGFloat(drand48()) - 0.5

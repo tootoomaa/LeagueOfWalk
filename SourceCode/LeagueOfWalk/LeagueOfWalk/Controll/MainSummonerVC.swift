@@ -12,7 +12,7 @@ import Firebase
 import HealthKit
 
 class MainSummonerVC: UIViewController {
-  
+  var temp = 0
   let testData = ["Level"]
   let healthStore = HKHealthStore()
   
@@ -56,8 +56,12 @@ class MainSummonerVC: UIViewController {
     
     fetchUserWalkData()
     
-
     setUI()
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(true)
+    self.collectionView.reloadData()
   }
   
   // MARK: - Layout
@@ -67,7 +71,8 @@ class MainSummonerVC: UIViewController {
     navigationSettings()
     setCollectionView()
     collectionView.dataSource = self
-    collectionView.delegate = self 
+    collectionView.delegate = self
+    
     
     view.addSubview(collectionView)
     collectionView.snp.makeConstraints {
@@ -157,15 +162,11 @@ extension MainSummonerVC: UICollectionViewDataSource {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainSummonerCollectionViewCell.identifier, for: indexPath) as! MainSummonerCollectionViewCell
     
     cell.item = testData[indexPath.item]
-    
-    cell.progressValue = CGFloat(UserDefaults.standard.double(forKey: "walkingStatus") / 1000)
+    cell.progressValue = CGFloat(temp / 1000)
     
     if (UserDefaults.standard.double(forKey: "walkingStatus") >= 1000) {
-      // 프로그레스가 가득 찰시 실행코드 알 이벤트 실행
-      //      let popup = PopupView()
-      //      popup.imageString = ["1-1", "1-2", "1-3", "2-1", "2-2", "2-3", "3-1", "3-2", "3-3", "4-1", "4-2", "4-3", "5-1", "5-2", "5-3", " 6-1", "6-2", "6-3"].randomElement()
-      //
-      //      view.addSubview(popup)
+      UserDefaults.standard.set(true, forKey: "fullProgress")
+      
     }
     return cell
   }
@@ -186,6 +187,7 @@ extension MainSummonerVC: UICollectionViewDelegateFlowLayout {
         ) as! MainHeaderCollectionReusableView
       if (UserDefaults.standard.double(forKey: "walkingStatus") >= 1000) {
         header.mentsHidden = false
+        header.pet = UserDefaults.standard.string(forKey: "petImage")
       }
       
       if let eggImage = UserDefaults.standard.string(forKey: "petImage") {
@@ -243,12 +245,13 @@ extension MainSummonerVC {
   // MARK: - Today Total Step Count
   
   func getTodayTotalStepCount() {
+    
     // HKSampleType
     guard let smapleType = HKObjectType.quantityType(forIdentifier: .stepCount) else { return }
     // 시작과 종료
     let date = NSDate(timeIntervalSince1970: (UserDefaults.standard.double(forKey: "signupDate"))) as Date
-    let startDate = date
-    print("===================", startDate)
+    
+    let startDate = Calendar.current.startOfDay(for: date)
     let dateFormatter = DateFormatter()
     dateFormatter.locale = Locale(identifier: "ko_kr")
     dateFormatter.timeZone = TimeZone(abbreviation: "KST") // "2018-03-21 18:07:27"
@@ -273,11 +276,13 @@ extension MainSummonerVC {
         myResult.enumerateStatistics(from: startDate, to: Date()) { (statistics, value) in
           if let count = statistics.sumQuantity() {
             let val = count.doubleValue(for: HKUnit.count())
-            print("오늘 총 걸음 : \(val)걸음")
-            self.sendWalkData(walkValue: val)
+            print("하루당 걸음 횟수 : \(val)걸음")
+            self.temp = Int(val)
           }
         }
       }
+      self.sendWalkData(walkValue: Double(self.temp))
+      print("총 걸음 : ", self.temp)
     }
     healthStore.execute(query)
   }
@@ -313,7 +318,6 @@ extension MainSummonerVC {
         
         UserDefaults.standard.set(user.walkingStatus ?? 0, forKey: "walkingStatus")
         UserDefaults.standard.set(user.signupDate, forKey: "signupDate")
-        print("nsDate :", NSDate(timeIntervalSince1970: Double(user.signupDate)))
       }
     }
   }  
