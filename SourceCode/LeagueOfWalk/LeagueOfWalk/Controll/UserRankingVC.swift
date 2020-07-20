@@ -36,6 +36,7 @@ class UserRankingVC: UIViewController {
     }
   
     let backgroundView = UIImageView()
+    let titleLabel =  UILabel()
     
     let rank1stView = UserRankingView()
     let rank2stView = UserRankingView()
@@ -95,6 +96,18 @@ class UserRankingVC: UIViewController {
     // MARK: - Set Ranking View
     
     func setView(){
+        
+        navigationItem.titleView = NavigationBarView(
+            frame: .zero,
+            title: CommonUI.NavigationBarTitle.rankingVC.rawValue
+        )
+        
+        let naviBar = self.navigationController?.navigationBar
+        naviBar?.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        naviBar?.shadowImage = UIImage()
+        naviBar?.isTranslucent = true
+        naviBar?.backgroundColor = UIColor.clear
+        
         backgroundView.image = UIImage(named: "RankingBack")
         view.addSubview(backgroundView)
         
@@ -112,7 +125,7 @@ class UserRankingVC: UIViewController {
         
         rank1stView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            rank1stView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
+            rank1stView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             rank1stView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             rank1stView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.3),
             rank1stView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.38)
@@ -127,8 +140,8 @@ class UserRankingVC: UIViewController {
             rank2stView.topAnchor.constraint(equalTo: rank1stView.bottomAnchor, constant: 40),
             rank2stView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor,
                                                   constant: -(view.frame.width/2 - (view.frame.width * 0.31))/2),
-            rank2stView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.23),
-            rank2stView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.31)
+            rank2stView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.25),
+            rank2stView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.33)
         ])
         
         rank3stView.rankLabel.text = "3 위"
@@ -140,8 +153,8 @@ class UserRankingVC: UIViewController {
             rank3stView.topAnchor.constraint(equalTo: rank1stView.bottomAnchor, constant: 40),
             rank3stView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor,
                                                   constant: (view.frame.width/2 - (view.frame.width * 0.31))/2),
-            rank3stView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.23),
-            rank3stView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.31)
+            rank3stView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.25),
+            rank3stView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.33)
         ])
     }
     
@@ -175,7 +188,8 @@ extension UserRankingVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: UserRankingCustomCell.identifier, for: indexPath) as! UserRankingCustomCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: UserRankingCustomCell.identifier,
+                                                 for: indexPath) as! UserRankingCustomCell
         cell.backgroundColor = .clear
       
         var imageString: String = ""
