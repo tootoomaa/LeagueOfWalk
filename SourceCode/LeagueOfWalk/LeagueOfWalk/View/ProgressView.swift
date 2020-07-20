@@ -22,7 +22,12 @@ class ProgressView: UIView {
     didSet { setNeedsDisplay() }
   }
   
-  var progress: CGFloat = 0
+  var progress: CGFloat = 0  {
+    didSet {
+      let progressRect = CGRect(origin: .zero, size: CGSize(width: self.frame.width * progress, height: self.frame.height))
+      draw(progressRect)
+    }
+  }
   
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -59,12 +64,13 @@ class ProgressView: UIView {
   }
   
   override func draw(_ rect: CGRect) {
+    print(rect)
     backgroundMask.path = UIBezierPath(roundedRect: rect, cornerRadius: rect.height * 0.25).cgPath
     layer.mask = backgroundMask
     
-    let progressRect = CGRect(origin: .zero, size: CGSize(width: rect.width * progress, height: rect.height))
+//    let progressRect = CGRect(origin: .zero, size: CGSize(width: rect.width * progress, height: rect.height))
     
-    progressLayer.frame = progressRect
+    progressLayer.frame = rect
     progressLayer.backgroundColor = UIColor.black.cgColor
     
     gradientLayer.frame = rect

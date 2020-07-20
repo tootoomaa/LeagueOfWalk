@@ -37,6 +37,7 @@ class PopupView: UIView {
     )
     l.textColor = .white
     l.textAlignment = .center
+    l.numberOfLines = 2
     
     return l
   }()
@@ -73,7 +74,7 @@ class PopupView: UIView {
     
     popupView.snp.makeConstraints {
       $0.centerX.equalTo(self)
-      $0.centerY.equalTo(self).offset(-200)
+      $0.centerY.equalTo(self)
       $0.width.equalTo(self.frame.width / 1.25)
       $0.height.equalTo(self.frame.height / 2)
     }
