@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 import SnapKit
 
 class MainViewController: UIViewController {
@@ -14,6 +15,9 @@ class MainViewController: UIViewController {
   // MARK: - Properties
   
   var eggTabCount: Int = 0
+  
+  // 사용자 첫 로그인 확이
+  var initialization: Bool = true
   
   var progressValue: CGFloat = 0 {
     didSet {
@@ -74,20 +78,56 @@ class MainViewController: UIViewController {
     return sv
   }()
   
+  // MARK: - Inti
+  
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+//    UserDefaults.standard.set(true, forKey: "fullProgress")
+//    let imageString = "1-1"
+    
+//    UserDefaults.standard.set(false, forKey: "fullProgress")
+//    UserDefaults.standard.set(0, forKey: "walkingStatus")
+//    UserDefaults.standard.set(imageString, forKey: "summoner")
+    
+//    print(UserDefaults.standard.bool(forKey: "fullProgress"))
+//    print(UserDefaults.standard.string(forKey: "summoner"))
+    
+    configureInitialData()
+    
+    checkIfUserIsLoggedIn()
+    
+    checkIfUserSelectCharacter()
     
     configureTabGestureRecog()
     
     setUI()
   }
   
+  private func configureInitialData() {
+    
+    initialization = UserDefaults.standard.bool(forKey: "fullProgress")
+    print(initialization)
+    
+    if initialization == false {
+      if let summonerImageString = UserDefaults.standard.string(forKey: "summoner") {
+      
+        print(summonerImageString)
+        heroImageView.isUserInteractionEnabled = initialization
+        heroImageView.image = UIImage(named: summonerImageString)
+        mentLabel.text = ""
+      }
+    } else {
+      heroImageView.isUserInteractionEnabled = true
+      mentLabel.text = "터치하여 알을 부화하세요!"
+    }
+  }
+  
   private func configureTabGestureRecog() {
     
     let gestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tabHeroImage))
     heroImageView.addGestureRecognizer(gestureRecognizer)
-    heroImageView.isUserInteractionEnabled = true
-    
+//    heroImageView.isUserInteractionEnabled = true
   }
   
   private func setUI() {
@@ -98,9 +138,6 @@ class MainViewController: UIViewController {
     view.addSubview(mentLabel)
     
     view.bringSubviewToFront(progressView)
-    
-    // 초기 UI 셋팅
-    mentLabel.text = "터치하여 알을 부화하세요!"
     
     navigationSettings()
     
@@ -114,7 +151,6 @@ class MainViewController: UIViewController {
     }
     
     heroImageView.snp.makeConstraints {
-//      $0.top.trailing.leading.equalToSuperview()
       $0.height.equalTo(300)
     }
 
@@ -125,8 +161,6 @@ class MainViewController: UIViewController {
     }
 
     progressBackgroundView.snp.makeConstraints {
-//      $0.top.equalTo(mentLabel.snp.bottom)
-//      $0.trailing.leading.equalToSuperview()
       $0.height.equalTo(10)
     }
     
@@ -139,8 +173,6 @@ class MainViewController: UIViewController {
     }
 
     contentsView.snp.makeConstraints {
-//      $0.top.equalTo(progressView.snp.bottom).offset(10)
-//      $0.trailing.bottom.leading.equalToSuperview()
       $0.height.equalTo(view.frame.height / 4)
     }
   }
@@ -186,12 +218,16 @@ class MainViewController: UIViewController {
       heroImageView.contentMode = .scaleAspectFill
       heroImageView.clipsToBounds = true
       
+       let imageString: String = ["1-1", "1-2", "1-3", "2-1", "2-2", "2-3", "3-1", "3-2", "3-3", "4-1", "4-2", "4-3", "5-1", "5-2", "5-3", " 6-1", "6-2", "6-3"].randomElement()!
+      
+      UserDefaults.standard.set(false, forKey: "fullProgress")
+      UserDefaults.standard.set(0, forKey: "walkingStatus")
+      UserDefaults.standard.set(imageString, forKey: "summoner")
+      
       let popup = PopupView()
-      let imageString: String = ["1-1", "1-2", "1-3", "2-1", "2-2", "2-3", "3-1", "3-2", "3-3", "4-1", "4-2", "4-3", "5-1", "5-2", "5-3", " 6-1", "6-2", "6-3"].randomElement()!
       popup.imageString = imageString
       heroImageView.image = UIImage(named: popup.imageString!)
-//      UserDefaults.standard.set(false, forKey: "fullProgress")
-//      UserDefaults.standard.set(0, forKey: "walkingStatus")
+      
       mentLabel.text = ""
       heroImageView.isUserInteractionEnabled = false
       progressValue = CGFloat(0)
@@ -240,4 +276,35 @@ class MainViewController: UIViewController {
     })
   }
   
+ 
+  // MARK: - FireBase
+  func checkIfUserIsLoggedIn() {
+    DispatchQueue.main.async {
+      if Auth.auth().currentUser == nil {
+        let loginVC = LoginVC()
+        loginVC.modalPresentationStyle = .fullScreen
+        self.present(loginVC, animated: true, completion: nil)
+      }
+    }
+  }
+  
+  func checkIfUserSelectCharacter() {
+    DispatchQueue.main.async {
+      if let uid = Auth.auth().currentUser?.uid {
+        Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value) { (snapshot) in
+          
+          guard let dictionary = snapshot.value as? Dictionary<String, AnyObject> else { return }
+          
+          let user = User.init(uid: uid, dictionary: dictionary)
+          
+          if user.selectCharactor == "" {
+            let selectCharVC = SelectCharVC()
+            selectCharVC.userData = user
+            selectCharVC.modalPresentationStyle = .fullScreen
+            self.present(selectCharVC, animated: true, completion: nil)
+          }
+        }
+      }
+    }
+  }
 }

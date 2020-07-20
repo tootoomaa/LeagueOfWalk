@@ -558,13 +558,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = LeagueOfWalk/LeagueOfWalk.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = X6LA4P7TFP;
+				DEVELOPMENT_TEAM = 52ZXCPY3WQ;
 				INFOPLIST_FILE = LeagueOfWalk/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.devyhan93;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kr.tootoomaa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
