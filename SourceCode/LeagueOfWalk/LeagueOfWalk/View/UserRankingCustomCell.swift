@@ -11,7 +11,6 @@ import UIKit
 class UserRankingCustomCell: UITableViewCell {
     
     static let identifier = "identifier"
-    
     let rankLabel = UILabel()
     let nameLabel = UILabel()
     

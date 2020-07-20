@@ -11,6 +11,7 @@ import SnapKit
 
 class MainHeaderCollectionReusableView: UICollectionReusableView {
   
+  static let identifier = "MainHeaderCollectionReusableView"
   var count = 0
   var ments: String? {
     didSet {
@@ -18,23 +19,35 @@ class MainHeaderCollectionReusableView: UICollectionReusableView {
     }
   }
   
-  var isHoldingImage = false
-  static let identifier = "MainHeaderCollectionReusableView"
+  var pet: String? {
+    didSet {
+      heroImageView.image = UIImage(named: pet ?? "default")
+    }
+  }
+  
+  var mentsHidden: Bool? {
+    didSet {
+      openMent.isHidden = mentsHidden ?? true
+    }
+  }
+  
   private let heroImageView: UIImageView = {
     let imageView = UIImageView()
     imageView.image = UIImage(named: "Egg")
+    imageView.contentMode = .scaleAspectFit
     
     return imageView
   }()
   
   private let openMent: UILabel = {
     let label = UILabel()
-    label.text = "알을 눌러 확인하세요"
+    label.text = "알을 눌러 확인해보세요 !"
     label.textColor = .white
     label.font = UIFont(
       name: CommonUI.CustonFonts.koFont.rawValue,
       size: CommonUI.FontSize.Large.rawValue
     )
+    label.isHidden = true
     
     return label
   }()
@@ -46,7 +59,7 @@ class MainHeaderCollectionReusableView: UICollectionReusableView {
   }()
   
   // MARK: - LifeCycle
-
+  
   override init(frame: CGRect) {
     super.init(frame: frame)
     
@@ -63,6 +76,8 @@ class MainHeaderCollectionReusableView: UICollectionReusableView {
     
     heroImageView.snp.makeConstraints {
       $0.centerX.centerY.equalTo(self)
+      $0.width.equalTo(self)
+      $0.height.equalTo(self)
     }
     
     openMent.snp.makeConstraints {
@@ -92,15 +107,25 @@ class MainHeaderCollectionReusableView: UICollectionReusableView {
       didTabEggShakeAnimation()
       ments = "곧 무엇인가 밖으로 나올것 같아요 !!"
     default:
-      print("Open")
-      ments = "당신의 전설이가 알을깨고 나왔습니다 !!"
       count = 0
+      heroImageView.contentMode = .scaleAspectFill
+      heroImageView.clipsToBounds = true
+      
+      let popup = PopupView()
+      popup.imageString = ["1-1", "1-2", "1-3", "2-1", "2-2", "2-3", "3-1", "3-2", "3-3", "4-1", "4-2", "4-3", "5-1", "5-2", "5-3", " 6-1", "6-2", "6-3"].randomElement()
+      pet = popup.imageString
+      superview?.addSubview(popup)
+      
     }
     
     count += 1
     print(count)
     
   }
+  
+  
+  
+  
   
   private func didTabEggRotatedAnimation() {
     let random: CGFloat = CGFloat(drand48()) - 0.5
@@ -127,7 +152,7 @@ class MainHeaderCollectionReusableView: UICollectionReusableView {
         self.heroImageView.center.x -= 8
       })
       UIView.addKeyframe(withRelativeStartTime: 0.2, relativeDuration: 0.3, animations: {
-//        self.heroImageView.transform = .identity
+        //        self.heroImageView.transform = .identity
         self.heroImageView.center.x += 16
       })
       UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.3, animations: {

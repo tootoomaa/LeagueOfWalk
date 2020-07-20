@@ -39,10 +39,16 @@ struct CommonUI {
     case small = 13.5
   }
   
+  // SFSymbol
+  
+  enum SFSymbolKey: String {
+    case main = "rosette"
+  }
+  
   // Navigation Title
   
   enum NavigationBarTitle: String {
-    case mainSummonerVC = "SUMMOMER"
+    case mainSummonerVC = "SUMMONER"
     case itemListVC = "ITEM LIST"
     case rankingVC = "RANKING"
     case profileVC = "PROFILE"
