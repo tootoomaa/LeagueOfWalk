@@ -10,33 +10,28 @@ import Foundation
 
 class Item {
   static let name = "name"
-//  static let option = "option"
-//  static let information = "information"
+  static let information = "information"
+  static let imageUrl = "imageUrl"
   
   var index: String!
   var name: String!
-//  var option: String!
-//  var information: String!
+  var information: String!
+  var imageUrl: URL!
   
-  init(forIndex index: String, name: String ) {  // dictionary: Dictionary<String, AnyObject>
+  init(forIndex index: String, dictionary: Dictionary<String, AnyObject> ) {
     
     self.index = index
     
-    self.name = name
+    if let name = dictionary["name"] as? String {
+      self.name = name
+    }
     
-//    if let name = dictionary["name"] as? String {
-//      self.name = name
-//    }
+    if let information = dictionary["infomation"] as? String {
+      self.information = information
+    }
     
-//    if let option = dictionary["option"] as? String {
-//      self.option = option
-//    }
-//
-//    if let information = dictionary["infomation"] as? String {
-//      self.information = information
-//    }
+    if let imageUrl = dictionary["imageUrl"] as? URL {
+      self.imageUrl = imageUrl
+    }
   }
 }
-
-
-

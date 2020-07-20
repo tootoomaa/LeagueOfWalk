@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 
 class ItemListCell: UICollectionViewCell {
   
@@ -17,11 +18,34 @@ class ItemListCell: UICollectionViewCell {
     didSet {
       guard let itemData = itemData else { return }
       
-      itemImageView.image = UIImage(named: itemData.index)
+      // 아이탬 이름의 길이 확인
+      let stringWidth = itemData.name.widthOfString(usingFont: UIFont.boldSystemFont(ofSize: 13))
+      
+      // cell의 넒이보다 큰 경우 10포인트 조절
+      if contentView.frame.width < stringWidth {
+        itemNameLabel.font = .boldSystemFont(ofSize: 10)
+      }
+      
+      // 이름 적용
       itemNameLabel.text = itemData.name
       
+      // 이미지 저장
+      guard let url = itemData.imageUrl else { return }
+      let getImageData = URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
+        if let error = error {
+          print("error", error.localizedDescription)
+          return
+        }
+        
+        guard let data = data else { return }
+        DispatchQueue.main.async {
+          self.itemImageView.image = UIImage(data: data)
+        }
+      })
+      getImageData.resume()
     }
   }
+
   
   let itemImageView: UIImageView = {
     let imageView = UIImageView()

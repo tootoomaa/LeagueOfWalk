@@ -18,13 +18,36 @@ class PopItemVC: UIViewController {
   var itemData:Item? {
     didSet {
       guard let itemData = itemData else { return }
-      itemImageView.image = UIImage(named: itemData.index)
-      itemNameLabel.text = itemData.name
+      
+      // 아이탬 이름의 길이 확인
+      let stringWidth = itemData.name.widthOfString(usingFont: UIFont.boldSystemFont(ofSize: 13))
+      
+      // cell의 넒이보다 큰 경우 10포인트 조절
+      if self.view.frame.width < stringWidth {
+        itemNameLabel.font = .boldSystemFont(ofSize: 10)
+      }
+      
+      // 이름 적용
+//      itemNameLabel.text = itemData.name
+      
+      // 이미지 저장
+      guard let url = itemData.imageUrl else { return }
+      let getImageData = URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
+        if let error = error {
+          print("error", error.localizedDescription)
+          return
+        }
+        
+        guard let data = data else { return }
+        DispatchQueue.main.async {
+          self.itemImageView.image = UIImage(data: data)
+        }
+      })
+      getImageData.resume()
     }
   }
   
 
-  
   let titleLabel: UILabel = {
     let label = UILabel()
     label.text = "New Item!"
@@ -32,6 +55,7 @@ class PopItemVC: UIViewController {
     label.font = UIFont(name: CommonUI.CustonFonts.enFont.rawValue, size: CommonUI.FontSize.Large.rawValue)
     label.textColor = CommonUI.edgeColor
     label.backgroundColor = CommonUI.backgroundColor
+    label.layer.cornerRadius = 20
     return label
   }()
   
@@ -46,7 +70,7 @@ class PopItemVC: UIViewController {
   
   let itemNameLabel: UILabel = {
     let label = UILabel()
-    label.text = "삼위일체"
+//    label.text = "삼위일체"
     label.font = .boldSystemFont(ofSize: 13)
     label.textAlignment = .center
     label.font = UIFont(name: CommonUI.CustonFonts.enFont.rawValue, size: CommonUI.FontSize.Large.rawValue)
@@ -104,10 +128,10 @@ class PopItemVC: UIViewController {
     
     NSLayoutConstraint.activate([
       
-      itemaBackgroundView.topAnchor.constraint(equalTo: marginGuide.topAnchor,constant: -3),
-      itemaBackgroundView.leadingAnchor.constraint(equalTo: marginGuide.leadingAnchor, constant: -3),
+      itemaBackgroundView.topAnchor.constraint(equalTo: marginGuide.topAnchor,constant: -2),
+      itemaBackgroundView.leadingAnchor.constraint(equalTo: marginGuide.leadingAnchor, constant: -2),
       itemaBackgroundView.trailingAnchor.constraint(equalTo: marginGuide.trailingAnchor, constant: 3),
-      itemaBackgroundView.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor, constant: 3),
+      itemaBackgroundView.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor, constant: 2),
       
       titleLabel.topAnchor.constraint(equalTo: marginGuide.topAnchor),
       titleLabel.heightAnchor.constraint(equalToConstant: 50),
@@ -137,12 +161,13 @@ class PopItemVC: UIViewController {
     guard let uid = Auth.auth().currentUser?.uid,
           let itemIndex = itemData.index else { return }
   
-    
     // 뽑은 아이탬 DB 저장
     USER_ITEM_REF.child(uid).observeSingleEvent(of: .value) { (snapshot) in
-      
-      guard let userItemList = snapshot.value as? [String: Int] else { return }
-      
+      guard let userItemList = snapshot.value as? [String: Int] else {
+        // 최초 아이탬 뽑은 경우
+        USER_ITEM_REF.child(uid).updateChildValues([itemIndex:1])
+        return
+      }
       if userItemList.keys.contains(itemData.index) {
         // 기존 보유 아이탬 수량 +1
         guard let itemCount = userItemList[itemData.index] else { return }

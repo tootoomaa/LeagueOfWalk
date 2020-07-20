@@ -12,12 +12,13 @@ import Firebase
 class RandomItemVC: UIViewController {
   
   // MARK: - Properties
+  // original 아이템 리스트
+  var itemDataList: [Item] = []
+  
+  // 검색어에 필터링 된 아이탬 리스트
   var fileredOn: Bool = false
   var fileteredItemData:[Item] = []
 
-  var itemDataList: [Item] = []
-  var selectedItemList: [Item] = []
-  
   var itemPopCount: Int = 0 {
     didSet {
       if itemPopCount == 0 {
@@ -66,22 +67,13 @@ class RandomItemVC: UIViewController {
   
   let arrayCount:CGFloat = 4
   
-  lazy var logoutButton: UIButton = {
-    let button = UIButton()
-    button.setTitle("로그아웃", for: .normal)
-    button.addTarget(self, action: #selector(handleLogoutButton), for: .touchUpInside)
-    return button
-  }()
-  
-  
   // MARK: - Init
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    configureJSONParsing()
 //    configureNavi()
-    itemPopCount = 3
-    
-    configureItemData()
+    itemPopCount = 2
     
     navigationSettings()
     
@@ -89,36 +81,57 @@ class RandomItemVC: UIViewController {
     
     configureCollectionView()
     
-    view.addSubview(logoutButton)
-       
-    logoutButton.frame = CGRect(x: 200, y: 200, width: 200, height: 200)
-    
     configureItemPop()
-    
-    guard let uid = Auth.auth().currentUser?.uid else { return }
-    Database.fetchUserData(uid: uid)
    
   }
   
-  private func configureItemData() {
+  func configureJSONParsing() {
     
-    let itemList: [String: String] = [ "1001": "속도의 장화",
-                     "1004": "요정의 부석",
-                     "1037": "곡괭이",
-                     "1038": "BF 대검",
-                     "3068": "태양 불꽃 망토",
-                     "3074": "굶주린 히드라",
-                     "3075": "가시 뼈"]
+    let url = URL(string: "https://ddragon.leagueoflegends.com/cdn/10.14.1/data/ko_KR/item.json")
     
-    let itemListKey = itemList.keys.sorted()
-    
-    for index in itemListKey {
+    // 1. URL Session을 통해서 데이터를 가져온다
+    let urlTask = URLSession.shared.dataTask(with: url!) { (data, response, error) in
+      if let error = error {
+        print("error", error.localizedDescription)
+        return
+      }
       
-      if let itemName = itemList[index] {
-        let item = Item.init(forIndex: index, name: itemName)
-        itemDataList.append(item)
+      guard let respons = response as? HTTPURLResponse,
+        (200..<400).contains(respons.statusCode)
+        else { return print("Respobse Error")}
+      
+      guard let data = data else { return print("Get data Error") }
+      
+      // 2. data를 분석한다
+      if let jsonObject = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
+        if let data = jsonObject["data"] as? [String: Any] {
+          
+          for item in data {
+            if let itemDetailData = item.value as? [String: Any] {
+              
+              if let itemName = itemDetailData["name"] as? String,
+                let itemInfo = itemDetailData["plaintext"] as? String {
+                
+                let imageUrl = URL(string: "https://ddragon.leagueoflegends.com/cdn/10.14.1/img/item/" + "\(item.key).png")
+
+                let value = [
+                  Item.name: itemName,
+                  Item.information: itemInfo,
+                  Item.imageUrl: imageUrl!
+                  ] as [String : AnyObject]
+                
+                let itemData = Item.init(forIndex: item.key, dictionary: value)
+                
+                self.itemDataList.append(itemData)
+              
+//
+              }
+            }
+          }
+        }
       }
     }
+    urlTask.resume()
   }
 
   private func configureNavi() {
@@ -188,23 +201,6 @@ class RandomItemVC: UIViewController {
   
   
   // MARK: - Handle
-  
-  @objc func handleLogoutButton() {
-    do {
-      // attemp sign out
-      try Auth.auth().signOut()
-      
-      //present login controller
-      let loginVC = LoginVC()
-      let navController = UINavigationController(rootViewController: loginVC)
-      navController.modalPresentationStyle = .fullScreen
-      self.present(navController, animated: true, completion: nil)
-      print("SucessFull Log out User")
-    } catch {
-      //handle erorr
-      print("Failed to sign out")
-    }
-  }
   
   @objc func handlerTabItemBox(_ sender: UIButton) {
     let random: CGFloat = CGFloat(drand48()) - 0.5
@@ -310,6 +306,7 @@ extension RandomItemVC {
 }
 
 // MARK: - UISearchBarDelegate
+
 extension RandomItemVC: UISearchBarDelegate {
   
   func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -334,6 +331,8 @@ extension RandomItemVC: UISearchBarDelegate {
   }
 }
 
+// MARK: - UICollectionViewDataSource
+
 extension RandomItemVC: UICollectionViewDataSource {
   
   func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -354,10 +353,8 @@ extension RandomItemVC: UICollectionViewDataSource {
     
     if fileredOn {
       cell.itemData = fileteredItemData[indexPath.item]
-      
     } else {
       cell.itemData = itemDataList[indexPath.item]
-      
     }
     
     return cell

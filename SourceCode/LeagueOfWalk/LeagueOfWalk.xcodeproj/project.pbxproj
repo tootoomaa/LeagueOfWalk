@@ -36,6 +36,7 @@
 		C7599A9D24BFB57400F3D32C /* SelectCharCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7599A9C24BFB57400F3D32C /* SelectCharCell.swift */; };
 		C76004B724C08F560010F9A4 /* ItemListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76004B624C08F560010F9A4 /* ItemListCell.swift */; };
 		C7660BE424BFD7CB00690A78 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7660BE324BFD7CB00690A78 /* Character.swift */; };
+		C79236DE24C5359C0091CF86 /* StringExtenstion.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79236DD24C5359C0091CF86 /* StringExtenstion.swift */; };
 		C7AE009124BD8B050036DFEA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AE009024BD8B050036DFEA /* AppDelegate.swift */; };
 		C7AE009A24BD8B050036DFEA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7AE009924BD8B050036DFEA /* Assets.xcassets */; };
 		C7AE009D24BD8B050036DFEA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7AE009B24BD8B050036DFEA /* LaunchScreen.storyboard */; };
@@ -76,6 +77,7 @@
 		C7599A9C24BFB57400F3D32C /* SelectCharCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCharCell.swift; sourceTree = "<group>"; };
 		C76004B624C08F560010F9A4 /* ItemListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListCell.swift; sourceTree = "<group>"; };
 		C7660BE324BFD7CB00690A78 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Character.swift; path = LeagueOfWalk/View/Login/Character.swift; sourceTree = SOURCE_ROOT; };
+		C79236DD24C5359C0091CF86 /* StringExtenstion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtenstion.swift; sourceTree = "<group>"; };
 		C7AE008D24BD8B050036DFEA /* LeagueOfWalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeagueOfWalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7AE009024BD8B050036DFEA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7AE009924BD8B050036DFEA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				7E5A939C24C0401200419118 /* UIViewControllerExtension.swift */,
 				7E5A939E24C0424300419118 /* UIViewExtension.swift */,
 				C721899324C3ECD100B86F2C /* Database.swift */,
+				C79236DD24C5359C0091CF86 /* StringExtenstion.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -372,6 +375,7 @@
 			files = (
 				C7599A9324BEC10200F3D32C /* SignupVC.swift in Sources */,
 				C7AE009124BD8B050036DFEA /* AppDelegate.swift in Sources */,
+				C79236DE24C5359C0091CF86 /* StringExtenstion.swift in Sources */,
 				7E5A939D24C0401200419118 /* UIViewControllerExtension.swift in Sources */,
 				7ECB87FC24BE0DA900255804 /* MainSummonerCollectionViewCell.swift in Sources */,
 				C76004B724C08F560010F9A4 /* ItemListCell.swift in Sources */,
