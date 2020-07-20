@@ -48,7 +48,7 @@ struct CommonUI {
   // Navigation Title
   
   enum NavigationBarTitle: String {
-    case mainSummonerVC = "SUMMOMER"
+    case mainSummonerVC = "SUMMONER"
     case itemListVC = "ITEM LIST"
   }
   

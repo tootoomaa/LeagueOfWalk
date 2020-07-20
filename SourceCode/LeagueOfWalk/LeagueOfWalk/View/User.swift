@@ -18,7 +18,7 @@ class User {
   var uid: String!
   var nickName: String!
   var selectCharactor: String!
-  var walkingStatus: Double = 0.0
+  var walkingStatus: Double!
   var signupDate: Int!
   
   init(uid:String, dictionary: Dictionary<String, AnyObject> ) {
@@ -36,7 +36,7 @@ class User {
       self.signupDate = signupDate
     }
     
-    if let walkingStatus = dictionary["walkingStatus"] as? Double {
+    if let walkingStatus = dictionary["warkingStatus"] as? Double {
       self.walkingStatus = walkingStatus
     }
   }

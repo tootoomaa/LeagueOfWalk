@@ -54,6 +54,8 @@ class MainSummonerVC: UIViewController {
     // HealthKit 인증
     authorizeHealthKit()
     
+    fetchUserWalkData()
+    
     setUI()
   }
   
@@ -157,11 +159,21 @@ extension MainSummonerVC: UICollectionViewDataSource {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainSummonerCollectionViewCell.identifier, for: indexPath) as! MainSummonerCollectionViewCell
     
     cell.item = testData[indexPath.item]
-    cell.progressValue = 0.95
     
+    cell.progressValue = CGFloat(UserDefaults.standard.double(forKey: "walkingStatus") / 1000)
+    
+    if (UserDefaults.standard.double(forKey: "walkingStatus") >= 1000) {
+      // 프로그레스가 가득 찰시 실행코드 알 이벤트 실행
+      //      let popup = PopupView()
+      //      popup.imageString = ["1-1", "1-2", "1-3", "2-1", "2-2", "2-3", "3-1", "3-2", "3-3", "4-1", "4-2", "4-3", "5-1", "5-2", "5-3", " 6-1", "6-2", "6-3"].randomElement()
+      //
+      //      view.addSubview(popup)
+    }
     return cell
   }
 }
+
+// MARK: - UICollectionViewDelegateFlowLayout
 
 extension MainSummonerVC: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -174,6 +186,15 @@ extension MainSummonerVC: UICollectionViewDelegateFlowLayout {
         withReuseIdentifier: MainHeaderCollectionReusableView.identifier,
         for: indexPath
         ) as! MainHeaderCollectionReusableView
+      if (UserDefaults.standard.double(forKey: "walkingStatus") >= 1000) {
+        header.mentsHidden = false
+      }
+      
+      if let eggImage = UserDefaults.standard.string(forKey: "petImage") {
+        header.pet = eggImage
+      } else {
+        header.pet = "Egg"
+      }
       
       return header
       
@@ -206,7 +227,7 @@ extension MainSummonerVC: UICollectionViewDelegateFlowLayout {
   }
 }
 
-// MARK: - Relate HealthKit
+// MARK: - HealthKit
 
 extension MainSummonerVC {
   // HelthKit 인증
@@ -227,7 +248,9 @@ extension MainSummonerVC {
     // HKSampleType
     guard let smapleType = HKObjectType.quantityType(forIdentifier: .stepCount) else { return }
     // 시작과 종료
-    let startDate = Calendar.current.startOfDay(for: Date())
+    let date = NSDate(timeIntervalSince1970: (UserDefaults.standard.double(forKey: "signupDate"))) as Date
+    let startDate = date
+    print("===================", startDate)
     let dateFormatter = DateFormatter()
     dateFormatter.locale = Locale(identifier: "ko_kr")
     dateFormatter.timeZone = TimeZone(abbreviation: "KST") // "2018-03-21 18:07:27"
@@ -261,18 +284,38 @@ extension MainSummonerVC {
     healthStore.execute(query)
   }
   
+  // MARK: - Firebase
+  
   func sendWalkData(walkValue val: Double) {
+    let ref = Database.database().reference()
     guard let uid = Auth.auth().currentUser?.uid else { return }
     let walkingStatus = val
     
     let value = [User.walkingStatus: walkingStatus] as [String: Any]
     
-    Database.database().reference().child("users").child(uid).updateChildValues(value) { (error, databaseReferece) in
+    ref.child("users").child(uid).updateChildValues(value) { (error, databaseReferece) in
       if let error = error {
         print("error", error.localizedDescription)
         return
       } else {
         print("Success Saved Data")
+      }
+    }
+  }
+  
+  func fetchUserWalkData() {
+    if let uid = Auth.auth().currentUser?.uid {
+      let ref = Database.database().reference()
+      ref.child("users").child(uid).observeSingleEvent(of: .value) { (snapshot) in
+        print(snapshot)
+        
+        guard let dictionary = snapshot.value as? Dictionary<String, AnyObject> else { return }
+        
+        let user = User.init(uid: snapshot.key, dictionary: dictionary)
+        
+        UserDefaults.standard.set(user.walkingStatus ?? 0, forKey: "walkingStatus")
+        UserDefaults.standard.set(user.signupDate, forKey: "signupDate")
+        print("nsDate :", NSDate(timeIntervalSince1970: Double(user.signupDate)))
       }
     }
   }
