@@ -18,14 +18,14 @@ import Firebase
     
     FirebaseApp.configure()
     
-    let mainSummonerVC = UINavigationController(rootViewController: MainSummonerVC())
+    let mainViewController = UINavigationController(rootViewController: MainViewController() )
     let randomItenVC = UINavigationController(rootViewController: RandomItemVC())
     let userRankingVC = UINavigationController(rootViewController: UserRankingVC())
     let profileVC = UINavigationController(rootViewController: ProfileVC())
     
     let tabBarController = UITabBarController()
     
-    mainSummonerVC.tabBarItem = UITabBarItem(title: "Summoner", image: UIImage(systemName: CommonUI.SFSymbolKey.main.rawValue), tag: 0)
+    mainViewController.tabBarItem = UITabBarItem(title: "Summoner", image: UIImage(systemName: CommonUI.SFSymbolKey.main.rawValue), tag: 0)
     randomItenVC.tabBarItem = UITabBarItem(title: "Item", image: UIImage(systemName: "archivebox.fill"), tag: 1)
     userRankingVC.tabBarItem = UITabBarItem(title: "Ranking", image: UIImage(systemName: "person.3.fill"), tag: 2)
     profileVC.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.fill"), tag: 3)
@@ -34,7 +34,7 @@ import Firebase
     UITabBar.appearance().barTintColor = CommonUI.pointColor
     UITabBar.appearance().tintColor = CommonUI.edgeColor
     
-    tabBarController.viewControllers = [mainSummonerVC, randomItenVC, userRankingVC, profileVC]
+    tabBarController.viewControllers = [mainViewController, randomItenVC, userRankingVC, profileVC]
     
     window = UIWindow(frame: UIScreen.main.bounds)
     window?.overrideUserInterfaceStyle = .dark
