@@ -34,21 +34,27 @@ class UserRankingCustomCell: UITableViewCell {
     // MARK: - Set UI
     private func setRankLabel(){
         rankLabel.textAlignment = .center
+        rankLabel.font = UIFont(name: CommonUI.CustonFonts.koFont.rawValue,
+                                size: Standard.textSize)
         rankLabel.textColor = Standard.textColor
         contentView.addSubview(rankLabel)
     }
     private func setNameLabel(){
         nameLabel.textAlignment = .center
+        nameLabel.font = UIFont(name: CommonUI.CustonFonts.koFont.rawValue,
+                                size: Standard.textSize)
         nameLabel.textColor = Standard.textColor
         contentView.addSubview(nameLabel)
     }
     private func setScoreLabel(){
         scoreLabel.textAlignment = .center
+        scoreLabel.font = UIFont(name: CommonUI.CustonFonts.koFont.rawValue,
+                                 size: Standard.textSize)
         scoreLabel.textColor = Standard.textColor
         contentView.addSubview(scoreLabel)
     }
     private func setTierImage(){
-        tierImage.contentMode = .scaleAspectFill
+        tierImage.contentMode = .scaleToFill
         tierImage.clipsToBounds = true
         contentView.addSubview(tierImage)
     }

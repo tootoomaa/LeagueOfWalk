@@ -52,7 +52,8 @@ class UserRankingView: UIView {
     }
     private func setRankLabel(){
         rankLabel.textAlignment = .center
-        rankLabel.font = .systemFont(ofSize: Standard.textSize)
+        rankLabel.font = UIFont(name: CommonUI.CustonFonts.koFont.rawValue,
+                                size: Standard.textSize)
         rankLabel.textColor = Standard.textColor
         self.addSubview(rankLabel)
         
@@ -66,7 +67,8 @@ class UserRankingView: UIView {
     }
     private func setNameLabel(){
         nameLabel.textAlignment = .center
-        nameLabel.font = .systemFont(ofSize: Standard.textSize)
+        nameLabel.font = UIFont(name: CommonUI.CustonFonts.koFont.rawValue,
+                                size: Standard.textSize)
         nameLabel.textColor = Standard.textColor
         self.addSubview(nameLabel)
         
@@ -108,7 +110,8 @@ class UserRankingView: UIView {
     }
     private func setScoreLabel(){
         scoreLabel.textAlignment = .center
-        scoreLabel.font = .systemFont(ofSize: Standard.textSize)
+        scoreLabel.font = UIFont(name: CommonUI.CustonFonts.enFontRagular.rawValue,
+                                 size: Standard.textSize)
         scoreLabel.textColor = Standard.textColor
         containerView.addSubview(scoreLabel)
         
