@@ -69,9 +69,9 @@ class UserRankingVC: UIViewController {
         // 사용자 데이터 추가
         self.userDatas.append(userData)
         
-//         내림차순 정렬
+        // 내림 차순 정렬
         self.userDatas.sort { (user1, user2) -> Bool in
-          user1.walkingStatus > user2.walkingStatus
+          user1.walkingStatus < user2.walkingStatus
         }
         
         self.rankingTable.reloadData()
@@ -101,19 +101,13 @@ class UserRankingVC: UIViewController {
             frame: .zero,
             title: CommonUI.NavigationBarTitle.rankingVC.rawValue
         )
-        
-        let naviBar = self.navigationController?.navigationBar
-        naviBar?.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        naviBar?.shadowImage = UIImage()
-        naviBar?.isTranslucent = true
-        naviBar?.backgroundColor = UIColor.clear
-        
+                
         backgroundView.image = UIImage(named: "RankingBack")
         view.addSubview(backgroundView)
         
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            backgroundView.topAnchor.constraint(equalTo: view.topAnchor),
+          backgroundView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             backgroundView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
@@ -211,10 +205,10 @@ extension UserRankingVC: UITableViewDataSource {
           cell.layer.borderWidth = 2
           cell.layer.borderColor = CommonUI.edgeColor.cgColor
         }
-      
+        
         cell.rankLabel.text = "\(indexPath.row + 1) 위"
         cell.nameLabel.text = userDatas[indexPath.row].nickName
-        cell.scoreLabel.text = "scroe: \(userDatas[indexPath.row].walkingStatus)"
+        cell.scoreLabel.text = "scroe: \(String(Int(userDatas[indexPath.row].walkingStatus)))"
         cell.tierImage.image = UIImage(named: imageString)
         return cell
     }

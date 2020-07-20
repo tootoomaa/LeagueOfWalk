@@ -111,7 +111,10 @@ class SelectCharVC: UIViewController {
     if selectCharName == "Random" {
       selectCharName = "ahri"
     }
+    // 사용자 아이탬 뽑기 정보 추가
+    USER_ITEMPOPCOUNT_REF.updateChildValues([uid:0])
     
+    // 사용자 데이터 저장
     let value = [User.nickName: nickName,
                  User.selectCharctor: selectCharName,
                  User.walkingStatus: Double(0.0),

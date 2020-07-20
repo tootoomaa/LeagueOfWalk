@@ -316,5 +316,5 @@ extension MainSummonerVC {
         print("nsDate :", NSDate(timeIntervalSince1970: Double(user.signupDate)))
       }
     }
-  }
+  }  
 }

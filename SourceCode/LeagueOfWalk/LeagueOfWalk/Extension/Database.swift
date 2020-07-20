@@ -11,6 +11,7 @@ import Foundation
 import Firebase
 
 let USER_ITEM_REF = Database.database().reference().child("user-items")
+let USER_ITEMPOPCOUNT_REF = Database.database().reference().child("user-items-popcount")
 
 extension Database {
   
@@ -28,5 +29,17 @@ extension Database {
     }
     
 //    return User
+  }
+  
+  
+  // MARK: - About Item Pop Count
+  static func fetchUserPopItemCount(uid: String) -> Int {
+    var count: Int = 0
+    USER_ITEMPOPCOUNT_REF.child(uid).observeSingleEvent(of: .value) { (snapshot) in
+      guard let itemPopCount = snapshot.value as? Int else { return }
+      
+      count = itemPopCount
+    }
+    return count
   }
 }

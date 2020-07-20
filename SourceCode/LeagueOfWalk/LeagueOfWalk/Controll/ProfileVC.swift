@@ -211,6 +211,7 @@ extension ProfileVC: UICollectionViewDelegate {
       
       let randomItemVC = RandomItemVC()
       randomItemVC.myItemCheck = true
+      randomItemVC.navigationItem.title = "My Item List"
       navigationController?.pushViewController(randomItemVC, animated: true)
     }
     

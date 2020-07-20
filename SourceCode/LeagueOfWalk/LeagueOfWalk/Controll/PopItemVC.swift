@@ -160,7 +160,7 @@ class PopItemVC: UIViewController {
     
     guard let uid = Auth.auth().currentUser?.uid,
           let itemIndex = itemData.index else { return }
-  
+    
     // 뽑은 아이탬 DB 저장
     USER_ITEM_REF.child(uid).observeSingleEvent(of: .value) { (snapshot) in
       guard let userItemList = snapshot.value as? [String: Int] else {

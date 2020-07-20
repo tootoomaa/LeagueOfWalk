@@ -13,15 +13,16 @@ class RandomItemVC: UIViewController {
   
   // MARK: - Properties
   
-  var myItemCheck: Bool = false
-  var userItemList: [String] = []
-  
   // original 아이템 리스트
   var itemDataList: [Item] = []
   
   // 검색어에 필터링 된 아이탬 리스트
   var fileredOn: Bool = false
   var fileteredItemData:[Item] = []
+  
+  // 사용자 소유 아이템
+  var myItemCheck: Bool = false
+  var userItemList: [Item] = []
 
   var itemPopCount: Int = 0 {
     didSet {
@@ -63,6 +64,7 @@ class RandomItemVC: UIViewController {
     label.backgroundColor = .red
     label.layer.cornerRadius = 7
     label.layer.masksToBounds = true
+    label.isHidden = true
     return label
   }()
 
@@ -75,15 +77,18 @@ class RandomItemVC: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    if myItemCheck == false {
-      print("AllItem")
-      configureJSONParsing()
-    } else {
-      print("userItem")
+    // 인터넷 상 아이탬 데이터 파싱
+    configureJSONParsing()
+
+    // 뽑기 횟수 초기 적재
+    guard let uid = Auth.auth().currentUser?.uid else { return }
+    itemPopCount = Database.fetchUserPopItemCount(uid: uid)
+    print(itemPopCount)
+    
+    if myItemCheck {
       fetchUserItem()
+      itemPopButton.isHidden = myItemCheck
     }
-//    configureNavi()
-    itemPopCount = 2
     
     navigationSettings()
     
@@ -105,10 +110,13 @@ class RandomItemVC: UIViewController {
       guard let value = snapshot.value as? Dictionary<String, AnyObject> else { return }
       
       for index in value.keys {
-        self.userItemList.append(String(index))
+        for item in self.itemDataList {
+          if item.index == index {
+            self.userItemList.append(item)
+            self.collectionView.reloadData()
+          }
+        }
       }
-      
-      print(self.userItemList)
     }
   }
   
@@ -235,6 +243,10 @@ class RandomItemVC: UIViewController {
     // 아이템 뽑기 가능 빨간 점 숨김
     itemCountLabel.isHidden = true
     
+    guard let uid = Auth.auth().currentUser?.uid else { return }
+    
+    itemPopCount = Database.fetchUserPopItemCount(uid: uid)
+    
     if itemPopCount == 0 {
       // 아이탬을 뽑을 기회가 없는 경우 에니메이션
       UIView.animate(withDuration: 0.4) {
@@ -296,7 +308,12 @@ class RandomItemVC: UIViewController {
             popItemVC.itemData = self.itemDataList.randomElement()
             popItemVC.modalPresentationStyle = .overFullScreen
             self.present(popItemVC, animated: true, completion: {
-              self.itemPopCount -= 1
+              // 아이탬 뽑기 횟수 1 차감
+              guard let uid = Auth.auth().currentUser?.uid else { return }
+              USER_ITEMPOPCOUNT_REF.child(uid).observeSingleEvent(of: .value) { (snapshot) in
+                guard let count = snapshot.value as? Int else { return }
+                USER_ITEMPOPCOUNT_REF.updateChildValues([uid : count-1])
+              }
             })
           }
         }
@@ -309,9 +326,12 @@ class RandomItemVC: UIViewController {
 
 extension RandomItemVC {
   func navigationSettings() {
+    
+    let naviTitle: String = myItemCheck ? "My Item List" : CommonUI.NavigationBarTitle.itemListVC.rawValue
+    
     navigationItem.titleView = NavigationBarView(
       frame: .zero,
-      title: CommonUI.NavigationBarTitle.itemListVC.rawValue
+      title: naviTitle
     )
     
     let navBar = self.navigationController?.navigationBar
@@ -321,7 +341,6 @@ extension RandomItemVC {
     navBar?.backgroundColor = UIColor.clear
     
     navigationItem.searchController = searchController
-    navigationItem.title = "Item List"
 
     searchController.obscuresBackgroundDuringPresentation = false
     searchController.searchBar.placeholder = "Search..."
@@ -369,7 +388,9 @@ extension RandomItemVC: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     if fileredOn {
       return fileteredItemData.count
-    } 
+    } else if myItemCheck {
+      return userItemList.count
+    }
     
     return itemDataList.count
     
@@ -380,6 +401,8 @@ extension RandomItemVC: UICollectionViewDataSource {
     
     if fileredOn {
       cell.itemData = fileteredItemData[indexPath.item]
+    } else if myItemCheck {
+      cell.itemData = userItemList[indexPath.item]
     } else {
       cell.itemData = itemDataList[indexPath.item]
     }
