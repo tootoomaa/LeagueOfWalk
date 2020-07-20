@@ -13,8 +13,9 @@ class UserRankingVC: UIViewController {
     
   
     // MARK: - Properties
-    var userRankLocationInArray: Int = 0
+    var imageString: String = ""
     var setUserRankLocation: Bool = false
+    static var userRankLocationInArray: Int = 0
   
     var userDatas: [User] = [] {
       didSet {
@@ -22,7 +23,7 @@ class UserRankingVC: UIViewController {
         guard let uid = Auth.auth().currentUser?.uid else { fatalError() }
         for index in 0..<userDatas.count {
           if userDatas[index].uid == uid {
-            userRankLocationInArray = index
+            UserRankingVC.userRankLocationInArray = index
           }
         }
       }
@@ -71,7 +72,7 @@ class UserRankingVC: UIViewController {
         
         // 내림 차순 정렬
         self.userDatas.sort { (user1, user2) -> Bool in
-          user1.walkingStatus < user2.walkingStatus
+          user1.walkingStatus > user2.walkingStatus
         }
         
         self.rankingTable.reloadData()
@@ -172,6 +173,22 @@ class UserRankingVC: UIViewController {
             rankingTable.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
+    
+    func saveTier(indexPath: IndexPath) {
+        switch indexPath.row {
+        case 0:
+            imageString = tier.first.rawValue
+            rank1stView.userData = userDatas[indexPath.row]
+        case 1:
+            imageString = tier.second.rawValue
+            rank2stView.userData = userDatas[indexPath.row]
+        case 2:
+            imageString = tier.third.rawValue
+            rank3stView.userData = userDatas[indexPath.row]
+        default:
+            imageString = tier.etc.rawValue
+        }
+    }
 }
 
 // MARK: - TableView Data
@@ -182,33 +199,12 @@ extension UserRankingVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: UserRankingCustomCell.identifier,
-                                                 for: indexPath) as! UserRankingCustomCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: UserRankingCustomCell.identifier, for: indexPath) as! UserRankingCustomCell
+        saveTier(indexPath: indexPath)
         cell.backgroundColor = .clear
-      
-        var imageString: String = ""
-        switch indexPath.row {
-        case 0:
-          imageString = tier.first.rawValue
-          rank1stView.userData = userDatas[indexPath.row]
-        case 1:
-          imageString = tier.second.rawValue
-          rank2stView.userData = userDatas[indexPath.row]
-        case 2:
-          imageString = tier.third.rawValue
-          rank3stView.userData = userDatas[indexPath.row]
-        default:
-          imageString = tier.etc.rawValue
-        }
-      
-        if indexPath.row == userRankLocationInArray {
-          cell.layer.borderWidth = 2
-          cell.layer.borderColor = CommonUI.edgeColor.cgColor
-        }
-        
         cell.rankLabel.text = "\(indexPath.row + 1) 위"
         cell.nameLabel.text = userDatas[indexPath.row].nickName
-        cell.scoreLabel.text = "scroe: \(String(Int(userDatas[indexPath.row].walkingStatus)))"
+        cell.scoreLabel.text = "scroe: \(Int(userDatas[indexPath.row].walkingStatus))"
         cell.tierImage.image = UIImage(named: imageString)
         return cell
     }
@@ -217,11 +213,12 @@ extension UserRankingVC: UITableViewDataSource {
 extension UserRankingVC: UITableViewDelegate {
   func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
     
-    if indexPath.row == userRankLocationInArray {
-      cell.layer.borderWidth = 2
-      cell.layer.borderColor = CommonUI.edgeColor.cgColor
+    if indexPath.row == UserRankingVC.userRankLocationInArray {
+        cell.layer.borderWidth = 2
+        cell.layer.borderColor = CommonUI.edgeColor.cgColor
+        ProfileVC.tierImageView.image = UIImage(named: imageString)
     } else {
-      cell.layer.borderColor = UIColor.clear.cgColor
+        cell.layer.borderColor = UIColor.clear.cgColor
     }
     
     // 최소 실행시 사용자의 랭킹 위치로 테이블 cell 이동
@@ -229,7 +226,7 @@ extension UserRankingVC: UITableViewDelegate {
       if let lastVisibleIndexPath = tableView.indexPathsForVisibleRows?.last {
           if indexPath == lastVisibleIndexPath {
               rankingTable.scrollToRow(
-                at: IndexPath.init(row: userRankLocationInArray, section: 0),
+                at: IndexPath.init(row: UserRankingVC.userRankLocationInArray, section: 0),
                 at: .middle,
                 animated: false
               )
