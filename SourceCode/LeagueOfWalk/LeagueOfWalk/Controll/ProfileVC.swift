@@ -15,13 +15,13 @@ class ProfileVC: UIViewController {
     let imageLabel = UILabel()
     let imageLabel1 = UILabel()
     let imageLabel2 = UILabel()
-    let tierImageView = UIImageView()
+    static let tierImageView = UIImageView()
     let viewLayout = UICollectionViewFlowLayout()
     lazy var menuCollection = UICollectionView(frame: view.frame,
                                                collectionViewLayout: viewLayout
     )
     
-    let menuItem = ["ashe", "Egg", "challenger_1", "treasure-chest"]
+    var menuItem = ["", "Egg", "challenger_1", "treasure-chest"]
     let menuItemTitle = ["My character", "My Pet", "Ranking", "My Items"]
     
     
@@ -31,10 +31,12 @@ class ProfileVC: UIViewController {
         static var itemCountLine:CGFloat = 1
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        fetchUserSignupDate()
         setUI()
-
     }
     
 // MARK: - func
@@ -67,7 +69,6 @@ class ProfileVC: UIViewController {
         myCharacterView.layer.borderWidth = 0.75
         myCharacterView.layer.borderColor = UIColor.systemYellow.cgColor
         myCharacterView.clipsToBounds = true
-        myCharacterView.image = UIImage(named: "Ashe_back")
         view.addSubview(myCharacterView)
         
         myCharacterView.translatesAutoresizingMaskIntoConstraints = false
@@ -78,7 +79,6 @@ class ProfileVC: UIViewController {
             myCharacterView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.4)
         ])
         
-        imageLabel.text = "NAME: \("name")"
         imageLabel.textAlignment = .left
         imageLabel.font = UIFont(name: CommonUI.CustonFonts.enFontRagular.rawValue,
                                 size: Standard.textSize + 2)
@@ -91,7 +91,6 @@ class ProfileVC: UIViewController {
             imageLabel.leadingAnchor.constraint(equalTo: myCharacterView.leadingAnchor, constant: 15)
         ])
         
-        imageLabel1.text = "RANK: \("23") st"
         imageLabel1.textAlignment = .left
         imageLabel1.font = UIFont(name: CommonUI.CustonFonts.enFontRagular.rawValue,
                                 size: Standard.textSize + 2)
@@ -104,7 +103,6 @@ class ProfileVC: UIViewController {
             imageLabel1.leadingAnchor.constraint(equalTo: myCharacterView.leadingAnchor, constant: 15)
         ])
         
-        imageLabel2.text = "SCORE: \("999")"
         imageLabel2.textAlignment = .left
         imageLabel2.font = UIFont(name: CommonUI.CustonFonts.enFontRagular.rawValue,
                                 size: Standard.textSize + 2)
@@ -117,15 +115,15 @@ class ProfileVC: UIViewController {
             imageLabel2.leadingAnchor.constraint(equalTo: myCharacterView.leadingAnchor, constant: 15)
         ])
         
-        tierImageView.image = UIImage(named: "platinum_5")
-        myCharacterView.addSubview(tierImageView)
+//        tierImageView.image = UIImage(named: "platinum_5")
+        myCharacterView.addSubview(ProfileVC.tierImageView)
         
-        tierImageView.translatesAutoresizingMaskIntoConstraints = false
+        ProfileVC.tierImageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            tierImageView.widthAnchor.constraint(equalTo: myCharacterView.widthAnchor, multiplier: 0.3),
-            tierImageView.heightAnchor.constraint(equalTo: tierImageView.widthAnchor),
-            tierImageView.leadingAnchor.constraint(equalTo: myCharacterView.leadingAnchor),
-            tierImageView.bottomAnchor.constraint(equalTo: myCharacterView.bottomAnchor)
+            ProfileVC.tierImageView.widthAnchor.constraint(equalTo: myCharacterView.widthAnchor, multiplier: 0.3),
+            ProfileVC.tierImageView.heightAnchor.constraint(equalTo: ProfileVC.tierImageView.widthAnchor),
+            ProfileVC.tierImageView.leadingAnchor.constraint(equalTo: myCharacterView.leadingAnchor),
+            ProfileVC.tierImageView.bottomAnchor.constraint(equalTo: myCharacterView.bottomAnchor)
         ])
         
         menuCollection.backgroundColor = .clear
@@ -145,6 +143,23 @@ class ProfileVC: UIViewController {
         ])
 
 
+    }
+    func fetchUserSignupDate() {
+      if let uid = Auth.auth().currentUser?.uid {
+        Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value) { (snapshot) in
+//          print(snapshot)
+          
+          guard let dictionary = snapshot.value as? Dictionary<String, AnyObject> else { return }
+          
+            let user = User.init(uid: uid, dictionary: dictionary)
+            self.myCharacterView.image = UIImage(named: "\(user.selectCharactor ?? "Ranking")_back")
+            self.imageLabel.text = "NAME: \(user.nickName ?? "이름")"
+            self.imageLabel1.text = "RANK: \(UserRankingVC.userRankLocationInArray + 1) st"
+            self.imageLabel2.text = "SCORE: \(Int(user.walkingStatus))"
+            self.menuItem[0] = user.selectCharactor
+            self.menuCollection.reloadData()
+        }
+      }
     }
 
     @objc func handleLogoutButton(_ sender: UIBarButtonItem) {
@@ -201,21 +216,4 @@ extension ProfileVC: UICollectionViewDelegateFlowLayout {
             let size = (collectionView.frame.width - (SetItem.edge.left + SetItem.edge.right) - (SetItem.padding * (SetItem.itemCountLine - 1))) / SetItem.itemCountLine
         return CGSize(width: size, height: size)
     }
-}
-
-extension ProfileVC: UICollectionViewDelegate {
-  
-  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    
-    if indexPath.item == 3 {
-      
-      let randomItemVC = RandomItemVC()
-      randomItemVC.myItemCheck = true
-      randomItemVC.navigationItem.title = "My Item List"
-      navigationController?.pushViewController(randomItemVC, animated: true)
-    }
-    
-    
-  }
-  
 }
