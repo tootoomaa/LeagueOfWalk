@@ -106,10 +106,10 @@ class SelectCharVC: UIViewController {
     guard let nickName = userData.nickName else { return }
     
     let nowDate = Int(NSDate().timeIntervalSince1970)
-    
+    UserDefaults.standard.set(nowDate, forKey: "nowData")
     let value = [User.nickName: nickName,
                  User.selectCharctor: selectCharName,
-                 User.warkingStatus: userData.warkingStatus,
+                 User.walkingStatus: Double(0.0),
                  User.signupDate: nowDate] as [String : Any]
     
     Database.database().reference().child("users").child(uid).updateChildValues(value) { (error, databaseReferece) in

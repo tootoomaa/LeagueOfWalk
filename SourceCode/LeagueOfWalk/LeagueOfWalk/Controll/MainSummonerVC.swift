@@ -51,6 +51,11 @@ class MainSummonerVC: UIViewController {
     
     fetchUserSignupDate()
     
+    // HealthKit 인증
+    authorizeHealthKit()
+    
+    fetchUserWalkData()
+    
     setUI()
   }
   
@@ -154,11 +159,21 @@ extension MainSummonerVC: UICollectionViewDataSource {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainSummonerCollectionViewCell.identifier, for: indexPath) as! MainSummonerCollectionViewCell
     
     cell.item = testData[indexPath.item]
-    cell.progressValue = 0.95
     
+    cell.progressValue = CGFloat(UserDefaults.standard.double(forKey: "walkingStatus") / 1000)
+    
+    if (UserDefaults.standard.double(forKey: "walkingStatus") >= 1000) {
+      // 프로그레스가 가득 찰시 실행코드 알 이벤트 실행
+      //      let popup = PopupView()
+      //      popup.imageString = ["1-1", "1-2", "1-3", "2-1", "2-2", "2-3", "3-1", "3-2", "3-3", "4-1", "4-2", "4-3", "5-1", "5-2", "5-3", " 6-1", "6-2", "6-3"].randomElement()
+      //
+      //      view.addSubview(popup)
+    }
     return cell
   }
 }
+
+// MARK: - UICollectionViewDelegateFlowLayout
 
 extension MainSummonerVC: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -171,6 +186,15 @@ extension MainSummonerVC: UICollectionViewDelegateFlowLayout {
         withReuseIdentifier: MainHeaderCollectionReusableView.identifier,
         for: indexPath
         ) as! MainHeaderCollectionReusableView
+      if (UserDefaults.standard.double(forKey: "walkingStatus") >= 1000) {
+        header.mentsHidden = false
+      }
+      
+      if let eggImage = UserDefaults.standard.string(forKey: "petImage") {
+        header.pet = eggImage
+      } else {
+        header.pet = "Egg"
+      }
       
       return header
       
@@ -203,20 +227,96 @@ extension MainSummonerVC: UICollectionViewDelegateFlowLayout {
   }
 }
 
+// MARK: - HealthKit
+
 extension MainSummonerVC {
   // HelthKit 인증
   func authorizeHealthKit() {
-    let read = Set([HKObjectType.quantityType(forIdentifier: .heartRate)!, HKObjectType.quantityType(forIdentifier: .stepCount)!])
-    let share = Set([HKObjectType.quantityType(forIdentifier: .heartRate)!, HKObjectType.quantityType(forIdentifier: .stepCount)!])
+    let read = Set([HKObjectType.quantityType(forIdentifier: .stepCount)!])
+    let share = Set([HKObjectType.quantityType(forIdentifier: .stepCount)!])
     healthStore.requestAuthorization(toShare: share, read: read) { (chk, error) in
       if chk {
         print("Permission granted")
         self.getTodayTotalStepCount()
-        
       }
     }
   }
   
+  // MARK: - Today Total Step Count
   
+  func getTodayTotalStepCount() {
+    // HKSampleType
+    guard let smapleType = HKObjectType.quantityType(forIdentifier: .stepCount) else { return }
+    // 시작과 종료
+    let date = NSDate(timeIntervalSince1970: (UserDefaults.standard.double(forKey: "signupDate"))) as Date
+    let startDate = date
+    print("===================", startDate)
+    let dateFormatter = DateFormatter()
+    dateFormatter.locale = Locale(identifier: "ko_kr")
+    dateFormatter.timeZone = TimeZone(abbreviation: "KST") // "2018-03-21 18:07:27"
+    dateFormatter.dateFormat = "yyyy년 MM월 dd일"
+    let krDate = dateFormatter.string(from: startDate)
+    print("Date :", krDate)
+    // NSPredicate
+    let predicate = HKQuery.predicateForSamples(withStart: startDate, end: Date(), options: .strictStartDate)
+    var intervar = DateComponents()
+    intervar.day = 1
+    
+    let query = HKStatisticsCollectionQuery(
+      quantityType: smapleType,
+      quantitySamplePredicate: predicate,
+      options: .cumulativeSum,
+      anchorDate: startDate,
+      intervalComponents: intervar
+    )
+    query.initialResultsHandler = { (sample, result, error) in
+      
+      if let myResult = result {
+        myResult.enumerateStatistics(from: startDate, to: Date()) { (statistics, value) in
+          if let count = statistics.sumQuantity() {
+            let val = count.doubleValue(for: HKUnit.count())
+            print("오늘 총 걸음 : \(val)걸음")
+            self.sendWalkData(walkValue: val)
+          }
+        }
+      }
+    }
+    healthStore.execute(query)
+  }
   
+  // MARK: - Firebase
+  
+  func sendWalkData(walkValue val: Double) {
+    let ref = Database.database().reference()
+    guard let uid = Auth.auth().currentUser?.uid else { return }
+    let walkingStatus = val
+    
+    let value = [User.walkingStatus: walkingStatus] as [String: Any]
+    
+    ref.child("users").child(uid).updateChildValues(value) { (error, databaseReferece) in
+      if let error = error {
+        print("error", error.localizedDescription)
+        return
+      } else {
+        print("Success Saved Data")
+      }
+    }
+  }
+  
+  func fetchUserWalkData() {
+    if let uid = Auth.auth().currentUser?.uid {
+      let ref = Database.database().reference()
+      ref.child("users").child(uid).observeSingleEvent(of: .value) { (snapshot) in
+        print(snapshot)
+        
+        guard let dictionary = snapshot.value as? Dictionary<String, AnyObject> else { return }
+        
+        let user = User.init(uid: snapshot.key, dictionary: dictionary)
+        
+        UserDefaults.standard.set(user.walkingStatus ?? 0, forKey: "walkingStatus")
+        UserDefaults.standard.set(user.signupDate, forKey: "signupDate")
+        print("nsDate :", NSDate(timeIntervalSince1970: Double(user.signupDate)))
+      }
+    }
+  }
 }

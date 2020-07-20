@@ -209,7 +209,7 @@ class SignupVC: UIViewController {
       
       let dictionary = [User.nickName: nickname,
                         User.selectCharctor: "",
-                        User.warkingStatus: 0] as [String : Any]
+                        User.walkingStatus: 0] as [String : Any]
       
        let value = [uid: dictionary]
       
