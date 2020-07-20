@@ -69,9 +69,9 @@ class UserRankingVC: UIViewController {
         // 사용자 데이터 추가
         self.userDatas.append(userData)
         
-        // 내림차순 정렬
+//         내림차순 정렬
         self.userDatas.sort { (user1, user2) -> Bool in
-          user1.warkingStatus > user2.warkingStatus
+          user1.walkingStatus > user2.walkingStatus
         }
         
         self.rankingTable.reloadData()
@@ -214,7 +214,7 @@ extension UserRankingVC: UITableViewDataSource {
       
         cell.rankLabel.text = "\(indexPath.row + 1) 위"
         cell.nameLabel.text = userDatas[indexPath.row].nickName
-        cell.scoreLabel.text = "scroe: \(userDatas[indexPath.row].warkingStatus)"
+        cell.scoreLabel.text = "scroe: \(userDatas[indexPath.row].walkingStatus)"
         cell.tierImage.image = UIImage(named: imageString)
         return cell
     }

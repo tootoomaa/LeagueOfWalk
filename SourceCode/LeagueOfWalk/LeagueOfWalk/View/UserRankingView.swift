@@ -14,7 +14,7 @@ class UserRankingView: UIView {
       didSet {
         guard let userData = userData else { return }
         nameLabel.text = userData.nickName
-        scoreLabel.text = "score: \(userData.warkingStatus)"
+        scoreLabel.text = "score: \(userData.walkingStatus)"
         userImage.image = UIImage(named: userData.selectCharactor)
       }
     }

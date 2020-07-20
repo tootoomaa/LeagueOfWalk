@@ -25,7 +25,7 @@ import Firebase
     
     let tabBarController = UITabBarController()
     
-    mainSummonerVC.tabBarItem = UITabBarItem(title: "Summoner", image: UIImage(systemName: ""), tag: 0)
+    mainSummonerVC.tabBarItem = UITabBarItem(title: "Summoner", image: UIImage(systemName: CommonUI.SFSymbolKey.main.rawValue), tag: 0)
     randomItenVC.tabBarItem = UITabBarItem(title: "Item", image: UIImage(systemName: "archivebox.fill"), tag: 1)
     userRankingVC.tabBarItem = UITabBarItem(title: "Ranking", image: UIImage(systemName: "person.3.fill"), tag: 2)
     profileVC.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.fill"), tag: 3)
