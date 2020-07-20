@@ -24,7 +24,6 @@ class ProgressView: UIView {
   
   var progress: CGFloat = 0
   
-  
   override init(frame: CGRect) {
     super.init(frame: frame)
     

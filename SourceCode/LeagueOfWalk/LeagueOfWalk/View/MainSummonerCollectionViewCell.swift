@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 import SnapKit
 
 class MainSummonerCollectionViewCell: UICollectionViewCell {
@@ -110,7 +111,7 @@ class MainSummonerCollectionViewCell: UICollectionViewCell {
     progressView.snp.makeConstraints {
       $0.centerY.equalTo(self)
       $0.leading.equalTo(self).offset(20)
-      $0.width.equalTo(self).offset(-40)
+      $0.trailing.equalTo(self).offset(-20)
       $0.height.equalTo(10)
     }
     
