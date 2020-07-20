@@ -17,6 +17,7 @@ class ProfileVC: UIViewController {
     let imageLabel2 = UILabel()
     let tierImageView = UIImageView()
     let viewLayout = UICollectionViewFlowLayout()
+  
     lazy var menuCollection = UICollectionView(frame: view.frame,
                                                collectionViewLayout: viewLayout
     )
@@ -214,8 +215,5 @@ extension ProfileVC: UICollectionViewDelegate {
       randomItemVC.navigationItem.title = "My Item List"
       navigationController?.pushViewController(randomItemVC, animated: true)
     }
-    
-    
   }
-  
 }

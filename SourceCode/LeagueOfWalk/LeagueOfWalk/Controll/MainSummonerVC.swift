@@ -49,14 +49,11 @@ class MainSummonerVC: UIViewController {
     // 케릭터 선택 여부 확인
     checkIfUserSelectCharacter()
     
-    fetchUserSignupDate()
-    
     // HealthKit 인증
     authorizeHealthKit()
     
     fetchUserWalkData()
     
-
     setUI()
   }
   
@@ -112,17 +109,6 @@ class MainSummonerVC: UIViewController {
             self.present(selectCharVC, animated: true, completion: nil)
           }
         }
-      }
-    }
-  }
-  
-  func fetchUserSignupDate() {
-    if let uid = Auth.auth().currentUser?.uid {
-      Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value) { (snapshot) in
-        
-        guard let dictionary = snapshot.value as? Dictionary<String, AnyObject> else { return }
-        
-        let user = User.init(uid: uid, dictionary: dictionary)
       }
     }
   }

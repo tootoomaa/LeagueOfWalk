@@ -42,7 +42,7 @@ class MainSummonerCollectionViewCell: UICollectionViewCell {
     let view = ProgressView()
     view.backgroundColor = .gray
     view.progress = 0
-    
+
     return view
   }()
   

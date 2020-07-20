@@ -71,7 +71,7 @@ class UserRankingVC: UIViewController {
         
         // 내림 차순 정렬
         self.userDatas.sort { (user1, user2) -> Bool in
-          user1.walkingStatus < user2.walkingStatus
+          user1.walkingStatus > user2.walkingStatus
         }
         
         self.rankingTable.reloadData()
