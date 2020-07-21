@@ -57,6 +57,18 @@ class MainSummonerVC: UIViewController {
     setUI()
   }
   
+  
+  func popItemCountPlus() {
+     
+     guard let uid = Auth.auth().currentUser?.uid else { return }
+     
+     USER_ITEMPOPCOUNT_REF.child(uid).observeSingleEvent(of: .value) { (snapshot) in
+       guard let count = snapshot.value as? Int else { return }
+       USER_ITEMPOPCOUNT_REF.updateChildValues([uid : count+1])
+      print(" itemCount ++ \(uid), \(count+1)")
+     }
+   }
+  
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(true)
     self.collectionView.reloadData()

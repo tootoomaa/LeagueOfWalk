@@ -33,13 +33,16 @@ extension Database {
   
   
   // MARK: - About Item Pop Count
-  static func fetchUserPopItemCount(uid: String) -> Int {
+  static func fetchUserPopItemCount(uid: String, completion: @escaping(Int) -> ()) {
     var count: Int = 0
     USER_ITEMPOPCOUNT_REF.child(uid).observeSingleEvent(of: .value) { (snapshot) in
-      guard let itemPopCount = snapshot.value as? Int else { return }
-      
-      count = itemPopCount
+      guard let count = snapshot.value as? Int else { return }
+//      print(snapshot)
+//      print(snapshot.value)
+//      guard let itemPopCount = snapshot.value as? Int else { return }
+      print("\(count) in fetchUserPopItemCount")
+      completion(count)
     }
-    return count
+    
   }
 }

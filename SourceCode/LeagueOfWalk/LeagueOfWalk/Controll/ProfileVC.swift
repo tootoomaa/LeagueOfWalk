@@ -194,9 +194,7 @@ extension ProfileVC: UICollectionViewDataSource {
         item.itemImageView.image = UIImage(named: menuItem[indexPath.item])
         item.itemTitleLabel.text = menuItemTitle[indexPath.item]
         return item
-    }
-
-
+  }
 }
 
 extension ProfileVC: UICollectionViewDelegateFlowLayout {
@@ -219,6 +217,7 @@ extension ProfileVC: UICollectionViewDelegateFlowLayout {
     }
 }
 
+// MARK: - UICollectionViewDelegate
 extension ProfileVC: UICollectionViewDelegate {
   
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -226,7 +225,8 @@ extension ProfileVC: UICollectionViewDelegate {
     if indexPath.item == 3 {
       
       let randomItemVC = RandomItemVC()
-      randomItemVC.myItemCheck = true
+      randomItemVC.myItemCheck = false
+      randomItemVC.itemPopButton.isHidden = true
       randomItemVC.navigationItem.title = "My Item List"
       navigationController?.pushViewController(randomItemVC, animated: true)
     }

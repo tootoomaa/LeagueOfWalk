@@ -21,7 +21,7 @@ class RandomItemVC: UIViewController {
   var fileteredItemData:[Item] = []
   
   // 사용자 소유 아이템
-  var myItemCheck: Bool = false
+  var myItemCheck: Bool = true
   var userItemList: [Item] = []
 
   var itemPopCount: Int = 0 {
@@ -82,12 +82,16 @@ class RandomItemVC: UIViewController {
 
     // 뽑기 횟수 초기 적재
     guard let uid = Auth.auth().currentUser?.uid else { return }
-    itemPopCount = Database.fetchUserPopItemCount(uid: uid)
+    Database.fetchUserPopItemCount(uid: uid, completion: { (count) in
+      self.itemPopCount = count
+    })
+    
+    print(uid)
     print(itemPopCount)
+    
     
     if myItemCheck {
       fetchUserItem()
-      itemPopButton.isHidden = myItemCheck
     }
     
     navigationSettings()
@@ -158,8 +162,6 @@ class RandomItemVC: UIViewController {
                 let itemData = Item.init(forIndex: item.key, dictionary: value)
                 
                 self.itemDataList.append(itemData)
-              
-//
               }
             }
           }
@@ -245,80 +247,82 @@ class RandomItemVC: UIViewController {
     
     guard let uid = Auth.auth().currentUser?.uid else { return }
     
-    itemPopCount = Database.fetchUserPopItemCount(uid: uid)
-    
-    if itemPopCount == 0 {
-      // 아이탬을 뽑을 기회가 없는 경우 에니메이션
-      UIView.animate(withDuration: 0.4) {
-        UIView.animateKeyframes(withDuration: 0.25, delay: 0, animations: {
-          UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.2, animations: {
-            self.itemPopButton.transform = self.itemPopButton.transform.rotated(by: random)
+    Database.fetchUserPopItemCount(uid: uid, completion: { (count) in
+      self.itemPopCount = count
+      
+      if self.itemPopCount == 0 || self.itemPopCount < 0 {
+        // 아이탬을 뽑을 기회가 없는 경우 에니메이션
+        UIView.animate(withDuration: 0.4) {
+          UIView.animateKeyframes(withDuration: 0.25, delay: 0, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.2, animations: {
+              self.itemPopButton.transform = self.itemPopButton.transform.rotated(by: random)
+            })
+            UIView.addKeyframe(withRelativeStartTime: 0.2, relativeDuration: 0.3, animations: {
+              self.itemPopButton.transform = .identity
+            })
+            UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.3, animations: {
+              self.itemPopButton.transform = self.itemPopButton.transform.rotated(by: -random)
+            })
+            UIView.addKeyframe(withRelativeStartTime: 0.8, relativeDuration: 0.2, animations: {
+              self.itemPopButton.transform = .identity
+            })
           })
-          UIView.addKeyframe(withRelativeStartTime: 0.2, relativeDuration: 0.3, animations: {
-            self.itemPopButton.transform = .identity
-          })
-          UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.3, animations: {
-            self.itemPopButton.transform = self.itemPopButton.transform.rotated(by: -random)
-          })
-          UIView.addKeyframe(withRelativeStartTime: 0.8, relativeDuration: 0.2, animations: {
-            self.itemPopButton.transform = .identity
-          })
+        }
+      } else {
+        // 아이탬 뽑기 에니메이션
+        let originX = self.itemPopButton.center.x
+        let originY = self.itemPopButton.center.y
+        let gapX = (originX - self.view.center.x)/4
+        let gapY = (originY - self.view.center.y)/4
+        
+        UIView.animate(withDuration: 1, animations:  {
+          UIView.animateKeyframes(withDuration: 1, delay: 0, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.25, animations: {
+              self.itemPopButton.center.x -= gapX
+              self.itemPopButton.center.y -= gapY
+              self.itemPopButton.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+            })
+            UIView.addKeyframe(withRelativeStartTime: 0.25, relativeDuration: 0.25, animations: {
+              self.itemPopButton.center.x -= gapX
+              self.itemPopButton.center.y -= gapY
+              self.itemPopButton.transform = CGAffineTransform(scaleX: 1.6, y: 1.6)
+            })
+            UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.25, animations: {
+              self.itemPopButton.center.x -= gapX
+              self.itemPopButton.center.y -= gapY
+              self.itemPopButton.transform = CGAffineTransform(scaleX: 1.9, y: 1.9)
+            })
+            UIView.addKeyframe(withRelativeStartTime: 0.75, relativeDuration: 0.25, animations: {
+              self.itemPopButton.center.x -= gapX
+              self.itemPopButton.center.y -= gapY
+              self.itemPopButton.transform = CGAffineTransform(scaleX: 2.1, y: 2.1)
+            })
+            UIView.addKeyframe(withRelativeStartTime: 1, relativeDuration: 1, animations: {
+              self.itemPopButton.transform = CGAffineTransform(scaleX: 1, y: 1)
+              self.itemPopButton.alpha = 0
+            })
+          }) { finish in
+            if finish {
+              
+              let popItemVC = PopItemVC()
+              popItemVC.itemButton = self.itemPopButton
+              popItemVC.originX = originX
+              popItemVC.originY = originY
+              popItemVC.itemData = self.itemDataList.randomElement()
+              popItemVC.modalPresentationStyle = .overFullScreen
+              self.present(popItemVC, animated: true, completion: {
+                // 아이탬 뽑기 횟수 1 차감
+                guard let uid = Auth.auth().currentUser?.uid else { return }
+                USER_ITEMPOPCOUNT_REF.child(uid).observeSingleEvent(of: .value) { (snapshot) in
+                  guard let count = snapshot.value as? Int else { return }
+                  USER_ITEMPOPCOUNT_REF.updateChildValues([uid : count-1])
+                }
+              })
+            }
+          }
         })
       }
-    } else {
-      // 아이탬 뽑기 에니메이션
-      let originX = itemPopButton.center.x
-      let originY = itemPopButton.center.y
-      let gapX = (originX - view.center.x)/4
-      let gapY = (originY - view.center.y)/4
-      
-      UIView.animate(withDuration: 1, animations:  {
-        UIView.animateKeyframes(withDuration: 1, delay: 0, animations: {
-          UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.25, animations: {
-            self.itemPopButton.center.x -= gapX
-            self.itemPopButton.center.y -= gapY
-            self.itemPopButton.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
-          })
-          UIView.addKeyframe(withRelativeStartTime: 0.25, relativeDuration: 0.25, animations: {
-            self.itemPopButton.center.x -= gapX
-            self.itemPopButton.center.y -= gapY
-            self.itemPopButton.transform = CGAffineTransform(scaleX: 1.6, y: 1.6)
-          })
-          UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.25, animations: {
-            self.itemPopButton.center.x -= gapX
-            self.itemPopButton.center.y -= gapY
-            self.itemPopButton.transform = CGAffineTransform(scaleX: 1.9, y: 1.9)
-          })
-          UIView.addKeyframe(withRelativeStartTime: 0.75, relativeDuration: 0.25, animations: {
-            self.itemPopButton.center.x -= gapX
-            self.itemPopButton.center.y -= gapY
-            self.itemPopButton.transform = CGAffineTransform(scaleX: 2.1, y: 2.1)
-          })
-          UIView.addKeyframe(withRelativeStartTime: 1, relativeDuration: 1, animations: {
-            self.itemPopButton.transform = CGAffineTransform(scaleX: 1, y: 1)
-            self.itemPopButton.alpha = 0
-          })
-        }) { finish in
-          if finish {
-            
-            let popItemVC = PopItemVC()
-            popItemVC.itemButton = self.itemPopButton
-            popItemVC.originX = originX
-            popItemVC.originY = originY
-            popItemVC.itemData = self.itemDataList.randomElement()
-            popItemVC.modalPresentationStyle = .overFullScreen
-            self.present(popItemVC, animated: true, completion: {
-              // 아이탬 뽑기 횟수 1 차감
-              guard let uid = Auth.auth().currentUser?.uid else { return }
-              USER_ITEMPOPCOUNT_REF.child(uid).observeSingleEvent(of: .value) { (snapshot) in
-                guard let count = snapshot.value as? Int else { return }
-                USER_ITEMPOPCOUNT_REF.updateChildValues([uid : count-1])
-              }
-            })
-          }
-        }
-      })
-    }
+    })
   }
 }
 

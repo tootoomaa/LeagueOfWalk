@@ -15,9 +15,9 @@ class MainViewController: UIViewController {
   // MARK: - Properties
   
   var eggTabCount: Int = 0
-  
+  var level: Int = 1
   // 사용자 첫 로그인 확이
-  var initialization: Bool = true
+  var initialization: Bool = false
   
   var progressValue: CGFloat = 0 {
     didSet {
@@ -78,20 +78,28 @@ class MainViewController: UIViewController {
     return sv
   }()
   
+  let levelUpButton: UIButton = {
+    let button = UIButton()
+    button.setTitle("levelup", for: .normal)
+    button.setTitleColor(.white, for: .normal)
+    return button
+  }()
+  
   // MARK: - Inti
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+//    UserDefaults.standard.set(NSMutableString(string: "1"), forKey: "summoner")
 //    UserDefaults.standard.set(true, forKey: "fullProgress")
+//        UserDefaults.standard.set(false, forKey: "fullProgress")
 //    let imageString = "1-1"
-    
-//    UserDefaults.standard.set(false, forKey: "fullProgress")
 //    UserDefaults.standard.set(0, forKey: "walkingStatus")
 //    UserDefaults.standard.set(imageString, forKey: "summoner")
     
-//    print(UserDefaults.standard.bool(forKey: "fullProgress"))
 //    print(UserDefaults.standard.string(forKey: "summoner"))
+    
+//    print("init Full Progress : \(UserDefaults.standard.bool(forKey: "fullProgress"))")
+//    print("init monster : \(UserDefaults.standard.string(forKey: "summoner"))")
     
     configureInitialData()
     
@@ -106,18 +114,26 @@ class MainViewController: UIViewController {
   
   private func configureInitialData() {
     
-    initialization = UserDefaults.standard.bool(forKey: "fullProgress")
+    /*
+     소환 완료 - true
+     미소환 - false
+     */
+    
+    if UserDefaults.standard.bool(forKey: "fullProgress") != false {
+      // 값이 생기면 아래 실행 - true 들어감
+      initialization = UserDefaults.standard.bool(forKey: "fullProgress")
+    }
     print(initialization)
     
-    if initialization == false {
-      if let summonerImageString = UserDefaults.standard.string(forKey: "summoner") {
-      
-        print(summonerImageString)
-        heroImageView.isUserInteractionEnabled = initialization
-        heroImageView.image = UIImage(named: summonerImageString)
-        mentLabel.text = ""
-      }
+    if initialization == true {
+      // 이전 실행 시
+      let summonerImageString = UserDefaults.standard.string(forKey: "summoner")
+      heroImageView.isUserInteractionEnabled = initialization
+      heroImageView.image = UIImage(named: summonerImageString!)
+      heroImageView.isUserInteractionEnabled = false
+      mentLabel.text = ""
     } else {
+      // 최초 실행 시
       heroImageView.isUserInteractionEnabled = true
       mentLabel.text = "터치하여 알을 부화하세요!"
     }
@@ -136,6 +152,14 @@ class MainViewController: UIViewController {
     view.addSubview(stackView)
     view.addSubview(progressView)
     view.addSubview(mentLabel)
+    
+    
+    // temp =======
+    view.addSubview(levelUpButton)
+    levelUpButton.frame = CGRect(x: 0, y: 50, width: 100, height: 100)
+    levelUpButton.addTarget(self, action: #selector(handleMonsterLevelUp), for: .touchUpInside)
+    
+    // =======
     
     view.bringSubviewToFront(progressView)
     
@@ -190,6 +214,15 @@ class MainViewController: UIViewController {
     navBar?.backgroundColor = UIColor.clear
   }
   
+  func popItemCountPlus() {
+     
+     guard let uid = Auth.auth().currentUser?.uid else { return }
+     
+     USER_ITEMPOPCOUNT_REF.child(uid).observeSingleEvent(of: .value) { (snapshot) in
+       guard let count = snapshot.value as? Int else { return }
+       USER_ITEMPOPCOUNT_REF.updateChildValues([uid : count+1])
+     }
+   }
   
   // MARK: - Handler
   
@@ -218,14 +251,17 @@ class MainViewController: UIViewController {
       heroImageView.contentMode = .scaleAspectFill
       heroImageView.clipsToBounds = true
       
-       let imageString: String = ["1-1", "1-2", "1-3", "2-1", "2-2", "2-3", "3-1", "3-2", "3-3", "4-1", "4-2", "4-3", "5-1", "5-2", "5-3", " 6-1", "6-2", "6-3"].randomElement()!
+       let imageString: String = ["1", "2", "3", "4", "5"," 6",].randomElement()!
       
-      UserDefaults.standard.set(false, forKey: "fullProgress")
+      UserDefaults.standard.set(true, forKey: "fullProgress")
       UserDefaults.standard.set(0, forKey: "walkingStatus")
-      UserDefaults.standard.set(imageString, forKey: "summoner")
+      UserDefaults.standard.set(NSMutableString(string: imageString), forKey: "summoner")
       
       let popup = PopupView()
       popup.imageString = imageString
+      
+      print(imageString)
+      
       heroImageView.image = UIImage(named: popup.imageString!)
       
       mentLabel.text = ""
@@ -234,6 +270,30 @@ class MainViewController: UIViewController {
       view.addSubview(popup)
       return
     }
+  }
+  
+  @objc func handleMonsterLevelUp() {
+    level += 1
+    print("levelup \(level)")
+    
+    let popup = PopupView()
+
+    var summonerImageString = UserDefaults.standard.string(forKey: "summoner")!
+    summonerImageString = "\(summonerImageString)-\(level)"
+    
+    print(summonerImageString)
+    
+    popup.imageString = summonerImageString
+    heroImageView.image = UIImage(named: summonerImageString)
+    
+    progressValue = CGFloat(0)
+    
+    view.addSubview(popup)
+    
+    popItemCountPlus()
+    
+    return
+    
   }
   
   // MARK: - Animation
