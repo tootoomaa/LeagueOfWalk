@@ -45,4 +45,15 @@ extension Database {
     }
     
   }
+  
+  static func fetchUserSignupData(uid: String, completion: @escaping(Int) -> ()) {
+    Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value) { (snapshot) in
+      
+      guard let dictionary = snapshot.value as? Dictionary<String, AnyObject> else { return }
+      
+      let user = User.init(uid: snapshot.key, dictionary: dictionary)
+      
+      completion(user.signupDate)
+    }
+  }
 }

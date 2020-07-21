@@ -211,7 +211,7 @@ class SignupVC: UIViewController {
                         User.selectCharctor: "",
                         User.walkingStatus: 0] as [String : Any]
       
-       let value = [uid: dictionary]
+      let value = [uid: dictionary]
       
       self.dismiss(animated: true, completion: {
         Database.database().reference().child("users").updateChildValues(value, withCompletionBlock:{ (error, ref) in

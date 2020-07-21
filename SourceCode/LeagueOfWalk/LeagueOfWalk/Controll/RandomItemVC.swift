@@ -85,11 +85,7 @@ class RandomItemVC: UIViewController {
     Database.fetchUserPopItemCount(uid: uid, completion: { (count) in
       self.itemPopCount = count
     })
-    
-    print(uid)
-    print(itemPopCount)
-    
-    
+  
     if myItemCheck {
       fetchUserItem()
     }
@@ -102,6 +98,17 @@ class RandomItemVC: UIViewController {
     
     configureItemPop()
    
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    print("appeer")
+    userItemList = []
+    
+    guard let uid = Auth.auth().currentUser?.uid else { return }
+    Database.fetchUserPopItemCount(uid: uid, completion: { (count) in
+      self.itemPopCount = count
+    })
+    fetchUserItem()
   }
   
   // MARK: - fetch data
@@ -122,6 +129,7 @@ class RandomItemVC: UIViewController {
         }
       }
     }
+    self.collectionView.reloadData()
   }
   
   func configureJSONParsing() {

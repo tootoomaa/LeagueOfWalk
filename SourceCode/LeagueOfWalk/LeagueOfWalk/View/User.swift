@@ -8,7 +8,12 @@
 
 import Foundation
 
-class User {
+class User: Equatable{
+  
+  static func == (lhs: User, rhs: User) -> Bool {
+    lhs.uid == rhs.uid
+  }
+  
   static let userId = "userId"
   static let nickName = "nickName"
   static let selectCharctor = "selectCharactor"

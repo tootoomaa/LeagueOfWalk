@@ -44,7 +44,9 @@ class MainViewController: UIViewController {
     l.layer.cornerRadius = CommonUI.cornerRadius
     l.layer.borderWidth = CommonUI.borderWidth
     l.layer.borderColor = CommonUI.edgeColor.cgColor
-    l.text = "teijakljsdfl"
+    l.text = " Level ???? \n \n 걸음수 ??????"
+    l.font = .boldSystemFont(ofSize: 30)
+    l.numberOfLines = 5
     
     return l
   }()
@@ -260,13 +262,11 @@ class MainViewController: UIViewController {
       let popup = PopupView()
       popup.imageString = imageString
       
-      print(imageString)
-      
       heroImageView.image = UIImage(named: popup.imageString!)
-      
+      contentsView.text = " Level 1 \n \n 걸음수 0"
       mentLabel.text = ""
       heroImageView.isUserInteractionEnabled = false
-      progressValue = CGFloat(0)
+      progressValue = CGFloat(0.000001)
       view.addSubview(popup)
       return
     }
@@ -275,6 +275,12 @@ class MainViewController: UIViewController {
   @objc func handleMonsterLevelUp() {
     level += 1
     print("levelup \(level)")
+    
+    if level == 2 {
+      contentsView.text = " Level 2 \n \n 걸음수 20000"
+    } else if level == 3{
+      contentsView.text = " Level 2 \n \n 걸음수 30000"
+    }
     
     let popup = PopupView()
 
@@ -286,7 +292,7 @@ class MainViewController: UIViewController {
     popup.imageString = summonerImageString
     heroImageView.image = UIImage(named: summonerImageString)
     
-    progressValue = CGFloat(0)
+    progressValue = CGFloat(0.00001)
     
     view.addSubview(popup)
     
