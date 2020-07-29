@@ -124,6 +124,7 @@ class SignupVC: UIViewController {
     view.backgroundColor = CommonUI.backgroundColor
   
     configureAutolayout()
+    
     hideKeyboard()
         
   }
@@ -194,7 +195,6 @@ class SignupVC: UIViewController {
   }
   
   @objc func handleSignUpButton() {
-    print("tab SignUp Button")
     guard let nickname = nickNameTextField.text else { return }
     guard let userId = idTextField.text else { return }
     guard let passwd = passwdTextField.text else { return }
@@ -215,7 +215,6 @@ class SignupVC: UIViewController {
       
       self.dismiss(animated: true, completion: {
         Database.database().reference().child("users").updateChildValues(value, withCompletionBlock:{ (error, ref) in
-          print("Success to Updata Database User Informagion")
           
         })
       })

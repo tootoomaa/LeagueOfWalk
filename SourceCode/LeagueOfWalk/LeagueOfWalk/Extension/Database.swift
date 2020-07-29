@@ -33,17 +33,19 @@ extension Database {
   
   
   // MARK: - About Item Pop Count
-  static func fetchUserPopItemCount(uid: String, completion: @escaping(Int) -> ()) {
-    var count: Int = 0
+  static func fetchUserPopItemIsAvailable(uid: String, completion: @escaping(Bool) -> ()) {
     USER_ITEMPOPCOUNT_REF.child(uid).observeSingleEvent(of: .value) { (snapshot) in
       guard let count = snapshot.value as? Int else { return }
-//      print(snapshot)
-//      print(snapshot.value)
-//      guard let itemPopCount = snapshot.value as? Int else { return }
-      print("\(count) in fetchUserPopItemCount")
+      let returnValue = count == 0 ? true : false
+      completion(returnValue)
+    }
+  }
+  
+  static func fetchUserPopItemCount(uid: String, completion: @escaping(Int) -> ()) {
+    USER_ITEMPOPCOUNT_REF.child(uid).observeSingleEvent(of: .value) { (snapshot) in
+      guard let count = snapshot.value as? Int else { return }
       completion(count)
     }
-    
   }
   
   static func fetchUserSignupData(uid: String, completion: @escaping(Int) -> ()) {

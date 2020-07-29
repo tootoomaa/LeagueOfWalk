@@ -346,6 +346,7 @@ class MainViewController: UIViewController {
   // MARK: - FireBase
   func checkIfUserIsLoggedIn() {
     DispatchQueue.main.async {
+      print(Auth.auth().currentUser)
       if Auth.auth().currentUser == nil {
         let loginVC = LoginVC()
         loginVC.modalPresentationStyle = .fullScreen

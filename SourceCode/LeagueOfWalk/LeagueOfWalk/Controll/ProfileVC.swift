@@ -243,7 +243,7 @@ extension ProfileVC: UICollectionViewDataSource {
     
     if indexPath.item == 1 {
       let summonerImageString = UserDefaults.standard.string(forKey: "summoner")
-      item.itemImageView.image = UIImage(named: summonerImageString!)
+      item.itemImageView.image = UIImage(named: summonerImageString ?? "Egg")
     } else {
       item.itemImageView.image = UIImage(named: menuItem[indexPath.item])
     }

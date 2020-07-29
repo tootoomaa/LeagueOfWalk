@@ -81,10 +81,7 @@ class RandomItemVC: UIViewController {
     configureJSONParsing()
 
     // 뽑기 횟수 초기 적재
-    guard let uid = Auth.auth().currentUser?.uid else { return }
-    Database.fetchUserPopItemCount(uid: uid, completion: { (count) in
-      self.itemPopCount = count
-    })
+    checkItemPopIsAvailable()
   
     if myItemCheck {
       fetchUserItem()
@@ -101,14 +98,7 @@ class RandomItemVC: UIViewController {
   }
   
   override func viewWillAppear(_ animated: Bool) {
-    print("appeer")
-    userItemList = []
-    
-    guard let uid = Auth.auth().currentUser?.uid else { return }
-    Database.fetchUserPopItemCount(uid: uid, completion: { (count) in
-      self.itemPopCount = count
-    })
-    fetchUserItem()
+    checkItemPopIsAvailable()
   }
   
   // MARK: - fetch data
@@ -178,11 +168,19 @@ class RandomItemVC: UIViewController {
     }
     urlTask.resume()
   }
+  
 
   private func configureNavi() {
     
     navigationItem.titleView = titleLabel
 
+  }
+  
+  private func checkItemPopIsAvailable() {
+    guard let uid = Auth.auth().currentUser?.uid else { return }
+    Database.fetchUserPopItemIsAvailable(uid: uid, completion: { isAvailable in
+      self.itemCountLabel.isHidden = isAvailable
+    })
   }
   
   private func configureCollectionView() {
@@ -280,29 +278,12 @@ class RandomItemVC: UIViewController {
         // 아이탬 뽑기 에니메이션
         let originX = self.itemPopButton.center.x
         let originY = self.itemPopButton.center.y
-        let gapX = (originX - self.view.center.x)/4
-        let gapY = (originY - self.view.center.y)/4
         
         UIView.animate(withDuration: 1, animations:  {
           UIView.animateKeyframes(withDuration: 1, delay: 0, animations: {
-            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.25, animations: {
-              self.itemPopButton.center.x -= gapX
-              self.itemPopButton.center.y -= gapY
-              self.itemPopButton.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
-            })
-            UIView.addKeyframe(withRelativeStartTime: 0.25, relativeDuration: 0.25, animations: {
-              self.itemPopButton.center.x -= gapX
-              self.itemPopButton.center.y -= gapY
-              self.itemPopButton.transform = CGAffineTransform(scaleX: 1.6, y: 1.6)
-            })
-            UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.25, animations: {
-              self.itemPopButton.center.x -= gapX
-              self.itemPopButton.center.y -= gapY
-              self.itemPopButton.transform = CGAffineTransform(scaleX: 1.9, y: 1.9)
-            })
-            UIView.addKeyframe(withRelativeStartTime: 0.75, relativeDuration: 0.25, animations: {
-              self.itemPopButton.center.x -= gapX
-              self.itemPopButton.center.y -= gapY
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1, animations: {
+              self.itemPopButton.center.x = self.view.center.x
+              self.itemPopButton.center.y = self.view.center.y
               self.itemPopButton.transform = CGAffineTransform(scaleX: 2.1, y: 2.1)
             })
             UIView.addKeyframe(withRelativeStartTime: 1, relativeDuration: 1, animations: {
