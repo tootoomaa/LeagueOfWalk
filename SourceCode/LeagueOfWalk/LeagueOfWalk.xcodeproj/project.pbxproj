@@ -31,6 +31,7 @@
 		C71D70FC24C2B75200B76CD5 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71D70FB24C2B75200B76CD5 /* Item.swift */; };
 		C71D70FE24C3326500B76CD5 /* PopItemVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71D70FD24C3326500B76CD5 /* PopItemVC.swift */; };
 		C721899424C3ECD100B86F2C /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = C721899324C3ECD100B86F2C /* Database.swift */; };
+		C72A411824D0FB6900D38721 /* MainTabVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72A411724D0FB6900D38721 /* MainTabVC.swift */; };
 		C7599A8F24BEC0DB00F3D32C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7599A8E24BEC0DB00F3D32C /* LoginView.swift */; };
 		C7599A9324BEC10200F3D32C /* SignupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7599A9124BEC10200F3D32C /* SignupVC.swift */; };
 		C7599A9424BEC10200F3D32C /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7599A9224BEC10200F3D32C /* LoginVC.swift */; };
@@ -77,6 +78,7 @@
 		C71D70FB24C2B75200B76CD5 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Item.swift; path = LeagueOfWalk/View/Item.swift; sourceTree = SOURCE_ROOT; };
 		C71D70FD24C3326500B76CD5 /* PopItemVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopItemVC.swift; sourceTree = "<group>"; };
 		C721899324C3ECD100B86F2C /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		C72A411724D0FB6900D38721 /* MainTabVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabVC.swift; sourceTree = "<group>"; };
 		C7599A8E24BEC0DB00F3D32C /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		C7599A9124BEC10200F3D32C /* SignupVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupVC.swift; sourceTree = "<group>"; };
 		C7599A9224BEC10200F3D32C /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -213,6 +215,7 @@
 			children = (
 				7E2BE29324C2C56C00D539F4 /* LeagueOfWalk.entitlements */,
 				C7AE009024BD8B050036DFEA /* AppDelegate.swift */,
+				C72A411724D0FB6900D38721 /* MainTabVC.swift */,
 				7ECB87F124BDCD2700255804 /* Extension */,
 				7ECB87ED24BDC60C00255804 /* Common */,
 				C7AE00AC24BD8B4A0036DFEA /* Model */,
@@ -389,6 +392,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7599A9324BEC10200F3D32C /* SignupVC.swift in Sources */,
+				C72A411824D0FB6900D38721 /* MainTabVC.swift in Sources */,
 				C7AE009124BD8B050036DFEA /* AppDelegate.swift in Sources */,
 				C79236DE24C5359C0091CF86 /* StringExtenstion.swift in Sources */,
 				7E5A939D24C0401200419118 /* UIViewControllerExtension.swift in Sources */,

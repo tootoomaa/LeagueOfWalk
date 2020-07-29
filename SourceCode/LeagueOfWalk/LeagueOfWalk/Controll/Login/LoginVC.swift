@@ -115,9 +115,12 @@ extension LoginVC: LoginViewDelegate {
         } else {
           // 캐릭터 선택 정보가 있는 경우 메인 창으로 연결
           self.dismiss(animated: true, completion: {
-            let mainSummonerVC = MainSummonerVC()
-            mainSummonerVC.modalPresentationStyle = .fullScreen
-            self.present(mainSummonerVC, animated: true, completion: nil)
+            guard let mainTabVC = UIApplication.shared.keyWindow?.rootViewController as? MainTabVC else { return }
+            mainTabVC.configureTabBar()
+            self.present(mainTabVC, animated: true, completion: nil)
+//            let mainSummonerVC = MainSummonerVC()
+//            mainSummonerVC.modalPresentationStyle = .fullScreen
+//            self.present(mainSummonerVC, animated: true, completion: nil)
           })
         }
       }

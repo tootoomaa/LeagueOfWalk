@@ -105,8 +105,6 @@ class MainViewController: UIViewController {
     
     configureInitialData()
     
-    checkIfUserIsLoggedIn()
-    
     checkIfUserSelectCharacter()
     
     configureTabGestureRecog()
@@ -344,16 +342,6 @@ class MainViewController: UIViewController {
   
  
   // MARK: - FireBase
-  func checkIfUserIsLoggedIn() {
-    DispatchQueue.main.async {
-      print(Auth.auth().currentUser)
-      if Auth.auth().currentUser == nil {
-        let loginVC = LoginVC()
-        loginVC.modalPresentationStyle = .fullScreen
-        self.present(loginVC, animated: true, completion: nil)
-      }
-    }
-  }
   
   func checkIfUserSelectCharacter() {
     DispatchQueue.main.async {

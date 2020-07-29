@@ -128,7 +128,10 @@ class SelectCharVC: UIViewController {
         print("Success Saved Data")
       }
       
-      self.view.window?.rootViewController?.dismiss(animated: true)
+//      self.view.window?.rootViewController?.dismiss(animated: true)
+      guard let mainTabVC = UIApplication.shared.keyWindow?.rootViewController as? MainTabVC else { return }
+      mainTabVC.configureTabBar()
+      self.dismiss(animated:true, completion:nil)
     }
   }
   
